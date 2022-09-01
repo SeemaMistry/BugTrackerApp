@@ -20,4 +20,5 @@ public class Company extends AbstractEntity{
     @OneToMany(mappedBy = "company")
     @Nullable
     private List<Employee> employees = new LinkedList<>();
+
 }
