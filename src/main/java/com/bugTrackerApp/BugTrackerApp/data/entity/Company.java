@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import java.util.LinkedList;
+import java.util.List;
 
 @Entity
 @Getter
