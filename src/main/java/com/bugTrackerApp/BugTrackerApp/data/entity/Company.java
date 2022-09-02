@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,8 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "company_id"))
 })
@@ -33,5 +33,9 @@ public class Company extends AbstractEntity{
     @OneToMany(mappedBy = "company")
     @Nullable
     private List<SecurityClearance> securityClearances = new LinkedList<>();
+
+    public Company(String name)  {
+        this.name = name;
+    }
 
 }
