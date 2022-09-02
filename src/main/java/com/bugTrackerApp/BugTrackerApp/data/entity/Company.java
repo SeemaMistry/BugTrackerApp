@@ -19,10 +19,19 @@ import java.util.UUID;
 public class Company extends AbstractEntity{
 
     @NotBlank
+    @Column(unique = true)
     private String name;
 
     @OneToMany(mappedBy = "company")
     @Nullable
     private List<Employee> employees = new LinkedList<>();
+
+    @OneToMany(mappedBy = "company")
+    @Nullable
+    private List<Department> departments = new LinkedList<>();
+
+    @OneToMany(mappedBy = "company")
+    @Nullable
+    private List<SecurityClearance> securityClearances = new LinkedList<>();
 
 }
