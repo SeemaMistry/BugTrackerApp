@@ -85,5 +85,12 @@ public class Employee extends AbstractEntity{
     )
     private Set<Project> invitedProjects;
 
-
+    public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
+        this.company = company;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
 }
