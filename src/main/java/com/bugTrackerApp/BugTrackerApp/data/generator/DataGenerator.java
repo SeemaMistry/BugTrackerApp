@@ -4,10 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Department;
 import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
-import com.bugTrackerApp.BugTrackerApp.data.repository.AccountStatusRepository;
-import com.bugTrackerApp.BugTrackerApp.data.repository.CompanyRepository;
-import com.bugTrackerApp.BugTrackerApp.data.repository.DepartmentRepository;
-import com.bugTrackerApp.BugTrackerApp.data.repository.SecurityClearanceRepository;
+import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +22,11 @@ public class DataGenerator {
     public CommandLineRunner loadData(CompanyRepository companyRepo,
                                       DepartmentRepository departmentRepo,
                                       SecurityClearanceRepository securityClearanceRepo,
-                                      AccountStatusRepository accountStatusRepo
+                                      AccountStatusRepository accountStatusRepo,
+                                      TicketPriorityRepository ticketPriorityRepo,
+                                      TicketEstimatedTimeRepository ticketEstimatedTimeRepo,
+                                      TicketTypeRepository ticketTypeRepo,
+                                      StatusRepository statusRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -59,21 +60,6 @@ public class DataGenerator {
             );
             accountStatusRepo.saveAll(accountStatuses);
 
-
-
-
-
-//            int seed = 123;
-//
-//            // create 5 companies
-//            ExampleDataGenerator<Company> companyGenerator = new ExampleDataGenerator<>(Company.class, LocalDateTime.now());
-//            companyGenerator.setData(Company::setName, DataType.COMPANY_NAME);
-//            List<Company> companies = companyRepo.saveAll(companyGenerator.create(5, seed));
-//
-//            // set departments
-//            List<Department> statuses = statusRepository
-//                    .saveAll(Stream.of("Imported lead", "Not contacted", "Contacted", "Customer", "Closed (lost)")
-//                            .map(Status::new).collect(Collectors.toList()));
 
 
         };
