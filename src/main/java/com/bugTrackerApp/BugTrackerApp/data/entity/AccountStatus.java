@@ -20,4 +20,8 @@ public class AccountStatus extends AbstractEntity {
     @OneToMany(mappedBy = "accountStatus")
     @Nullable
     private List<Employee> accountStatuses = new LinkedList<>();
+
+    public AccountStatus(String name) {
+        this.name = name;
+    }
 }
