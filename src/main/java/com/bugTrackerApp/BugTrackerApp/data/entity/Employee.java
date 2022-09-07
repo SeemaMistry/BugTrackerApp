@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -20,6 +21,7 @@ import java.util.Set;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "emplpoyee_id"))
 })
@@ -86,11 +88,4 @@ public class Employee extends AbstractEntity{
         this.password = password;
     }
 
-    public Employee(String firstName, String lastName, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.username = username;
-        this.password = password;
-    }
 }
