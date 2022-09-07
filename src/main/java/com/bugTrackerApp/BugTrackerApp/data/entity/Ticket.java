@@ -73,5 +73,21 @@ public class Ticket extends AbstractEntity{
     @ManyToMany(mappedBy = "assignedTickets")
     private Set<Employee> employeeList;
 
-
+    public Ticket(String subject,
+                  Date dueDate,
+                  Project project,
+                  Employee ticketReporter,
+                  TicketPriority ticketPriority,
+                  TicketEstimatedTime ticketEstimatedTime,
+                  TicketType ticketType, 
+                  Status ticketStatus) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+        this.project = project;
+        this.ticketReporter = ticketReporter;
+        this.ticketPriority = ticketPriority;
+        this.ticketEstimatedTime = ticketEstimatedTime;
+        this.ticketType = ticketType;
+        this.ticketStatus = ticketStatus;
+    }
 }
