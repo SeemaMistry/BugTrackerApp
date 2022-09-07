@@ -87,7 +87,7 @@ public class DataGenerator {
             List<Status> statuses = Arrays.asList(
                     new Status("In Progress", "it is being worked on"),
                     new Status("Open", "it is open for people to apply to"),
-                    new Status("closed", "task is closed")
+                    new Status("Closed", "task is closed")
             );
             statusRepo.saveAll(statuses);
 
