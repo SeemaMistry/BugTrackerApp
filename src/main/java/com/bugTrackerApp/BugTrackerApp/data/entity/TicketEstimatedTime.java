@@ -1,10 +1,12 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,7 +16,7 @@ import java.util.List;
         @AttributeOverride(name = "id", column = @Column(name = "ticket_estimated_time_id"))
 })
 public class TicketEstimatedTime extends AbstractEntity{
-    @NotBlank
+    @NotNull
     @Column(unique = true)
     private int estimatedTime;
 
