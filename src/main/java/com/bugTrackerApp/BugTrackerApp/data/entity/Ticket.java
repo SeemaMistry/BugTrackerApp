@@ -1,16 +1,20 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -32,8 +36,8 @@ public class Ticket extends AbstractEntity{
     @UpdateTimestamp
     private Timestamp updatedDate;
 
-    @NotBlank
-    private Date dueDate;
+   @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dueDate;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -74,15 +78,31 @@ public class Ticket extends AbstractEntity{
     private Set<Employee> employeeList;
 
     public Ticket(String subject,
-                  Date dueDate,
+                  LocalDate dueDate,
                   Project project,
                   Employee ticketReporter,
                   TicketPriority ticketPriority,
                   TicketEstimatedTime ticketEstimatedTime,
-                  TicketType ticketType, 
+                  TicketType ticketType,
                   Status ticketStatus) {
         this.subject = subject;
         this.dueDate = dueDate;
+        this.project = project;
+        this.ticketReporter = ticketReporter;
+        this.ticketPriority = ticketPriority;
+        this.ticketEstimatedTime = ticketEstimatedTime;
+        this.ticketType = ticketType;
+        this.ticketStatus = ticketStatus;
+    }
+
+    public Ticket(String subject,
+                  Project project,
+                  Employee ticketReporter,
+                  TicketPriority ticketPriority,
+                  TicketEstimatedTime ticketEstimatedTime,
+                  TicketType ticketType,
+                  Status ticketStatus) {
+        this.subject = subject;
         this.project = project;
         this.ticketReporter = ticketReporter;
         this.ticketPriority = ticketPriority;
