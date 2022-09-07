@@ -2,14 +2,19 @@ package com.bugTrackerApp.BugTrackerApp.data.generator;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.repository.*;
+import com.vaadin.exampledata.DataType;
+import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 
 @SpringComponent
@@ -23,11 +28,12 @@ public class DataGenerator {
                                       TicketPriorityRepository ticketPriorityRepo,
                                       TicketEstimatedTimeRepository ticketEstimatedTimeRepo,
                                       TicketTypeRepository ticketTypeRepo,
-                                      StatusRepository statusRepo
+                                      StatusRepository statusRepo,
+                                      EmployeeRepository employeeRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
-            logger.info("Generating demo data");
+
 
             List<Company> companies = Arrays.asList(
                     new Company("company #1"),
@@ -90,6 +96,26 @@ public class DataGenerator {
                     new Status("Closed", "task is closed")
             );
             statusRepo.saveAll(statuses);
+
+            // try dataGenerator
+            Random r = new Random(123);
+            ExampleDataGenerator<Employee> employeeExampleDataGenerator = new ExampleDataGenerator<>(Employee.class, LocalDateTime.now());
+            employeeExampleDataGenerator.setData(Employee::setFirstName, DataType.FIRST_NAME);
+            employeeExampleDataGenerator.setData(Employee::setLastName, DataType.LAST_NAME);
+            employeeExampleDataGenerator.setData(Employee::setEmail, DataType.EMAIL);
+            employeeExampleDataGenerator.setData(Employee::setUsername, DataType.FULL_NAME); // set username as fullname for now
+            employeeExampleDataGenerator.setData(Employee::setPassword, DataType.WORD);
+
+
+            List<Employee> employees = employeeExampleDataGenerator.create(50, 123).stream().map(employee -> {
+                employee.setCompany(companies.get(0));
+                employee.setAccountStatus(accountStatuses.get(0));
+                return employee;
+            }).collect(Collectors.toList());
+
+            employeeRepo.saveAll(employees);
+
+            logger.info("Generating demo data");
 
         };
     }
