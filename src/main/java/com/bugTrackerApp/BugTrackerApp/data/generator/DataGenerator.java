@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.generator;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Department;
 import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
@@ -29,7 +30,8 @@ public class DataGenerator {
     @Bean
     public CommandLineRunner loadData(CompanyRepository companyRepo,
                                       DepartmentRepository departmentRepo,
-                                      SecurityClearanceRepository securityClearanceRepo
+                                      SecurityClearanceRepository securityClearanceRepo,
+                                      AccountStatusRepository accountStatusRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -55,6 +57,13 @@ public class DataGenerator {
                     new SecurityClearance(companies.get(0), "Admin", "L2")
             );
             securityClearanceRepo.saveAll(securityClearances);
+
+            List<AccountStatus> accountStatuses = Arrays.asList(
+                    new AccountStatus("ACTIVE"),
+                    new AccountStatus("LOCKED"),
+                    new AccountStatus("CLOSED")
+            );
+            accountStatusRepo.saveAll(accountStatuses);
 
 
 
