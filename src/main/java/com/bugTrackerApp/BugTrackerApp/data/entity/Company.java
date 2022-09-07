@@ -7,7 +7,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Data

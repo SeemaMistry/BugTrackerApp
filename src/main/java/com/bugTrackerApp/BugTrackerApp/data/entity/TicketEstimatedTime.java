@@ -2,7 +2,6 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;

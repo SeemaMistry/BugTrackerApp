@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.LinkedList;
 import java.util.List;
 

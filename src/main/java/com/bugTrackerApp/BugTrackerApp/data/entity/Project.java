@@ -42,16 +42,9 @@ public class Project extends AbstractEntity{
     @JsonIgnoreProperties()
     private Employee creator_employee;
 
-
-    // TODO: M:N problem with project and invited_employees
-//    @OneToMany(mappedBy = "employee")
-//    @Nullable
-//    private List<Employee> invited_employees  = new LinkedList<>();
-
     @OneToMany(mappedBy = "project")
     @Nullable
     private List<Ticket> tickets = new LinkedList<>();
-
 
     @ManyToOne
     @JoinColumn(name = "status_id")
