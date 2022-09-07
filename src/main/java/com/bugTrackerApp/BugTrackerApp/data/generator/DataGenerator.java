@@ -10,7 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
-import java.time.LocalDateTime;
+import java.sql.Date;
+import java.time.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -30,7 +31,8 @@ public class DataGenerator {
                                       TicketTypeRepository ticketTypeRepo,
                                       StatusRepository statusRepo,
                                       EmployeeRepository employeeRepo,
-                                      ProjectRepository projectRepo
+                                      ProjectRepository projectRepo,
+                                      TicketRepository ticketRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -123,6 +125,49 @@ public class DataGenerator {
             );
             projectRepo.saveAll(projects);
 
+            List<Ticket> tickets = Arrays.asList(
+                    new Ticket(
+                            "Button to save not working",
+                            LocalDate.of(2022,9,10),
+                            projects.get(0),
+                            employees.get(5),
+                            ticketPriorities.get(0),
+                            ticketEstimatedTimes.get(0),
+                            ticketTypes.get(1),
+                            statuses.get(0)
+                            ),
+                    new Ticket(
+                            "Button to save the wrong colour",
+                            LocalDate.of(2022,9,10),
+                            projects.get(0),
+                            employees.get(5),
+                            ticketPriorities.get(2),
+                            ticketEstimatedTimes.get(3),
+                            ticketTypes.get(4),
+                            statuses.get(0)
+                    ),
+                    new Ticket(
+                            "Add a menu bar for navigation",
+                            LocalDate.of(2022,9,10),
+                            projects.get(1),
+                            employees.get(6),
+                            ticketPriorities.get(0),
+                            ticketEstimatedTimes.get(4),
+                            ticketTypes.get(0),
+                            statuses.get(0)
+                    ),
+                    new Ticket(
+                            "Add a menu bar for navigation",
+                            LocalDate.of(2022,9,10),
+                            projects.get(2),
+                            employees.get(6),
+                            ticketPriorities.get(0),
+                            ticketEstimatedTimes.get(4),
+                            ticketTypes.get(0),
+                            statuses.get(0)
+                    )
+            );
+            ticketRepo.saveAll(tickets);
 
             logger.info("Generating demo data");
 
