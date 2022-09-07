@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -35,16 +36,19 @@ public class Ticket extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "project_id")
     @NotNull
+    @JsonIgnoreProperties({"projectStatus", "employeeList", "tickets", "creator_employee"})
     private Project project;
 
     @ManyToOne
     @JoinColumn(name = "reporter_employee_id")
     @NotNull
+    @JsonIgnoreProperties({"invitedProjects", "assignedTickets", "accountStatus", "reportedTickets", "company"})
     private Employee ticketReporter;
 
     @ManyToOne
     @JoinColumn(name = "ticket_priority_id")
     @NotNull
+    @JsonIgnoreProperties({"tickets"})
     private TicketPriority ticketPriority;
 
     @ManyToOne
@@ -55,13 +59,14 @@ public class Ticket extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "ticket_type_id")
     @NotNull
+    @JsonIgnoreProperties({"description", "tickets"})
     private TicketType ticketType;
 
     @ManyToOne
     @JoinColumn(name = "status_id")
     @NotNull
+    @JsonIgnoreProperties({"description", "tickets",  "projects"})
     private Status ticketStatus;
-
 
     @ManyToMany(mappedBy = "assignedTickets")
     private Set<Employee> employeeList;

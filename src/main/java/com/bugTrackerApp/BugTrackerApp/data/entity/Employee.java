@@ -27,7 +27,7 @@ public class Employee extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "company_id")
     @NotNull
-    @JsonIgnoreProperties({"employees"})
+    @JsonIgnoreProperties({"employees", "departments", "securityClearances"})
     private Company company;
 
     @NotEmpty
@@ -64,6 +64,7 @@ public class Employee extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "account_status_id")
     @NotNull
+    @JsonIgnoreProperties({"accountStatuses"})
     private AccountStatus accountStatus;
 
 

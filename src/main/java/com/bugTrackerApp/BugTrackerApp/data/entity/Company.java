@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@AllArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "company_id"))
 })
