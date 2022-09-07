@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "ticket_priority_id"))
 })

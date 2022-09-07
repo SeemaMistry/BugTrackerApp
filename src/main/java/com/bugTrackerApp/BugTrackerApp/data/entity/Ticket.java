@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -16,6 +17,7 @@ import java.util.Set;
 
 @Entity
 @Data
+@NoArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "ticket_id"))
 })
