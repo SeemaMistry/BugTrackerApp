@@ -1,4 +1,4 @@
-package com.bugTrackerApp.BugTrackerApp.data.generator;
+package com.bugTrackerApp.BugTrackerApp.data.repository;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
