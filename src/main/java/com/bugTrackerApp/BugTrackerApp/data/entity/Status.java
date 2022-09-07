@@ -28,4 +28,9 @@ public class Status extends AbstractEntity{
     @OneToMany(mappedBy = "projectStatus")
     @Nullable
     private List<Project> projects = new LinkedList<>();
+
+    public Status(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

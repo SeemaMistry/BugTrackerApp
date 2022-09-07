@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import lombok.Data;
 
+import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -19,8 +20,11 @@ public class TicketPriority extends AbstractEntity{
     private String name;
 
     @OneToMany(mappedBy = "ticketPriority")
-    @NotNull
+    @Nullable
     private List<Ticket> tickets = new LinkedList<>();
 
+    public TicketPriority(String name) {
+        this.name = name;
+    }
 }
 

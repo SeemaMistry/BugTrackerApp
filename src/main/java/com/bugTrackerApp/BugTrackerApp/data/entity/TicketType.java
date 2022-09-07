@@ -22,5 +22,8 @@ public class TicketType extends AbstractEntity{
     @Nullable
     private List<Ticket> tickets = new LinkedList<>();
 
+    public TicketType(String name) {
+        this.name = name;
+    }
 }
 

@@ -24,6 +24,11 @@ public class TicketEstimatedTime extends AbstractEntity{
     @OneToMany(mappedBy = "ticketEstimatedTime")
     @Nullable
     private List<Ticket> tickets = new LinkedList<>();
+
+    public TicketEstimatedTime(int estimatedTime, String description) {
+        this.estimatedTime = estimatedTime;
+        this.description = description;
+    }
 }
 
 
