@@ -1,9 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.generator;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Department;
-import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import org.slf4j.Logger;
@@ -60,7 +57,39 @@ public class DataGenerator {
             );
             accountStatusRepo.saveAll(accountStatuses);
 
+            List<TicketEstimatedTime> ticketEstimatedTimes = Arrays.asList(
+                    new TicketEstimatedTime(1, "can finish task in 15-30 minutes"),
+                    new TicketEstimatedTime(2, "can finish task in 1-2 hours"),
+                    new TicketEstimatedTime(4, "can finish task in 1/2 a day to 1 day"),
+                    new TicketEstimatedTime(8, "can finish task in 2 days"),
+                    new TicketEstimatedTime(16, "can finish task in 3-5 days"),
+                    new TicketEstimatedTime(32, "can finish task in 1 week"),
+                    new TicketEstimatedTime(64, "can finish task in 1 month")
+            );
+            ticketEstimatedTimeRepo.saveAll(ticketEstimatedTimes);
 
+            List<TicketType> ticketTypes = Arrays.asList(
+                    new TicketType("Feature"),
+                    new TicketType("Bug"),
+                    new TicketType("Documentation"),
+                    new TicketType("Database"),
+                    new TicketType("Styling")
+            );
+            ticketTypeRepo.saveAll(ticketTypes);
+
+            List<TicketPriority> ticketPriorities = Arrays.asList(
+                    new TicketPriority("High"),
+                    new TicketPriority("Medium"),
+                    new TicketPriority("Low")
+            );
+            ticketPriorityRepo.saveAll(ticketPriorities);
+
+            List<Status> statuses = Arrays.asList(
+                    new Status("In Progress", "it is being worked on"),
+                    new Status("Open", "it is open for people to apply to"),
+                    new Status("closed", "task is closed")
+            );
+            statusRepo.saveAll(statuses);
 
         };
     }
