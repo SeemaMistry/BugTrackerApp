@@ -29,7 +29,8 @@ public class DataGenerator {
                                       TicketEstimatedTimeRepository ticketEstimatedTimeRepo,
                                       TicketTypeRepository ticketTypeRepo,
                                       StatusRepository statusRepo,
-                                      EmployeeRepository employeeRepo
+                                      EmployeeRepository employeeRepo,
+                                      ProjectRepository projectRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -114,6 +115,14 @@ public class DataGenerator {
             }).collect(Collectors.toList());
 
             employeeRepo.saveAll(employees);
+
+            List<Project> projects = Arrays.asList(
+                    new Project("Grocery App", "Create a grocery list app", employees.get(0), statuses.get(0)),
+                    new Project("Animals App", "Create an animal list app", employees.get(1), statuses.get(1)),
+                    new Project("Plants App", "Create a plants list app", employees.get(2), statuses.get(2))
+            );
+            projectRepo.saveAll(projects);
+
 
             logger.info("Generating demo data");
 
