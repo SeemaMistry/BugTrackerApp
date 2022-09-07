@@ -61,6 +61,10 @@ public class Project extends AbstractEntity{
     @ManyToMany(mappedBy = "invitedProjects")
     private Set<Employee> employeeList;
 
-
-
+    public Project(String name, String description, Employee creator_employee, Status projectStatus) {
+        this.name = name;
+        this.description = description;
+        this.creator_employee = creator_employee;
+        this.projectStatus = projectStatus;
+    }
 }
