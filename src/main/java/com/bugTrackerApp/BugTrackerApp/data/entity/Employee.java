@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.vaadin.exampledata.DataType;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
@@ -87,6 +88,14 @@ public class Employee extends AbstractEntity{
 
     public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
         this.company = company;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.username = username;
+        this.password = password;
+    }
+
+    public Employee(String firstName, String lastName, String email, String username, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
