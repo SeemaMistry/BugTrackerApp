@@ -1,6 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.service;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.TicketEstimatedTime;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,4 +37,45 @@ public class TicketSystemService {
     public long countTicketTypes() {
         return ticketTypeRepo.count();
     }
+
+    // SAVE METHODS
+    public void saveProject(Project project) {
+        if (project == null) {
+            System.err.println("Project is null. Are you sure you have connected your form to the application? ");
+        }
+        projectRepo.save(project);
+    }
+    public void saveTicket(Ticket ticket) {
+        if (ticket == null) {
+            System.err.println("ticket is null. Are you sure you have connected your form to the application? ");
+        }
+        ticketRepo.save(ticket);
+    }
+    public void saveStatus(Status status) {
+        if (status == null) {
+            System.err.println("status is null. Are you sure you have connected your form to the application? ");
+        }
+        statusRepo.save(status);
+    }
+    public void saveTicketEstimatedTime(TicketEstimatedTime ticketEstimatedTime) {
+        if (ticketEstimatedTime == null) {
+            System.err.println("TicketEstimatedTime is null. Are you sure you have connected your form to the application? ");
+        }
+        ticketEstimatedTimeRepo.save(ticketEstimatedTime);
+    }
+    public void saveTicketPriority(TicketPriority ticketPriority) {
+        if (ticketPriority == null) {
+            System.err.println("TicketPriority is null. Are you sure you have connected your form to the application? ");
+        }
+        ticketPriorityRepo.save(ticketPriority);
+    }
+    public void saveTicketType(TicketType ticketType) {
+        if (ticketType == null) {
+            System.err.println("TicketType is null. Are you sure you have connected your form to the application? ");
+        }
+        ticketTypeRepo.save(ticketType);
+    }
+
+
+
 }
