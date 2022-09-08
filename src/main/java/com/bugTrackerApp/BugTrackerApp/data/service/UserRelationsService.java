@@ -1,9 +1,11 @@
 package com.bugTrackerApp.BugTrackerApp.data.service;
 
 import com.bugTrackerApp.BugTrackerApp.data.repository.*;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@AllArgsConstructor
 public class UserRelationsService {
     // fields
     private CompanyRepository companyRepo;
@@ -11,20 +13,6 @@ public class UserRelationsService {
     private DepartmentRepository departmentRepo;
     private SecurityClearanceRepository securityClearanceRepo;
     private AccountStatusRepository accountStatusRepo;
-
-    // constructor
-    public UserRelationsService(CompanyRepository companyRepo,
-                                EmployeeRepository employeeRepo,
-                                DepartmentRepository departmentRepo,
-                                SecurityClearanceRepository securityClearanceRepo,
-                                AccountStatusRepository accountStatusRepo) {
-        this.companyRepo = companyRepo;
-        this.employeeRepo = employeeRepo;
-        this.departmentRepo = departmentRepo;
-        this.securityClearanceRepo = securityClearanceRepo;
-        this.accountStatusRepo = accountStatusRepo;
-    }
-
 
     // methods
 }
