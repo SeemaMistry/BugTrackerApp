@@ -4,6 +4,8 @@ import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class UserRelationsService {
@@ -14,5 +16,27 @@ public class UserRelationsService {
     private SecurityClearanceRepository securityClearanceRepo;
     private AccountStatusRepository accountStatusRepo;
 
-    // methods
+    // methods: findAll
+    // CRUD methods: count, save, delete, update
+
+    // COUNT METHODS
+    public long countCompanies() {
+        return companyRepo.count();
+    }
+    public long countEmployees() {
+        return employeeRepo.count();
+    }
+    public long countDepartments() {
+        return departmentRepo.count();
+    }
+    public long countSecurityClearances() {
+        return securityClearanceRepo.count();
+    }
+    public long countAccountStatuses() {
+        return accountStatusRepo.count();
+    }
+
+
+
+
 }
