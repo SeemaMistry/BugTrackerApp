@@ -18,7 +18,7 @@ public class UserRelationsService {
     private AccountStatusRepository accountStatusRepo;
 
     // methods: findAll
-    // CRUD methods: count, save, delete, update
+    // CRUD methods: count, save, delete
 
     // COUNT METHODS
     public long countCompanies() {
@@ -68,6 +68,24 @@ public class UserRelationsService {
         }
         accountStatusRepo.save(accountStatus);
     }
+
+    // DELETE METHODS
+    public void deleteCompany(Company company) {
+        companyRepo.delete(company);
+    }
+    public void deleteEmployee(Employee employee) {
+        employeeRepo.delete(employee);
+    }
+    public void deleteDepartment(Department department) {
+        departmentRepo.delete(department);
+    }
+    public void deleteSecurityClearance(SecurityClearance securityClearance ) {
+        securityClearanceRepo.delete(securityClearance);
+    }
+    public void deleteAccountStatus(AccountStatus accountStatus) {
+        accountStatusRepo.delete(accountStatus);
+    }
+
 
 
 
