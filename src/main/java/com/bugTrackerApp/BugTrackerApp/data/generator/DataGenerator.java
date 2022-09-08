@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @SpringComponent
 public class DataGenerator {
-
     @Bean
     public CommandLineRunner loadData(CompanyRepository companyRepo,
                                       DepartmentRepository departmentRepo,
@@ -37,7 +36,7 @@ public class DataGenerator {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
 
-
+            // create sample data to test table creation and relations for all entities
             List<Company> companies = Arrays.asList(
                     new Company("company #1"),
                     new Company("company #2"),
