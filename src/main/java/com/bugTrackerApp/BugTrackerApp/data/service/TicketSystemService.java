@@ -17,4 +17,24 @@ public class TicketSystemService {
 
     // method: findAll
     // CRUD methods: count, save, delete
+
+    // FINDALL METHODS
+    public long countProjects() {
+        return projectRepo.count();
+    }
+    public long countTickets() {
+        return ticketRepo.count();
+    }
+    public long countStatuses() {
+        return statusRepo.count();
+    }
+    public long countTicketEstimatedTimes() {
+        return ticketEstimatedTimeRepo.count();
+    }
+    public long countTicketPriority() {
+        return ticketPriorityRepo.count();
+    }
+    public long countTicketTypes() {
+        return ticketTypeRepo.count();
+    }
 }
