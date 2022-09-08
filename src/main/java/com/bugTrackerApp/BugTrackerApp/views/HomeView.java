@@ -18,7 +18,7 @@ public class HomeView extends VerticalLayout {
     // TODO: test company search is working
     // initialize components
     Grid<Company> grid = new Grid<>(Company.class);
-   // TextField filterText = new TextField();
+    TextField filterText = new TextField();
     UserRelationsService userRelationsService;
 
     public HomeView(UserRelationsService userRelationsService) {
@@ -27,22 +27,23 @@ public class HomeView extends VerticalLayout {
         grid.setColumns("name");
 
         add(welcome,
+                getToolbar(),
                 grid);
         updateList();
     }
 
     private void updateList() {
-        grid.setItems(userRelationsService.findAllCompanies());
+        grid.setItems(userRelationsService.findAllCompanies(filterText.getValue()));
     }
 
-//    private Component getToolbar() {
-//        // apply filtertext button behaviours
-//        filterText.setPlaceholder("Filter by name...");
-//        filterText.setClearButtonVisible(true);
-//        filterText.setValueChangeMode(ValueChangeMode.LAZY); // LAZY = will not hit database with every keystroke, wait for a while
-//        filterText.addValueChangeListener(e -> updateList());
-//        HorizontalLayout toolbar = new HorizontalLayout(filterText);
-//        toolbar.addClassName("toolbar");
-//        return toolbar;
-//    }
+    private Component getToolbar() {
+        // apply filtertext button behaviours
+        filterText.setPlaceholder("Filter by name...");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY); // LAZY = will not hit database with every keystroke, wait for a while
+        filterText.addValueChangeListener(e -> updateList());
+        HorizontalLayout toolbar = new HorizontalLayout(filterText);
+        toolbar.addClassName("toolbar");
+        return toolbar;
+    }
 }
