@@ -86,7 +86,28 @@ public class UserRelationsService {
         accountStatusRepo.delete(accountStatus);
     }
 
+    // FINDALL METHODS
+    // TODO: test search param is working in CompanyRepository with findAllCompanies
+    public List<Company> findAllCompanies(String filterText) {
+        if(filterText == null || filterText.isEmpty()) {
+            return companyRepo.findAll();
+        } else {
+           return companyRepo.search(filterText);
+        }
+    }
+//    TODO: add in  search filter to findAll methods below later after testing findAllCompanies works
 
-
+    public List<Department> findAllDepartments(){
+        return departmentRepo.findAll();
+    }
+    public List<Employee> findAllEmployees(){
+        return employeeRepo.findAll();
+    }
+    public List<SecurityClearance> findAllSecurityClearances(){
+        return securityClearanceRepo.findAll();
+    }
+    public List<AccountStatus> findAllAccountStatuses(){
+        return accountStatusRepo.findAll();
+    }
 
 }
