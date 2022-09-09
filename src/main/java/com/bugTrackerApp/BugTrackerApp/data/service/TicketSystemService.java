@@ -76,6 +76,23 @@ public class TicketSystemService {
         ticketTypeRepo.save(ticketType);
     }
 
-
-
+    // DELETE METHOD
+    public void deleteProject(Project project) {
+        projectRepo.delete(project);
+    }
+    public void deleteTicket(Ticket ticket) {
+        ticketRepo.delete(ticket);
+    }
+    public void deleteStatus(Status status) {
+        statusRepo.delete(status);
+    }
+    public void delete(TicketEstimatedTime ticketEstimatedTime) {
+        ticketEstimatedTimeRepo.delete(ticketEstimatedTime);
+    }
+    public void delete(TicketPriority ticketPriority) {
+        ticketPriorityRepo.delete(ticketPriority);
+    }
+    public void delete(TicketType ticketType) {
+        ticketTypeRepo.delete(ticketType);
+    }
 }
