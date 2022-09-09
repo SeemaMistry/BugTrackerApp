@@ -86,13 +86,13 @@ public class TicketSystemService {
     public void deleteStatus(Status status) {
         statusRepo.delete(status);
     }
-    public void delete(TicketEstimatedTime ticketEstimatedTime) {
+    public void deleteTicketEstimatedTime(TicketEstimatedTime ticketEstimatedTime) {
         ticketEstimatedTimeRepo.delete(ticketEstimatedTime);
     }
-    public void delete(TicketPriority ticketPriority) {
+    public void deleteTicketPriority(TicketPriority ticketPriority) {
         ticketPriorityRepo.delete(ticketPriority);
     }
-    public void delete(TicketType ticketType) {
+    public void deleteTicketType(TicketType ticketType) {
         ticketTypeRepo.delete(ticketType);
     }
 }
