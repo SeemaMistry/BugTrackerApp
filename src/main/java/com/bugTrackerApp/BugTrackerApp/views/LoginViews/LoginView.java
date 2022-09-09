@@ -7,9 +7,9 @@ import com.vaadin.flow.router.Route;
 
 @PageTitle("Login | Bug Tracker")
 @Route(value="login")
-public class Login extends VerticalLayout {
+public class LoginView extends VerticalLayout {
 
-    public Login() {
+    public LoginView() {
         H1 welcome = new H1("Login in to your account");
         add(welcome);
     }
