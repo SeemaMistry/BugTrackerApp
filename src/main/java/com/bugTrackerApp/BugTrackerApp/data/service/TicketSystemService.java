@@ -18,7 +18,7 @@ public class TicketSystemService {
     // method: findAll
     // CRUD methods: count, save, delete
 
-    // FINDALL METHODS
+    // COUNT METHODS
     public long countProjects() {
         return projectRepo.count();
     }
