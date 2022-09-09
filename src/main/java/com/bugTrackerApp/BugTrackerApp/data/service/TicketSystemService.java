@@ -5,6 +5,8 @@ import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TicketSystemService {
@@ -95,4 +97,25 @@ public class TicketSystemService {
     public void deleteTicketType(TicketType ticketType) {
         ticketTypeRepo.delete(ticketType);
     }
+
+    // FINDALL METHODS
+    public List<Project> findAllProjects(){
+        return projectRepo.findAll();
+    }
+    public List<Ticket> findAllTickets(){
+        return ticketRepo.findAll();
+    }
+    public List<Status> findAllStatuses(){
+        return statusRepo.findAll();
+    }
+    public List<TicketEstimatedTime> findAllTicketEstimatedTimes(){
+        return ticketEstimatedTimeRepo.findAll();
+    }
+    public List<TicketPriority> findAllTicketPriority(){
+        return ticketPriorityRepo.findAll();
+    }
+    public List<TicketType> findAllTicketType(){
+        return ticketTypeRepo.findAll();
+    }
+
 }
