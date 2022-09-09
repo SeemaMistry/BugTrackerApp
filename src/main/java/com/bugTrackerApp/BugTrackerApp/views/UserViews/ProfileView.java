@@ -5,8 +5,12 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
+
 @PageTitle("Profile | Bug Tracker")
 @Route(value="profile")
+@RolesAllowed({"USER", "ADMIN"})
 public class ProfileView extends VerticalLayout {
     public ProfileView() {
         H1 welcome = new H1("My Profile");
