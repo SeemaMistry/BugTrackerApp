@@ -12,8 +12,11 @@ import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+import javax.annotation.security.RolesAllowed;
+
 @PageTitle("Home | Bug Tracker")
 @Route(value="")
+@RolesAllowed("USER")
 public class HomeView extends VerticalLayout {
     // TODO: test company search is working
     // initialize components
