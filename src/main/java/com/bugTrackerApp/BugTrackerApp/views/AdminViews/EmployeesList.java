@@ -32,7 +32,7 @@ public class EmployeesList extends VerticalLayout {
 
         // configure grid and form
         setSizeFull();
-       configureGrid();
+        configureGrid();
 
         H1 welcome = new H1("See your list of employees");
 
@@ -47,6 +47,8 @@ public class EmployeesList extends VerticalLayout {
     private void configureGrid() {
        employeeGrid.setSizeFull();
        employeeGrid.setColumns("firstName", "lastName",  "email");
+       employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
+       employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
        employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 }
