@@ -30,8 +30,23 @@ public class EmployeesList extends VerticalLayout {
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
 
+        // configure grid and form
+        setSizeFull();
+       configureGrid();
+
         H1 welcome = new H1("See your list of employees");
 
         add(welcome, filterText, employeeGrid);
+        updateList();
+    }
+
+    private void updateList() {
+        employeeGrid.setItems(URService.findAllEmployees());
+    }
+
+    private void configureGrid() {
+       employeeGrid.setSizeFull();
+       employeeGrid.setColumns("firstName", "lastName",  "email");
+       employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 }
