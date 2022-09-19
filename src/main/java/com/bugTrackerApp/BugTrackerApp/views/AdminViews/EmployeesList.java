@@ -2,8 +2,10 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
@@ -35,13 +37,21 @@ public class EmployeesList extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
+
         employeeForm = new EmployeeForm(URService.findAllCompanies(filterText.getValue()), URService.findAllAccountStatuses());
         employeeForm.setWidth("25em");
 
         H1 welcome = new H1("See your list of employees");
 
-        add(welcome, employeeGrid, employeeForm);
+        add(welcome, getContent());
         updateList();
+    }
+
+    /* Return grid and form in a horizontal layout */
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
+        content.setSizeFull();
+        return content;
     }
 
     private void updateList() {
