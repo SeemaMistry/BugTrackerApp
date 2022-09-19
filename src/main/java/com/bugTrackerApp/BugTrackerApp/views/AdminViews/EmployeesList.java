@@ -50,6 +50,8 @@ public class EmployeesList extends VerticalLayout {
     /* Return grid and form in a horizontal layout */
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
+        content.setFlexGrow(2, employeeGrid);
+        content.setFlexGrow(1, employeeForm);
         content.setSizeFull();
         return content;
     }
