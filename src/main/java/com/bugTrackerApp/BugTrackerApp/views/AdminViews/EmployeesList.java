@@ -26,6 +26,7 @@ public class EmployeesList extends VerticalLayout {
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     TextField filterText = new TextField();
     UserRelationsService URService;
+    EmployeeForm employeeForm;
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
@@ -34,9 +35,12 @@ public class EmployeesList extends VerticalLayout {
         setSizeFull();
         configureGrid();
 
+        employeeForm = new EmployeeForm(URService.findAllCompanies(filterText.getValue()), URService.findAllAccountStatuses());
+        employeeForm.setWidth("25em");
+
         H1 welcome = new H1("See your list of employees");
 
-        add(welcome, employeeGrid);
+        add(welcome, employeeGrid, employeeForm);
         updateList();
     }
 
