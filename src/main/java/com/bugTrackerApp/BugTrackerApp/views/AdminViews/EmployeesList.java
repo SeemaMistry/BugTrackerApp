@@ -1,7 +1,11 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
+import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -18,8 +22,16 @@ TODO: Make filterText search bar work (will require work in repos with @Queries)
 @Route(value="employees")
 @RolesAllowed("ADMIN")
 public class EmployeesList extends VerticalLayout {
-    public EmployeesList() {
+    // instantiate components, services and form
+    Grid<Employee> employeeGrid = new Grid<>(Employee.class);
+    TextField filterText = new TextField();
+    UserRelationsService URService;
+
+    public EmployeesList(UserRelationsService URService) {
+        this.URService = URService;
+
         H1 welcome = new H1("See your list of employees");
-        add(welcome);
+
+        add(welcome, filterText, employeeGrid);
     }
 }
