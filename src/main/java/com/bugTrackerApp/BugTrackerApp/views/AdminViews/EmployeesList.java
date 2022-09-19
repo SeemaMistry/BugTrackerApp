@@ -36,7 +36,7 @@ public class EmployeesList extends VerticalLayout {
 
         H1 welcome = new H1("See your list of employees");
 
-        add(welcome, filterText, employeeGrid);
+        add(welcome, employeeGrid);
         updateList();
     }
 
