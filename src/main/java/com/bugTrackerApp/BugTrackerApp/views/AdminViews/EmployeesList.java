@@ -55,6 +55,17 @@ public class EmployeesList extends VerticalLayout {
         employeeForm.setVisible(false);
     }
 
+    // edit the form or populate it with a selected employee from the grid
+    private void editEmployee (Employee employee){
+        // if no employee selected, closeEditor, else populate employee info into form
+        if (employee == null) {
+            closeEditor();
+        } else {
+            employeeForm.setEmployee(employee);
+            employeeForm.setVisible(true);
+        }
+    }
+
     /* Return grid and form in a horizontal layout */
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
@@ -74,6 +85,9 @@ public class EmployeesList extends VerticalLayout {
        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
        employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+       // single select employee populates form
+        employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
 
 
     }
