@@ -3,9 +3,11 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 
@@ -30,6 +32,26 @@ public class EmployeeForm extends FormLayout {
 
         H1 welcome = new H1("Edit an employee's info here");
 
-        add(welcome, firstName, lastName, email, company, accountStatus);
+        add(
+                welcome,
+                firstName,
+                lastName,
+                email,
+                company,
+                accountStatus,
+                createButtonsLayout()
+        );
     }
+
+    // return horizontal layout of buttons
+    private HorizontalLayout createButtonsLayout(){
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        return new HorizontalLayout(save, delete, close);
+
+    }
+
+
 }
