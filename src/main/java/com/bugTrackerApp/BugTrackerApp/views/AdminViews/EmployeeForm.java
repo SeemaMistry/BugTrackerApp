@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
+import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -10,6 +11,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 
 import java.util.List;
 
@@ -23,17 +26,22 @@ public class EmployeeForm extends FormLayout {
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
+
+    Binder<Employee> binder = new BeanValidationBinder<>(Employee.class);
+
+    private Employee employee;
+
     public EmployeeForm(List<Company> companies, List<AccountStatus> accountStatuses) {
+        // Add Bean instance field to match fields in Employee to EmployeeForm
+        binder.bindInstanceFields(this);
+
         // populate combo boxes
         company.setItems(companies);
         company.setItemLabelGenerator(Company::getName);
         accountStatus.setItems(accountStatuses);
         accountStatus.setItemLabelGenerator(AccountStatus::getName);
 
-        H1 welcome = new H1("Edit an employee's info here");
-
         add(
-                welcome,
                 firstName,
                 lastName,
                 email,
@@ -51,6 +59,12 @@ public class EmployeeForm extends FormLayout {
 
         return new HorizontalLayout(save, delete, close);
 
+    }
+    // Employee Setter
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+        // use readBean() to bind values from Employee object to UI fields in the form
+        binder.readBean(employee);
     }
 
 
