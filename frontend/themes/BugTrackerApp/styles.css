@@ -1,0 +1,8 @@
+@import url('line-awesome/dist/line-awesome/css/line-awesome.min.css');
+
+@media all and (max-width: 1100px) {
+  .employee-list-view.editing .toolbar,
+  .employee-list-view.editing .employee-grid {
+    display: none;
+  }
+}
