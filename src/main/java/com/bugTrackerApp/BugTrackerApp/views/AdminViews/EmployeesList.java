@@ -45,6 +45,14 @@ public class EmployeesList extends VerticalLayout {
 
         add(welcome, getContent());
         updateList();
+        closeEditor();
+    }
+
+    // Close editor when not in use
+    private void closeEditor() {
+        // clear editor and close it
+        employeeForm.setEmployee(null);
+        employeeForm.setVisible(false);
     }
 
     /* Return grid and form in a horizontal layout */
@@ -66,5 +74,7 @@ public class EmployeesList extends VerticalLayout {
        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
        employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+
     }
 }
