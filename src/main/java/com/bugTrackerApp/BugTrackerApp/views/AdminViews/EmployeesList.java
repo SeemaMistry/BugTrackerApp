@@ -32,14 +32,11 @@ public class EmployeesList extends VerticalLayout {
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
-
+        addClassName("employee-list-view");
         // configure grid and form
         setSizeFull();
         configureGrid();
-
-
-        employeeForm = new EmployeeForm(URService.findAllCompanies(filterText.getValue()), URService.findAllAccountStatuses());
-        employeeForm.setWidth("25em");
+        configureForm();
 
         H1 welcome = new H1("See your list of employees");
 
@@ -48,11 +45,18 @@ public class EmployeesList extends VerticalLayout {
         closeEditor();
     }
 
+    private void configureForm() {
+        employeeForm = new EmployeeForm(URService.findAllCompanies(filterText.getValue()), URService.findAllAccountStatuses());
+        employeeForm.setWidth("30em");
+    }
+
+
     // Close editor when not in use
     private void closeEditor() {
         // clear editor and close it
         employeeForm.setEmployee(null);
         employeeForm.setVisible(false);
+        removeClassName("editing");
     }
 
     // edit the form or populate it with a selected employee from the grid
@@ -63,14 +67,14 @@ public class EmployeesList extends VerticalLayout {
         } else {
             employeeForm.setEmployee(employee);
             employeeForm.setVisible(true);
+            addClassName("editing");
         }
     }
 
     /* Return grid and form in a horizontal layout */
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
-        content.setFlexGrow(2, employeeGrid);
-        content.setFlexGrow(1, employeeForm);
+        content.addClassName("content");
         content.setSizeFull();
         return content;
     }
@@ -80,6 +84,7 @@ public class EmployeesList extends VerticalLayout {
     }
 
     private void configureGrid() {
+        employeeGrid.addClassName("employee-grid");
        employeeGrid.setSizeFull();
        employeeGrid.setColumns("firstName", "lastName",  "email");
        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");

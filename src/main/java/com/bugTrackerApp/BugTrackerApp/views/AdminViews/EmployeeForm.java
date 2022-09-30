@@ -32,6 +32,7 @@ public class EmployeeForm extends FormLayout {
     private Employee employee;
 
     public EmployeeForm(List<Company> companies, List<AccountStatus> accountStatuses) {
+        addClassName("employee-form");
         // Add Bean instance field to match fields in Employee to EmployeeForm
         binder.bindInstanceFields(this);
 
