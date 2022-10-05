@@ -3,6 +3,7 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -64,7 +65,22 @@ public class EmployeesList extends VerticalLayout {
                 URService.findAllAccountStatuses(),
                 URService.findAllSecurityClearances()
         );
-        employeeForm.setWidth("30em");
+        employeeForm.setWidth("25em");
+        employeeForm.addListener(EmployeeForm.SaveEvent.class, this::saveEmployee);
+        employeeForm.addListener(EmployeeForm.DeleteEvent.class, this::deleteEmployee);
+        employeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
+    }
+
+    private <T extends ComponentEvent<?>> void deleteEmployee(EmployeeForm.DeleteEvent e) {
+        URService.deleteEmployee(e.getEmployee());
+        updateList();
+        closeEditor();
+    }
+
+    private <T extends ComponentEvent<?>> void saveEmployee(EmployeeForm.SaveEvent e) {
+        URService.saveEmployee(e.getEmployee());
+        updateList();
+        closeEditor();
     }
 
     private void updateList() {
@@ -98,4 +114,6 @@ public class EmployeesList extends VerticalLayout {
             addClassName("editing");
         }
     }
+
+
 }
