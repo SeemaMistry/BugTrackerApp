@@ -45,11 +45,39 @@ public class EmployeesList extends VerticalLayout {
         closeEditor();
     }
 
+    private void configureGrid() {
+        employeeGrid.addClassName("employee-grid");
+        employeeGrid.setSizeFull();
+        employeeGrid.setColumns("firstName", "lastName",  "email");
+        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
+        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
+        employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
+        employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        // single select employee populates form
+        employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
+    }
+
     private void configureForm() {
-        employeeForm = new EmployeeForm(URService.findAllCompanies(filterText.getValue()), URService.findAllAccountStatuses(), URService.findAllSecurityClearances());
+        employeeForm = new EmployeeForm(
+                URService.findAllCompanies(filterText.getValue()),
+                URService.findAllAccountStatuses(),
+                URService.findAllSecurityClearances()
+        );
         employeeForm.setWidth("30em");
     }
 
+    private void updateList() {
+        employeeGrid.setItems(URService.findAllEmployees());
+    }
+
+    /* Return grid and form in a horizontal layout */
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
+        content.addClassName("content");
+        content.setSizeFull();
+        return content;
+    }
 
     // Close editor when not in use
     private void closeEditor() {
@@ -69,32 +97,5 @@ public class EmployeesList extends VerticalLayout {
             employeeForm.setVisible(true);
             addClassName("editing");
         }
-    }
-
-    /* Return grid and form in a horizontal layout */
-    private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
-        content.addClassName("content");
-        content.setSizeFull();
-        return content;
-    }
-
-    private void updateList() {
-        employeeGrid.setItems(URService.findAllEmployees());
-    }
-
-    private void configureGrid() {
-        employeeGrid.addClassName("employee-grid");
-       employeeGrid.setSizeFull();
-       employeeGrid.setColumns("firstName", "lastName",  "email");
-       employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
-       employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
-        employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
-       employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
-
-       // single select employee populates form
-        employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
-
-
     }
 }
