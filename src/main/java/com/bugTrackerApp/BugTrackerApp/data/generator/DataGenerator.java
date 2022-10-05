@@ -112,6 +112,7 @@ public class DataGenerator {
             List<Employee> employees = employeeExampleDataGenerator.create(50, 123).stream().map(employee -> {
                 employee.setCompany(companies.get(0));
                 employee.setAccountStatus(accountStatuses.get(0));
+                employee.setSecurityClearance(securityClearances.get(1));
                 return employee;
             }).collect(Collectors.toList());
 

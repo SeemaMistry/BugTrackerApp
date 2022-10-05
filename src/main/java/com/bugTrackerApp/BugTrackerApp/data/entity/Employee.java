@@ -32,6 +32,11 @@ public class Employee extends AbstractEntity{
     @JsonIgnoreProperties({"employees", "departments", "securityClearances"})
     private Company company;
 
+    @NotNull
+    @ManyToOne
+    @JoinColumn(name = "security_clearance_id")
+    private SecurityClearance securityClearance;
+
     @NotEmpty
     private String firstName = "";
 

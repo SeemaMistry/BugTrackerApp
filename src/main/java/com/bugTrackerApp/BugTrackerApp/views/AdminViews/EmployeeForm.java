@@ -3,6 +3,7 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.AccountStatus;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
+import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -22,6 +23,7 @@ public class EmployeeForm extends FormLayout {
     EmailField email = new EmailField("Email");
     ComboBox<AccountStatus> accountStatus = new ComboBox<>("Account Status");
     ComboBox<Company> company = new ComboBox<>("Company");
+    ComboBox<SecurityClearance> securityClearance = new ComboBox<>("Security Clearance");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -31,7 +33,7 @@ public class EmployeeForm extends FormLayout {
 
     private Employee employee;
 
-    public EmployeeForm(List<Company> companies, List<AccountStatus> accountStatuses) {
+    public EmployeeForm(List<Company> companies, List<AccountStatus> accountStatuses, List<SecurityClearance> securityClearances) {
         addClassName("employee-form");
         // Add Bean instance field to match fields in Employee to EmployeeForm
         binder.bindInstanceFields(this);
@@ -41,6 +43,8 @@ public class EmployeeForm extends FormLayout {
         company.setItemLabelGenerator(Company::getName);
         accountStatus.setItems(accountStatuses);
         accountStatus.setItemLabelGenerator(AccountStatus::getName);
+        securityClearance.setItems(securityClearances);
+        securityClearance.setItemLabelGenerator(SecurityClearance::getSecurityTitle);
 
         add(
                 firstName,
@@ -48,6 +52,7 @@ public class EmployeeForm extends FormLayout {
                 email,
                 company,
                 accountStatus,
+                securityClearance,
                 createButtonsLayout()
         );
     }
