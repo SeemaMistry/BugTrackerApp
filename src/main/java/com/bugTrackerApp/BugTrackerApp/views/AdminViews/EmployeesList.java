@@ -4,11 +4,13 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -34,17 +36,28 @@ public class EmployeesList extends VerticalLayout {
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
         addClassName("employee-list-view");
+        H1 welcome = new H1("See your list of employees");
+
         // configure grid and form
         setSizeFull();
         configureGrid();
         configureForm();
 
-        H1 welcome = new H1("See your list of employees");
-
-        add(welcome, getContent());
+        add(welcome, getToolbar(), getContent());
         updateList();
         closeEditor();
     }
+
+    private Component getToolbar() {
+        filterText.setPlaceholder("Search by name");
+        filterText.setClearButtonVisible(false);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+        HorizontalLayout toolbar = new HorizontalLayout(filterText);
+
+        return toolbar;
+    }
+
 
     private void configureGrid() {
         employeeGrid.addClassName("employee-grid");
@@ -57,6 +70,13 @@ public class EmployeesList extends VerticalLayout {
 
         // single select employee populates form
         employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
+    }
+    /* Return grid and form in a horizontal layout */
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
+        content.addClassName("content");
+        content.setSizeFull();
+        return content;
     }
 
     private void configureForm() {
@@ -84,16 +104,9 @@ public class EmployeesList extends VerticalLayout {
     }
 
     private void updateList() {
-        employeeGrid.setItems(URService.findAllEmployees());
+        employeeGrid.setItems(URService.findAllEmployees(filterText.getValue()));
     }
 
-    /* Return grid and form in a horizontal layout */
-    private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
-        content.addClassName("content");
-        content.setSizeFull();
-        return content;
-    }
 
     // Close editor when not in use
     private void closeEditor() {
