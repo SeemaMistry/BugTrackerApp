@@ -99,8 +99,13 @@ public class UserRelationsService {
     public List<Department> findAllDepartments(){
         return departmentRepo.findAll();
     }
-    public List<Employee> findAllEmployees(){
-        return employeeRepo.findAll();
+    public List<Employee> findAllEmployees(String filterText){
+        if (filterText == null || filterText.isEmpty()) {
+            return employeeRepo.findAll();
+        } else {
+            return employeeRepo.search(filterText);
+        }
+
     }
     public List<SecurityClearance> findAllSecurityClearances(){
         return securityClearanceRepo.findAll();
