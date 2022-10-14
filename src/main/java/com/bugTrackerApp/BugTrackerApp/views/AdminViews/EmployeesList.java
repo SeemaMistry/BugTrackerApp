@@ -63,15 +63,19 @@ public class EmployeesList extends VerticalLayout {
 
     private void addEmployee() {
         // clear the form and open the editor
-        employeeForm.setEmployee(null);
-        employeeForm.setVisible(true);
+//        employeeForm.setEmployee(null);
+//        employeeForm.setVisible(true);
+        employeeGrid.asSingleSelect().clear();
+        editEmployee(new Employee());
+
+
     }
 
 
     private void configureGrid() {
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
-        employeeGrid.setColumns("firstName", "lastName",  "email");
+        employeeGrid.setColumns("firstName", "lastName",  "email", "username", "password");
         employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
         employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
@@ -100,13 +104,13 @@ public class EmployeesList extends VerticalLayout {
         employeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
     }
 
-    private <T extends ComponentEvent<?>> void deleteEmployee(EmployeeForm.DeleteEvent e) {
+    private void deleteEmployee(EmployeeForm.DeleteEvent e) {
         URService.deleteEmployee(e.getEmployee());
         updateList();
         closeEditor();
     }
 
-    private <T extends ComponentEvent<?>> void saveEmployee(EmployeeForm.SaveEvent e) {
+    private void saveEmployee(EmployeeForm.SaveEvent e) {
         URService.saveEmployee(e.getEmployee());
         updateList();
         closeEditor();

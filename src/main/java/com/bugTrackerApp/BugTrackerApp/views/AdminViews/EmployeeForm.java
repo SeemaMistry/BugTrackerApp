@@ -28,6 +28,10 @@ public class EmployeeForm extends FormLayout {
     ComboBox<Company> company = new ComboBox<>("Company");
     ComboBox<SecurityClearance> securityClearance = new ComboBox<>("Security Clearance");
 
+    // TODO: adding username and password to form to see if the "Add employee" btn works
+    TextField username = new TextField("Username");
+    TextField password = new TextField("Password");
+
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
@@ -53,6 +57,8 @@ public class EmployeeForm extends FormLayout {
                 firstName,
                 lastName,
                 email,
+                username,
+                password,
                 company,
                 accountStatus,
                 securityClearance,
@@ -72,6 +78,7 @@ public class EmployeeForm extends FormLayout {
         close.addClickListener(event -> fireEvent(new CloseEvent(this)));
 
         // validate form each time it changes
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
 
         return new HorizontalLayout(save, delete, close);
 
@@ -82,6 +89,7 @@ public class EmployeeForm extends FormLayout {
             binder.writeBean(employee);
             fireEvent(new SaveEvent(this, employee));
         } catch (ValidationException e) {
+            System.out.println("there was an error");
             e.printStackTrace();
         }
     }
@@ -94,10 +102,10 @@ public class EmployeeForm extends FormLayout {
     }
 
     // Events
-    public static abstract class EmployeeFormEvent extends ComponentEvent<EmployeeForm> {
+    public static abstract class ContactFormEvent extends ComponentEvent<EmployeeForm> {
         private Employee employee;
 
-        protected EmployeeFormEvent(EmployeeForm source, Employee employee) {
+        protected ContactFormEvent(EmployeeForm source, Employee employee) {
             super(source, false);
             this.employee = employee;
         }
@@ -107,20 +115,20 @@ public class EmployeeForm extends FormLayout {
         }
     }
 
-    public static class SaveEvent extends EmployeeFormEvent {
+    public static class SaveEvent extends ContactFormEvent {
         SaveEvent(EmployeeForm source, Employee employee) {
             super(source, employee);
         }
     }
 
-    public static class DeleteEvent extends EmployeeFormEvent {
+    public static class DeleteEvent extends ContactFormEvent {
         DeleteEvent(EmployeeForm source, Employee employee) {
             super(source, employee);
         }
 
     }
 
-    public static class CloseEvent extends EmployeeFormEvent {
+    public static class CloseEvent extends ContactFormEvent {
         CloseEvent(EmployeeForm source) {
             super(source, null);
         }
