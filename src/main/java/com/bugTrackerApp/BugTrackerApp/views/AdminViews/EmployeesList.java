@@ -53,9 +53,18 @@ public class EmployeesList extends VerticalLayout {
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
-        HorizontalLayout toolbar = new HorizontalLayout(filterText);
+
+        Button addEmployeeBtn = new Button("Add new employee");
+        addEmployeeBtn.addClickListener(e -> addEmployee());
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);
 
         return toolbar;
+    }
+
+    private void addEmployee() {
+        // clear the form and open the editor
+        employeeForm.setEmployee(null);
+        employeeForm.setVisible(true);
     }
 
 
