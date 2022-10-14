@@ -50,7 +50,7 @@ public class EmployeesList extends VerticalLayout {
 
     private Component getToolbar() {
         filterText.setPlaceholder("Search by name");
-        filterText.setClearButtonVisible(false);
+        filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
         HorizontalLayout toolbar = new HorizontalLayout(filterText);
