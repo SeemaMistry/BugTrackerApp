@@ -56,7 +56,7 @@ public class Employee extends AbstractEntity{
     @NotEmpty
     private String username = "";
 
-    @NotEmpty
+    @Nullable
     private String password = "";
 
     @CreationTimestamp
@@ -83,7 +83,7 @@ public class Employee extends AbstractEntity{
             inverseJoinColumns = { @JoinColumn(name = "project_id")}
     )
     private Set<Project> invitedProjects;
-
+    
     public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
         this.company = company;
         this.firstName = firstName;
@@ -92,5 +92,7 @@ public class Employee extends AbstractEntity{
         this.username = username;
         this.password = password;
     }
+
+
 
 }
