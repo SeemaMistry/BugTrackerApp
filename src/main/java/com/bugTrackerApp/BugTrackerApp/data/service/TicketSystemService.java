@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -102,8 +103,12 @@ public class TicketSystemService {
     public List<Project> findAllProjects(){
         return projectRepo.findAll();
     }
-    public List<Ticket> findAllTickets(){
-        return ticketRepo.findAll();
+    public List<Ticket> findAllTickets(String name){
+        if (name == null) {
+            return ticketRepo.findAll();
+        } else {
+            return ticketRepo.findTicketByProjectName(name);
+        }
     }
     public List<Status> findAllStatuses(){
         return statusRepo.findAll();
@@ -118,4 +123,5 @@ public class TicketSystemService {
         return ticketTypeRepo.findAll();
     }
 
+    //CUSTOM QUERIES
 }
