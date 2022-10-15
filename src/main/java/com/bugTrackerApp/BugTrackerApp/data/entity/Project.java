@@ -1,13 +1,15 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
@@ -18,6 +20,7 @@ import java.util.Set;
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "project_id"))
 })
@@ -52,6 +55,8 @@ public class Project extends AbstractEntity{
     private Status projectStatus;
 
     @ManyToMany(mappedBy = "invitedProjects")
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Employee> employeeList;
 
     public Project(String name, String description, Employee creator_employee, Status projectStatus) {

@@ -3,11 +3,11 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDate;
@@ -69,6 +69,8 @@ public class Ticket extends AbstractEntity{
     private Status ticketStatus;
 
     @ManyToMany(mappedBy = "assignedTickets")
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private Set<Employee> employeeList;
 
     public Ticket(String subject,
