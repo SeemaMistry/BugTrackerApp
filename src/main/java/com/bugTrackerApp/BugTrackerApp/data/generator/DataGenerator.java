@@ -105,13 +105,18 @@ public class DataGenerator {
             employeeExampleDataGenerator.setData(Employee::setFirstName, DataType.FIRST_NAME);
             employeeExampleDataGenerator.setData(Employee::setLastName, DataType.LAST_NAME);
             employeeExampleDataGenerator.setData(Employee::setEmail, DataType.EMAIL);
-            employeeExampleDataGenerator.setData(Employee::setUsername, DataType.FULL_NAME); // set username as fullname for now
-            employeeExampleDataGenerator.setData(Employee::setPassword, DataType.WORD);
+
+            // TODO: things i removed when i extracted some fields to User entity
+//            employeeExampleDataGenerator.setData(Employee::setUsername, DataType.FULL_NAME); // set username as fullname for now
+//            employeeExampleDataGenerator.setData(Employee::setPassword, DataType.WORD);
 
 
             List<Employee> employees = employeeExampleDataGenerator.create(50, 123).stream().map(employee -> {
                 employee.setCompany(companies.get(0));
-                employee.setAccountStatus(accountStatuses.get(0));
+
+                // TODO: things i removed when i extracted some fields to User entity
+//                employee.setAccountStatus(accountStatuses.get(0));
+
                 employee.setSecurityClearance(securityClearances.get(1));
                 return employee;
             }).collect(Collectors.toList());
