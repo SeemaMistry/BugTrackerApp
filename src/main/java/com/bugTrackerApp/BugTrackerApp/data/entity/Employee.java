@@ -52,21 +52,8 @@ public class Employee extends AbstractEntity{
     @Nullable
     private List<Ticket> reportedTickets = new LinkedList<>();
 
-    @Column(unique = true)
-    @NotEmpty
-    private String username = "";
-
-    @Nullable
-    private String password = "";
-
     @CreationTimestamp
     private Timestamp createdDate;
-
-    @ManyToOne
-    @JoinColumn(name = "account_status_id")
-    @NotNull
-    @JsonIgnoreProperties({"accountStatuses"})
-    private AccountStatus accountStatus;
 
     @ManyToMany
     @JoinTable(
@@ -83,16 +70,43 @@ public class Employee extends AbstractEntity{
             inverseJoinColumns = { @JoinColumn(name = "project_id")}
     )
     private Set<Project> invitedProjects;
-    
-    public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
+
+    // TODO: things i needed to add when extracting fields to Usesr entity
+
+
+
+    public Employee(Company company, SecurityClearance securityClearance, String firstName, String lastName, String email) {
         this.company = company;
+        this.securityClearance = securityClearance;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-        this.username = username;
-        this.password = password;
     }
 
+
+    //TODO: things ive removed when i extracted some fields into Usesr entity
+    //TODO: might delete later
+//    public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
+//        this.company = company;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.username = username;
+//        this.password = password;
+//    }
+
+//    @ManyToOne
+//    @JoinColumn(name = "account_status_id")
+//    @NotNull
+//    @JsonIgnoreProperties({"accountStatuses"})
+//    private AccountStatus accountStatus;
+
+//    @Column(unique = true)
+//    @NotEmpty
+//    private String username = "";
+//
+//    @Nullable
+//    private String password = "";
 
 
 }

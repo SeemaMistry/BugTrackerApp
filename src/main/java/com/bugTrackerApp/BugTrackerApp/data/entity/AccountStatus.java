@@ -19,9 +19,9 @@ public class AccountStatus extends AbstractEntity {
     @NotBlank
     private String name;
 
-    @OneToMany(mappedBy = "accountStatus")
-    @Nullable
-    private List<Employee> accountStatuses = new LinkedList<>();
+//    @OneToMany(mappedBy = "accountStatus")
+//    @Nullable
+//    private List<Employee> accountStatuses = new LinkedList<>();
 
     public AccountStatus(String name) {
         this.name = name;
