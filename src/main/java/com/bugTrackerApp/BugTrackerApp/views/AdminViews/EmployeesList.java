@@ -75,9 +75,9 @@ public class EmployeesList extends VerticalLayout {
     private void configureGrid() {
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
-        employeeGrid.setColumns("firstName", "lastName",  "email", "username", "password");
+        employeeGrid.setColumns("firstName", "lastName",  "email");
         employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
-        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
+//        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
@@ -95,7 +95,7 @@ public class EmployeesList extends VerticalLayout {
     private void configureForm() {
         employeeForm = new EmployeeForm(
                 URService.findAllCompanies(filterText.getValue()),
-                URService.findAllAccountStatuses(),
+//                URService.findAllAccountStatuses(),
                 URService.findAllSecurityClearances()
         );
         employeeForm.setWidth("25em");

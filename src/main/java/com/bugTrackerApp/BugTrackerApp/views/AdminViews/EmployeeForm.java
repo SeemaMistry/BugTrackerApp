@@ -24,13 +24,13 @@ public class EmployeeForm extends FormLayout {
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
     EmailField email = new EmailField("Email");
-    ComboBox<AccountStatus> accountStatus = new ComboBox<>("Account Status");
+//    ComboBox<AccountStatus> accountStatus = new ComboBox<>("Account Status");
     ComboBox<Company> company = new ComboBox<>("Company");
     ComboBox<SecurityClearance> securityClearance = new ComboBox<>("Security Clearance");
 
     // TODO: adding username and password to form to see if the "Add employee" btn works
-    TextField username = new TextField("Username");
-    TextField password = new TextField("Password");
+//    TextField username = new TextField("Username");
+//    TextField password = new TextField("Password");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -40,7 +40,9 @@ public class EmployeeForm extends FormLayout {
 
     private Employee employee;
 
-    public EmployeeForm(List<Company> companies, List<AccountStatus> accountStatuses, List<SecurityClearance> securityClearances) {
+    public EmployeeForm(List<Company> companies,
+                        //List<AccountStatus> accountStatuses,
+                        List<SecurityClearance> securityClearances) {
         addClassName("employee-form");
         // Add Bean instance field to match fields in Employee to EmployeeForm
         binder.bindInstanceFields(this);
@@ -48,8 +50,8 @@ public class EmployeeForm extends FormLayout {
         // populate combo boxes
         company.setItems(companies);
         company.setItemLabelGenerator(Company::getName);
-        accountStatus.setItems(accountStatuses);
-        accountStatus.setItemLabelGenerator(AccountStatus::getName);
+//        accountStatus.setItems(accountStatuses);
+//        accountStatus.setItemLabelGenerator(AccountStatus::getName);
         securityClearance.setItems(securityClearances);
         securityClearance.setItemLabelGenerator(SecurityClearance::getSecurityTitle);
 
@@ -57,10 +59,10 @@ public class EmployeeForm extends FormLayout {
                 firstName,
                 lastName,
                 email,
-                username,
-                password,
+//                username,
+//                password,
                 company,
-                accountStatus,
+//                accountStatus,
                 securityClearance,
                 createButtonsLayout()
         );
@@ -102,6 +104,7 @@ public class EmployeeForm extends FormLayout {
     }
 
     // Events
+    // TODO: change ConactFormEvent back to EmployeeFormEvent
     public static abstract class ContactFormEvent extends ComponentEvent<EmployeeForm> {
         private Employee employee;
 
