@@ -41,7 +41,7 @@ public class ProjectForm extends FormLayout {
 
         // configure comboBox
         creatorEmployee.setItems(employees);
-        creatorEmployee.setItemLabelGenerator(Employee::getFirstName);
+        creatorEmployee.setItemLabelGenerator(Employee::getFullName);
         projectStatus.setItems(statuses);
         projectStatus.setItemLabelGenerator(Status::getName);
 
