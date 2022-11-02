@@ -35,6 +35,11 @@ public class ProjectForm extends FormLayout {
         projectStatus.setItems(statuses);
         projectStatus.setItemLabelGenerator(Status::getName);
 
-        add(welcome);
+        add(welcome,
+                name,
+                description,
+                creatorEmployee,
+                projectStatus
+        );
     }
 }
