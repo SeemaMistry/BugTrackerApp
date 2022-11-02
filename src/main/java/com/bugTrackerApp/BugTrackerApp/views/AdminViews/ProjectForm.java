@@ -11,6 +11,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
+import java.util.List;
+
 public class ProjectForm extends FormLayout {
     // fields and components
     TextField name = new TextField("Project Name");
@@ -24,8 +26,15 @@ public class ProjectForm extends FormLayout {
 
     private Project project;
 
-    public ProjectForm() {
+    public ProjectForm(List<Employee> employees, List<Status> statuses) {
         H1 welcome = new H1("Edit a project's info here");
+
+        // configure comboBox
+        creatorEmployee.setItems(employees);
+        creatorEmployee.setItemLabelGenerator(Employee::getFirstName);
+        projectStatus.setItems(statuses);
+        projectStatus.setItemLabelGenerator(Status::getName);
+
         add(welcome);
     }
 }
