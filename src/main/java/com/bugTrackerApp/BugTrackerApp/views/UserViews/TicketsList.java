@@ -31,7 +31,8 @@ private void configureGrid() {
 
     @Override
     public void setParameter(BeforeEvent beforeEvent, String name) {
-        this.projectName = name;
+        if (name.contains("%20")) {this.projectName = name.replace("%20", " ");}
+        else {this.projectName = name;}
         getContent();
 
     }
