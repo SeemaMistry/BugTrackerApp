@@ -43,6 +43,8 @@ public class Employee extends AbstractEntity{
     @NotEmpty
     private String lastName = "";
 
+    private String fullName;
+
     @Email
     @NotEmpty
     @Column(unique = true)
@@ -74,13 +76,18 @@ public class Employee extends AbstractEntity{
     // TODO: things i needed to add when extracting fields to Usesr entity
 
 
-
     public Employee(Company company, SecurityClearance securityClearance, String firstName, String lastName, String email) {
         this.company = company;
         this.securityClearance = securityClearance;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+
+    // get custom fullname
+    public String getFullName() {
+        return (firstName + " " + lastName);
     }
 
 
