@@ -4,10 +4,13 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Status;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
@@ -39,7 +42,18 @@ public class ProjectForm extends FormLayout {
                 name,
                 description,
                 creatorEmployee,
-                projectStatus
+                projectStatus,
+                createButtonLayout()
         );
+    }
+
+    // return button layout
+    private HorizontalLayout createButtonLayout() {
+        // set button colour themes
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        return new HorizontalLayout(save, delete, close);
     }
 }
