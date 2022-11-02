@@ -70,10 +70,8 @@ public class ProjectsList extends VerticalLayout {
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // double click and be routed to tickets page
-        grid.asSingleSelect().addValueChangeListener(
-                e -> {
-                    UI.getCurrent().navigate(TicketsList.class, e.getValue().getName());
-                }
+        grid.addItemDoubleClickListener(e ->
+                UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
         );
     }
 }
