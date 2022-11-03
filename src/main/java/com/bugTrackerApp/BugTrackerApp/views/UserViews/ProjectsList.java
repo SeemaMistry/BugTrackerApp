@@ -89,12 +89,14 @@ public class ProjectsList extends VerticalLayout {
     private void saveProject(ProjectForm.SaveEvent e) {
         TSService.saveProject(e.getProject());
         updateList();
+        closeEditor();
     }
 
     // Delete project from database and update the grid
     private void deleteProject(ProjectForm.DeleteEvent e) {
         TSService.deleteProject(e.getProject());
         updateList();
+        closeEditor();
     }
 
     // Edit existing project or create new project
