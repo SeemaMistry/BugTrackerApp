@@ -63,4 +63,11 @@ public class ProjectForm extends FormLayout {
 
         return new HorizontalLayout(save, delete, close);
     }
+
+    // Project Setter
+    public void setProject(Project project) {
+        this.project = project;
+        // use readBean() to bind values from project object to UI fields in the form
+        binder.readBean(project);
+    }
 }
