@@ -74,6 +74,9 @@ public class ProjectsList extends VerticalLayout {
         grid.addColumn(e -> e.getCreator_employee().getFullName()).setHeader("Creator");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
+        // single click to edit project
+        grid.asSingleSelect().addValueChangeListener(e -> editProject(e.getValue()));
+
         // double click and be routed to tickets page
         grid.addItemDoubleClickListener(e ->
                 UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
@@ -92,6 +95,17 @@ public class ProjectsList extends VerticalLayout {
     private void deleteProject(ProjectForm.DeleteEvent e) {
         TSService.deleteProject(e.getProject());
         updateList();
+    }
+
+    // Edit existing project or create new project
+    private void editProject(Project project) {
+        // no project selected = close editor. Else set project and show form
+        if (project == null) {
+            closeEditor();
+        } else {
+            projectForm.setProject(project);
+            projectForm.setVisible(true);
+        }
     }
 
     // Close the editor
