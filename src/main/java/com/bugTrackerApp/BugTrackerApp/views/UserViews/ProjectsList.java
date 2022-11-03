@@ -42,6 +42,7 @@ public class ProjectsList extends VerticalLayout {
 
         add(welcome, getContent());
         updateList();
+        closeEditor();
     }
 
     private void configureForm() {
