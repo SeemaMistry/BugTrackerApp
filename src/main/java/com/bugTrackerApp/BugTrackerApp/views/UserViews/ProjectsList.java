@@ -55,6 +55,7 @@ public class ProjectsList extends VerticalLayout {
         // Use API calls for save, delete, close events
         projectForm.addListener(ProjectForm.SaveEvent.class, this::saveProject);
         projectForm.addListener(ProjectForm.DeleteEvent.class, this::deleteProject);
+        projectForm.addListener(ProjectForm.CloseEvent.class, e -> closeEditor());
     }
 
     private void updateList() {
