@@ -50,6 +50,10 @@ public class ProjectsList extends VerticalLayout {
                 TSService.findAllStatuses()
         );
         projectForm.setWidth("25em");
+
+        // Use API calls for save, delete, close events
+        projectForm.addListener(ProjectForm.SaveEvent.class, this::saveProject);
+        projectForm.addListener(ProjectForm.DeleteEvent.class, this::deleteProject);
     }
 
     private void updateList() {
@@ -73,5 +77,19 @@ public class ProjectsList extends VerticalLayout {
         grid.addItemDoubleClickListener(e ->
                 UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
         );
+    }
+
+    // Form manipulation: save, delete, open, close
+
+    // Save project to database and update grid
+    private void saveProject(ProjectForm.SaveEvent e) {
+        TSService.saveProject(e.getProject());
+        updateList();
+    }
+
+    // Delete project from database and update the grid
+    private void deleteProject(ProjectForm.DeleteEvent e) {
+        TSService.deleteProject(e.getProject());
+        updateList();
     }
 }
