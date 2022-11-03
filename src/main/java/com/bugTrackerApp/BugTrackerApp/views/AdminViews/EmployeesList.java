@@ -3,7 +3,6 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -16,12 +15,8 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.RolesAllowed;
 
-/* Employee list displays a list of all the emplpyees with a form to edit/add employees (by admin only)
-TODO: Create grid and populate with employees from DB
-TODO: Instantiate EmployeeForm
-TODO: populate EmployeeForm with selected employee from the grid
-TODO: Set actions: set form invisible when screen size is small and when no employee selected
-TODO: Make filterText search bar work (will require work in repos with @Queries)
+/*
+    Employee list displays a list of all the emplpyees with a form to edit/add employees (by admin only)
 */
 @PageTitle("Employees List | Bug Tracker")
 @Route(value="employees")
@@ -63,21 +58,15 @@ public class EmployeesList extends VerticalLayout {
 
     private void addEmployee() {
         // clear the form and open the editor
-//        employeeForm.setEmployee(null);
-//        employeeForm.setVisible(true);
         employeeGrid.asSingleSelect().clear();
         editEmployee(new Employee());
-
-
     }
-
 
     private void configureGrid() {
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
         employeeGrid.setColumns("firstName", "lastName",  "email");
         employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company");
-//        employeeGrid.addColumn(e -> e.getAccountStatus().getName()).setHeader("Account Status");
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
@@ -95,7 +84,6 @@ public class EmployeesList extends VerticalLayout {
     private void configureForm() {
         employeeForm = new EmployeeForm(
                 URService.findAllCompanies(filterText.getValue()),
-//                URService.findAllAccountStatuses(),
                 URService.findAllSecurityClearances()
         );
         employeeForm.setWidth("25em");
@@ -140,6 +128,5 @@ public class EmployeesList extends VerticalLayout {
             addClassName("editing");
         }
     }
-
 
 }
