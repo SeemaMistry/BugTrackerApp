@@ -7,6 +7,7 @@ import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -17,7 +18,7 @@ import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouterLink;
 
 import javax.annotation.security.RolesAllowed;
-import java.awt.*;
+
 
 @PageTitle("Projects | Bug Tracker")
 @Route(value="projects")
@@ -40,10 +41,14 @@ public class ProjectsList extends VerticalLayout {
         configureGrid();
         configureForm();
 
-        add(welcome, getContent());
+        Button addNewProjectBtn = new Button("Add new project");
+        addNewProjectBtn.addClickListener(e ->  addProject());
+
+        add(welcome, addNewProjectBtn, getContent());
         updateList();
         closeEditor();
     }
+
 
     private void configureForm() {
         projectForm = new ProjectForm(
@@ -116,5 +121,11 @@ public class ProjectsList extends VerticalLayout {
         // clear editor and close it
         projectForm.setProject(null);
         projectForm.setVisible(false);
+    }
+
+    private void addProject() {
+        // clear form and open editor
+        grid.asSingleSelect().clear();
+        editProject(new Project());
     }
 }
