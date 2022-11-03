@@ -126,7 +126,7 @@ public class DataGenerator {
             List<Project> projects = Arrays.asList(
                     new Project("Grocery App", "Create a grocery list app", employees.get(0), statuses.get(0)),
                     new Project("Animals App", "Create an animal list app", employees.get(1), statuses.get(1)),
-                    new Project("Plants App", "Create a plants list app", employees.get(2), statuses.get(2))
+                    new Project("Plants App Project", "Create a plants list app", employees.get(2), statuses.get(2))
             );
             projectRepo.saveAll(projects);
 
