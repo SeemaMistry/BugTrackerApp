@@ -3,8 +3,8 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Status;
-import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
-import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -15,6 +15,8 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
 
@@ -61,7 +63,21 @@ public class ProjectForm extends FormLayout {
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
+        // fire events
+        save.addClickListener(e -> validateAndSave());
+        delete.addClickListener(e -> fireEvent(new ProjectForm.DeleteEvent(this, project)));
+        close.addClickListener(e -> fireEvent(new ProjectForm.CloseEvent(this)));
+
         return new HorizontalLayout(save, delete, close);
+    }
+
+    private void validateAndSave() {
+        try {
+            binder.writeBean(project);
+            fireEvent(new ProjectForm.SaveEvent(this, project));
+        } catch (ValidationException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Project Setter
@@ -69,5 +85,44 @@ public class ProjectForm extends FormLayout {
         this.project = project;
         // use readBean() to bind values from project object to UI fields in the form
         binder.readBean(project);
+    }
+
+    // Events
+    public static abstract class ContactFormEvent extends ComponentEvent<ProjectForm> {
+        private Project project;
+
+        protected ContactFormEvent(ProjectForm source, Project project) {
+            super(source, false);
+            this.project = project;
+        }
+
+        public Project getProject() {
+            return project;
+        }
+    }
+
+ 
+    public static class SaveEvent extends ProjectForm.ContactFormEvent {
+        SaveEvent(ProjectForm source, Project project) {
+            super(source, project);
+        }
+    }
+
+    public static class DeleteEvent extends ProjectForm.ContactFormEvent {
+        DeleteEvent(ProjectForm source, Project project) {
+            super(source, project);
+        }
+
+    }
+
+    public static class CloseEvent extends ProjectForm.ContactFormEvent {
+        CloseEvent(ProjectForm source) {
+            super(source, null);
+        }
+    }
+
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
+                                                                  ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
     }
 }
