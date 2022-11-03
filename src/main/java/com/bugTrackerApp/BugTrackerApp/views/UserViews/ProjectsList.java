@@ -66,7 +66,7 @@ public class ProjectsList extends VerticalLayout {
         grid.setSizeFull();
         grid.setColumns("name", "description");
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
-        grid.addColumn(e -> e.getCreator_employee().getFirstName()).setHeader("Creator");
+        grid.addColumn(e -> e.getCreator_employee().getFullName()).setHeader("Creator");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // double click and be routed to tickets page
