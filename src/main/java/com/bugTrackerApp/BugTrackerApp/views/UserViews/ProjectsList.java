@@ -92,4 +92,11 @@ public class ProjectsList extends VerticalLayout {
         TSService.deleteProject(e.getProject());
         updateList();
     }
+
+    // Close the editor
+    private void closeEditor() {
+        // clear editor and close it
+        projectForm.setProject(null);
+        projectForm.setVisible(false);
+    }
 }
