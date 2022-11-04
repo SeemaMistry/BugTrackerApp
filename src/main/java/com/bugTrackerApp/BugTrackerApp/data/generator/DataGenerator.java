@@ -12,9 +12,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.sql.Date;
 import java.time.*;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -111,7 +109,7 @@ public class DataGenerator {
 //            employeeExampleDataGenerator.setData(Employee::setPassword, DataType.WORD);
 
 
-            List<Employee> employees = employeeExampleDataGenerator.create(50, 123).stream().map(employee -> {
+            List<Employee> employees = employeeExampleDataGenerator.create(10, 123).stream().map(employee -> {
                 employee.setCompany(companies.get(0));
 
                 // TODO: things i removed when i extracted some fields to User entity
@@ -170,6 +168,17 @@ public class DataGenerator {
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
                             statuses.get(0)
+                    ),
+                    new Ticket(
+                            "Tester of set of employees",
+                            LocalDate.of(2022,9,10),
+                            projects.get(2),
+                            employees.get(1),
+                            ticketPriorities.get(0),
+                            ticketEstimatedTimes.get(4),
+                            ticketTypes.get(0),
+                            statuses.get(0),
+                            Set.of(employees.get(1))
                     )
             );
             ticketRepo.saveAll(tickets);

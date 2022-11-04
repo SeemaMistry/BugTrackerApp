@@ -26,6 +26,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 private void configureGrid() {
     grid.setSizeFull();
     grid.setColumns("subject", "dueDate");
+    grid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
     grid.getColumns().forEach(col -> col.setAutoWidth(true));
 }
 

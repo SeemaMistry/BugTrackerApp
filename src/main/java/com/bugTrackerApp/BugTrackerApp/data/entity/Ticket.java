@@ -91,4 +91,24 @@ public class Ticket extends AbstractEntity{
         this.ticketStatus = ticketStatus;
     }
 
+    public Ticket(String subject,
+                  LocalDate dueDate,
+                  Project project,
+                  Employee ticketReporter,
+                  TicketPriority ticketPriority,
+                  TicketEstimatedTime ticketEstimatedTime,
+                  TicketType ticketType,
+                  Status ticketStatus,
+                  Set<Employee> employeeList) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+        this.project = project;
+        this.ticketReporter = ticketReporter;
+        this.ticketPriority = ticketPriority;
+        this.ticketEstimatedTime = ticketEstimatedTime;
+        this.ticketType = ticketType;
+        this.ticketStatus = ticketStatus;
+        this.employeeList = employeeList;
+    }
+
 }
