@@ -5,14 +5,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -23,7 +26,7 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "emplpoyee_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "employee_id"))
 })
 public class Employee extends AbstractEntity{
     @ManyToOne
@@ -57,15 +60,21 @@ public class Employee extends AbstractEntity{
     @CreationTimestamp
     private Timestamp createdDate;
 
-    @ManyToMany
-    @JoinTable(
-            name = "ticket_assigned_employees",
-            joinColumns = { @JoinColumn(name = "employee_id")},
-            inverseJoinColumns = { @JoinColumn(name = "ticket_id")}
-    )
-    private Set<Ticket> assignedTickets;
+//    @ManyToMany(cascade={CascadeType.ALL})
+//    @JoinTable(
+//            name = "ticket_assigned_employees",
+//            joinColumns = { @JoinColumn(name = "ticket_id")},
+//            inverseJoinColumns = { @JoinColumn(name = "employee_id")}
+//    )
+//    private Set<Ticket> assignedTickets = new HashSet<>();
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "assignedTickets")
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private Set<Ticket> ticketList = new HashSet<>();
+
+    @ManyToMany(cascade = {CascadeType.ALL},
+            fetch = FetchType.LAZY)
     @JoinTable(
             name = "invited_employees_to_project",
             joinColumns = { @JoinColumn(name = "employee_id")},

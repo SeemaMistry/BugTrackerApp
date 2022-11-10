@@ -7,10 +7,12 @@ import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -68,10 +70,18 @@ public class Ticket extends AbstractEntity{
     @JsonIgnoreProperties({"description", "tickets",  "projects"})
     private Status ticketStatus;
 
-    @ManyToMany(mappedBy = "assignedTickets")
-    @Fetch(FetchMode.SELECT)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Employee> employeeList;
+//    @ManyToMany(mappedBy = "assignedTickets")
+//    @Fetch(FetchMode.SELECT)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private Set<Employee> employeeList = new HashSet<>();
+
+    @ManyToMany
+    @JoinTable(
+            name = "ticket_assigned_employees",
+            joinColumns = { @JoinColumn(name = "ticketId", referencedColumnName = "ticket_id")},
+            inverseJoinColumns = { @JoinColumn(name = "employeeId", referencedColumnName = "employee_id")}
+    )
+    private Set<Employee> assignedTickets;
 
     public Ticket(String subject,
                   LocalDate dueDate,
@@ -89,6 +99,26 @@ public class Ticket extends AbstractEntity{
         this.ticketEstimatedTime = ticketEstimatedTime;
         this.ticketType = ticketType;
         this.ticketStatus = ticketStatus;
+    }
+
+    public Ticket(String subject,
+                  LocalDate dueDate,
+                  Project project,
+                  Employee ticketReporter,
+                  TicketPriority ticketPriority,
+                  TicketEstimatedTime ticketEstimatedTime,
+                  TicketType ticketType,
+                  Status ticketStatus,
+                  Set<Employee> assignedTickets) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+        this.project = project;
+        this.ticketReporter = ticketReporter;
+        this.ticketPriority = ticketPriority;
+        this.ticketEstimatedTime = ticketEstimatedTime;
+        this.ticketType = ticketType;
+        this.ticketStatus = ticketStatus;
+        this.assignedTickets = assignedTickets;
     }
 
 }

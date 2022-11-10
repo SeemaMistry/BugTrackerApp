@@ -107,6 +107,16 @@ public class UserRelationsService {
         }
 
     }
+
+    // find all assigned employees to a ticket
+//    public List<Employee> findAssignedEmployeesByTicketId(Ticket ticket) {
+//        return employeeRepo.findEmployeesByTicketId(ticket.getId());
+//    }
+
+    public List<Employee> findAllEfromT(Ticket ticket) {
+        return employeeRepo.findEmployeesByTicketId(ticket.getId());
+    }
+
     public List<SecurityClearance> findAllSecurityClearances(){
         return securityClearanceRepo.findAll();
     }

@@ -15,6 +15,7 @@ import java.time.*;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -169,7 +170,8 @@ public class DataGenerator {
                             ticketPriorities.get(0),
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
-                            statuses.get(0)
+                            statuses.get(0),
+                            Set.of(employees.get(1), employees.get(2))
                     )
             );
             ticketRepo.saveAll(tickets);

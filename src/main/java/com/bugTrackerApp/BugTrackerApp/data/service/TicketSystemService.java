@@ -110,6 +110,12 @@ public class TicketSystemService {
             return ticketRepo.findTicketByProjectName(name);
         }
     }
+
+    // find all tickets assigned to an employee
+//    public List<Ticket> findAssignedTicketsByEmployeeId(Employee employee) {
+//        return ticketRepo.findTicketsByEmployeeId(employee.getId());
+//    }
+
     public List<Status> findAllStatuses(){
         return statusRepo.findAll();
     }
