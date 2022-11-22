@@ -17,7 +17,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "ticket_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "ticketId"))
 })
 public class Ticket extends AbstractEntity{
 
@@ -34,36 +34,36 @@ public class Ticket extends AbstractEntity{
     private LocalDate dueDate;
 
     @ManyToOne
-    @JoinColumn(name = "project_id")
+    @JoinColumn(name = "projectId")
     @NotNull
     @JsonIgnoreProperties({"projectStatus", "employeeList", "tickets", "creator_employee"})
     private Project project;
 
     @ManyToOne
-    @JoinColumn(name = "reporter_employee_id")
+    @JoinColumn(name = "reporterEmployeeId")
     @NotNull
     @JsonIgnoreProperties({"invitedProjects", "assignedTickets", "accountStatus", "reportedTickets", "company"})
     private Employee ticketReporter;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_priority_id")
+    @JoinColumn(name = "ticketPriorityId")
     @NotNull
     @JsonIgnoreProperties({"tickets"})
     private TicketPriority ticketPriority;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_estimated_time_id")
+    @JoinColumn(name = "ticketEstimatedTimeId")
     @NotNull
     private TicketEstimatedTime ticketEstimatedTime;
 
     @ManyToOne
-    @JoinColumn(name = "ticket_type_id")
+    @JoinColumn(name = "ticketTypeId")
     @NotNull
     @JsonIgnoreProperties({"description", "tickets"})
     private TicketType ticketType;
 
     @ManyToOne
-    @JoinColumn(name = "status_id")
+    @JoinColumn(name = "statusId")
     @NotNull
     @JsonIgnoreProperties({"description", "tickets",  "projects"})
     private Status ticketStatus;

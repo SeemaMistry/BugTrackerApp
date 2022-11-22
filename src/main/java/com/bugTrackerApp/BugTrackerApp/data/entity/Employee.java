@@ -23,11 +23,11 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "emplpoyee_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "employeeId"))
 })
 public class Employee extends AbstractEntity{
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "companyId")
     @NotNull
     @JsonIgnoreProperties({"employees", "departments", "securityClearances"})
     private Company company;
@@ -43,6 +43,7 @@ public class Employee extends AbstractEntity{
     @NotEmpty
     private String lastName = "";
 
+    @Transient
     private String fullName;
 
     @Email
@@ -57,19 +58,21 @@ public class Employee extends AbstractEntity{
     @CreationTimestamp
     private Timestamp createdDate;
 
+
+    // TODO: swap owner table to ticket entity
     @ManyToMany
     @JoinTable(
-            name = "ticket_assigned_employees",
-            joinColumns = { @JoinColumn(name = "employee_id")},
-            inverseJoinColumns = { @JoinColumn(name = "ticket_id")}
+            name = "ticketsAssignedEmployees",
+            joinColumns = { @JoinColumn(name = "employeeId")},
+            inverseJoinColumns = { @JoinColumn(name = "ticketId")}
     )
     private Set<Ticket> assignedTickets;
 
     @ManyToMany
     @JoinTable(
-            name = "invited_employees_to_project",
-            joinColumns = { @JoinColumn(name = "employee_id")},
-            inverseJoinColumns = { @JoinColumn(name = "project_id")}
+            name = "invitedEmployeesToProject",
+            joinColumns = { @JoinColumn(name = "employeeId")},
+            inverseJoinColumns = { @JoinColumn(name = "projectId")}
     )
     private Set<Project> invitedProjects;
 

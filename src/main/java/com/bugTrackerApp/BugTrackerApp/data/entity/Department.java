@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "department_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "departmentId"))
 })
 public class Department extends AbstractEntity {
 

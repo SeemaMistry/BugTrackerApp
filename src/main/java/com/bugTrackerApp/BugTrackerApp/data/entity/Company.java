@@ -13,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "company_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "companyId"))
 })
 public class Company extends AbstractEntity{
 

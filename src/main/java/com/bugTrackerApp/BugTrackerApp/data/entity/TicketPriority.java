@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "ticket_priority_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "ticketPriorityId"))
 })
 public class TicketPriority extends AbstractEntity{
     @NotBlank

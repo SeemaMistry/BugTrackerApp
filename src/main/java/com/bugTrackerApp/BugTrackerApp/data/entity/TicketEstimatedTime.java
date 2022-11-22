@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "ticket_estimated_time_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "ticketEstimatedTimeId"))
 })
 public class TicketEstimatedTime extends AbstractEntity{
     @NotNull

@@ -1,7 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
@@ -15,7 +14,6 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
-import com.vaadin.flow.router.RouterLink;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -77,7 +75,7 @@ public class ProjectsList extends VerticalLayout {
         grid.setSizeFull();
         grid.setColumns("name", "description");
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
-        grid.addColumn(e -> e.getCreator_employee().getFullName()).setHeader("Creator");
+        grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // single click to edit project

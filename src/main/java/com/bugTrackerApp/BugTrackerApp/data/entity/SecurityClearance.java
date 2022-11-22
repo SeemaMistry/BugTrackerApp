@@ -14,12 +14,12 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "security_clearance_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "securityClearanceId"))
 })
 public class SecurityClearance extends AbstractEntity{
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "companyId")
     @NotNull
     @JsonIgnoreProperties({"employees", "departments", "securityClearances"})
     private Company company;

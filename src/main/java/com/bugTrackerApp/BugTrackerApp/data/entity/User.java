@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
-        @AttributeOverride(name = "id", column = @Column(name = "user_id"))
+        @AttributeOverride(name = "id", column = @Column(name = "userId"))
 })
 // user entity containing: username, password, role, account status
 // in a 1:1 relationship with employee
