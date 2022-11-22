@@ -36,7 +36,7 @@ public class Ticket extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "projectId")
     @NotNull
-    @JsonIgnoreProperties({"projectStatus", "employeeList", "tickets", "creator_employee"})
+    @JsonIgnoreProperties({"projectStatus", "employeeList", "tickets", "creatorEmployee"})
     private Project project;
 
     @ManyToOne
