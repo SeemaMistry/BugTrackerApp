@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -56,7 +57,7 @@ public class Project extends AbstractEntity{
     @ManyToMany(mappedBy = "invitedProjects")
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Employee> employeeList;
+    private List<Employee> employeeList = new ArrayList<>();
 
     public Project(String name, String description, Employee creatorEmployee, Status projectStatus) {
         this.name = name;

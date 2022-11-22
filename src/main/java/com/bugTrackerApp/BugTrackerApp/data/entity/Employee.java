@@ -75,7 +75,7 @@ public class Employee extends AbstractEntity{
             joinColumns = { @JoinColumn(name = "employeeId")},
             inverseJoinColumns = { @JoinColumn(name = "projectId")}
     )
-    private Set<Project> invitedProjects;
+    private List<Project> invitedProjects = new ArrayList<>();
 
     // TODO: things i needed to add when extracting fields to Usesr entity
 
