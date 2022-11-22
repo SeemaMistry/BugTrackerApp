@@ -20,7 +20,7 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 //    @Query("select distinct e from Employee e join e.ticketList t where t.ticket_id = :ticket_id")
 //    List<Employee> findEmployeesByTicketId(UUID ticket_id);
 
-    List<Employee> findEmployeesByTicketId(UUID ticket_id);
+//    List<Employee> findEmployeesByTicketId(UUID ticket_id);
 //    @Query("select employee_id from ticket_assigned_employees where ticket_id = :ticket_id")
 //    List<Employee> findStuff(@Param("ticket_id") UUID ticket_id);
 }

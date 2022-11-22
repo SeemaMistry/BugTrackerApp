@@ -113,9 +113,9 @@ public class UserRelationsService {
 //        return employeeRepo.findEmployeesByTicketId(ticket.getId());
 //    }
 
-    public List<Employee> findAllEfromT(Ticket ticket) {
-        return employeeRepo.findEmployeesByTicketId(ticket.getId());
-    }
+//    public List<Employee> findAllEfromT(Ticket ticket) {
+//        return employeeRepo.findEmployeesByTicketId(ticket.getId());
+//    }
 
     public List<SecurityClearance> findAllSecurityClearances(){
         return securityClearanceRepo.findAll();
