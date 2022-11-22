@@ -57,6 +57,10 @@ public class Employee extends AbstractEntity{
     @Nullable
     private List<Ticket> reportedTickets = new ArrayList<>();
 
+    @OneToMany(mappedBy = "creatorEmployee")
+    @Nullable
+    private List<Project> projectsCreated = new ArrayList<>();
+
     @CreationTimestamp
     private Timestamp createdDate;
 
