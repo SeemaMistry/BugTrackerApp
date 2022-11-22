@@ -178,7 +178,7 @@ public class DataGenerator {
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
                             statuses.get(0),
-                            Set.of(employees.get(1))
+                            Arrays.asList(employees.get(1))
                     )
             );
             ticketRepo.saveAll(tickets);
