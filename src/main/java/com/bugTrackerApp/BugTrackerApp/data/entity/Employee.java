@@ -5,14 +5,16 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.*;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.persistence.Entity;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -58,15 +60,10 @@ public class Employee extends AbstractEntity{
     @CreationTimestamp
     private Timestamp createdDate;
 
-
-    // TODO: swap owner table to ticket entity
-    @ManyToMany
-    @JoinTable(
-            name = "ticketsAssignedEmployees",
-            joinColumns = { @JoinColumn(name = "employeeId")},
-            inverseJoinColumns = { @JoinColumn(name = "ticketId")}
-    )
-    private Set<Ticket> assignedTickets;
+    @ManyToMany(mappedBy = "employeesAssignedToTicket")
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Ticket> ticketsAssignedToEmployees = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

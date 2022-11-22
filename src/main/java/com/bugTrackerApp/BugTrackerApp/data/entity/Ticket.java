@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -36,7 +38,7 @@ public class Ticket extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "projectId")
     @NotNull
-    @JsonIgnoreProperties({"projectStatus", "employeeList", "tickets", "creatorEmployee"})
+    @JsonIgnoreProperties({"projectStatus", "employeesAssignedToTicket", "tickets", "creatorEmployee"})
     private Project project;
 
     @ManyToOne
@@ -68,10 +70,14 @@ public class Ticket extends AbstractEntity{
     @JsonIgnoreProperties({"description", "tickets",  "projects"})
     private Status ticketStatus;
 
-    @ManyToMany(mappedBy = "assignedTickets")
-    @Fetch(FetchMode.SELECT)
+    @ManyToMany
+    @JoinTable(
+            name =  "ticketsAssignedToEmployees",
+            joinColumns = { @JoinColumn(name = "ticketId") },
+            inverseJoinColumns = { @JoinColumn(name = "employeeId") }
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
-    private Set<Employee> employeeList;
+    private List<Employee> employeesAssignedToTicket = new ArrayList<>();
 
     public Ticket(String subject,
                   LocalDate dueDate,
@@ -99,7 +105,7 @@ public class Ticket extends AbstractEntity{
                   TicketEstimatedTime ticketEstimatedTime,
                   TicketType ticketType,
                   Status ticketStatus,
-                  Set<Employee> employeeList) {
+                  List<Employee> employeesAssignedToTicket) {
         this.subject = subject;
         this.dueDate = dueDate;
         this.project = project;
@@ -108,7 +114,7 @@ public class Ticket extends AbstractEntity{
         this.ticketEstimatedTime = ticketEstimatedTime;
         this.ticketType = ticketType;
         this.ticketStatus = ticketStatus;
-        this.employeeList = employeeList;
+        this.employeesAssignedToTicket = employeesAssignedToTicket;
     }
 
 }
