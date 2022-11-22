@@ -19,7 +19,7 @@ import javax.validation.constraints.NotNull;
 public class Department extends AbstractEntity {
 
     @ManyToOne
-    @JoinColumn(name = "company_id")
+    @JoinColumn(name = "companyId")
     @NotNull
     @JsonIgnoreProperties({"employees", "departments", "securityClearances"})
     private Company company;
