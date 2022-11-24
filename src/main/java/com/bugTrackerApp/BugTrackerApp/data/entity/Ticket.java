@@ -1,8 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,11 +12,13 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @AttributeOverrides({
         @AttributeOverride(name = "id", column = @Column(name = "ticketId"))
 })
