@@ -5,6 +5,7 @@ import lombok.*;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,15 +24,15 @@ public class Company extends AbstractEntity{
 
     @OneToMany(mappedBy = "company")
     @Nullable
-    private List<Employee> employees = new LinkedList<>();
+    private List<Employee> employees = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
     @Nullable
-    private List<Department> departments = new LinkedList<>();
+    private List<Department> departments = new ArrayList<>();
 
     @OneToMany(mappedBy = "company")
     @Nullable
-    private List<SecurityClearance> securityClearances = new LinkedList<>();
+    private List<SecurityClearance> securityClearances = new ArrayList<>();
 
     public Company(String name)  {
         this.name = name;
