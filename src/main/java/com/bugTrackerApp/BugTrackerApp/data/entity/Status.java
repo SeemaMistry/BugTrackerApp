@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,11 +26,11 @@ public class Status extends AbstractEntity{
 
     @OneToMany(mappedBy = "ticketStatus")
     @Nullable
-    private List<Ticket> tickets = new LinkedList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     @OneToMany(mappedBy = "projectStatus")
     @Nullable
-    private List<Project> projects = new LinkedList<>();
+    private List<Project> projects = new ArrayList<>();
 
     public Status(String name, String description) {
         this.name = name;
