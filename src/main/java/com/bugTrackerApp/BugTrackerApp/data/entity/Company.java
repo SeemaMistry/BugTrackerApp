@@ -6,7 +6,6 @@ import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -33,6 +32,10 @@ public class Company extends AbstractEntity{
     @OneToMany(mappedBy = "company")
     @Nullable
     private List<SecurityClearance> securityClearances = new ArrayList<>();
+
+    @OneToMany(mappedBy = "company")
+    @Nullable
+    private List<Project> projects = new ArrayList<>();
 
     public Company(String name)  {
         this.name = name;

@@ -9,9 +9,9 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -38,10 +38,13 @@ public class Project extends AbstractEntity{
     private Timestamp updateDate;
 
     @ManyToOne
+    @JoinColumn(name = "companyId")
+    @Nullable
+    private Company company;
+
+    @ManyToOne
     @JoinColumn(name = "creatorEmployeeId")
     @NotNull
-    // TODO: add json ignore properties
-    @JsonIgnoreProperties()
     private Employee creatorEmployee;
 
     @OneToMany(mappedBy = "project")
