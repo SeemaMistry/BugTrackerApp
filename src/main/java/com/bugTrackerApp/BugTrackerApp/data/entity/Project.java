@@ -1,9 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.*;
 
 import javax.annotation.Nullable;
@@ -18,6 +16,8 @@ import java.util.List;
 
 @Entity
 @Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
