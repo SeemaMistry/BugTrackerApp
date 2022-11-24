@@ -7,6 +7,7 @@ import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TicketEstimatedTime extends AbstractEntity{
 
     @OneToMany(mappedBy = "ticketEstimatedTime")
     @Nullable
-    private List<Ticket> tickets = new LinkedList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     public TicketEstimatedTime(int estimatedTime, String description) {
         this.estimatedTime = estimatedTime;
