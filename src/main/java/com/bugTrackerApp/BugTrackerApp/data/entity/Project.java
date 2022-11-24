@@ -46,7 +46,7 @@ public class Project extends AbstractEntity{
 
     @OneToMany(mappedBy = "project")
     @Nullable
-    private List<Ticket> tickets = new LinkedList<>();
+    private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "statusId")
