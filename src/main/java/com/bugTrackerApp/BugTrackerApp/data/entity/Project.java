@@ -15,7 +15,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Data
@@ -54,10 +53,10 @@ public class Project extends AbstractEntity{
     @NotNull
     private Status projectStatus;
 
-    @ManyToMany(mappedBy = "invitedProjects")
+    @ManyToMany(mappedBy = "projectsAssignedToEmployee")
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Employee> employeeList = new ArrayList<>();
+    private List<Employee> employeesAssignedToProject = new ArrayList<>();
 
     public Project(String name, String description, Employee creatorEmployee, Status projectStatus) {
         this.name = name;

@@ -15,9 +15,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Getter
@@ -71,11 +69,12 @@ public class Employee extends AbstractEntity{
 
     @ManyToMany
     @JoinTable(
-            name = "invitedEmployeesToProject",
+            name = "projectsAssignedToEmployees",
             joinColumns = { @JoinColumn(name = "employeeId")},
             inverseJoinColumns = { @JoinColumn(name = "projectId")}
     )
-    private List<Project> invitedProjects = new ArrayList<>();
+    private List<Project> projectsAssignedToEmployee = new ArrayList<>();
+
 
     // TODO: things i needed to add when extracting fields to Usesr entity
 
