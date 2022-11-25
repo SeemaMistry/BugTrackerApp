@@ -31,14 +31,15 @@ public class User extends AbstractEntity{
     private String passwordSalt;
     private String passwordHash;
 
-    //@NotNull
+    @NotNull
     private Role role;
 
-//    @ManyToOne
-//    @JoinColumn(name = "account_status_id")
-//    @NotNull
-//    @JsonIgnoreProperties({"accountStatuses"})
-//    private AccountStatus accountStatus;
+    @ManyToOne
+    @JoinColumn(name = "accountStatusId")
+    @NotNull
+    private AccountStatus accountStatus;
+
+    //TODO: map 1:1 relation to Employee
 
     public User(String username, String password, Role role) {
         this.username = username;
