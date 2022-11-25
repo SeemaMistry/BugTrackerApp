@@ -7,7 +7,6 @@ import javax.annotation.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -22,7 +21,7 @@ public class AccountStatus extends AbstractEntity {
 
     @OneToMany(mappedBy =  "accountStatus")
     @Nullable
-    private List<Employee> accountStatuses = new ArrayList<>();
+    private List<User> accountStatuses = new ArrayList<>();
 
     public AccountStatus(String name) {
         this.name = name;
