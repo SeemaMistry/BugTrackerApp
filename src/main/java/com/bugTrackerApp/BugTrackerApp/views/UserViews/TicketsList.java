@@ -1,7 +1,11 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
+import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -15,16 +19,18 @@ import javax.annotation.security.RolesAllowed;
 @RolesAllowed({"USER", "ADMIN"})
 public class TicketsList extends VerticalLayout implements HasUrlParameter<String> {
     TicketSystemService TTService;
+    UserRelationsService URService;
     Grid<Ticket> grid = new Grid<>(Ticket.class);
 
     // search for tickets based on employee ComboBox
-
+    ComboBox<Employee> filterText = new ComboBox<>("Search Tickets by Employee");
 
     // store URLParameter name here
     String projectName;
 
-    public TicketsList(TicketSystemService TTService) {
+    public TicketsList(TicketSystemService TTService, UserRelationsService URService) {
         this.TTService = TTService;
+        this.URService = URService;
     }
 
     private void getContent() {
@@ -32,7 +38,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         setSizeFull();
         configureGrid();
         grid.setSizeFull();
-        add(welcome, grid);
+        add(welcome, getToolbar(), grid);
         updateGrid();
     }
 
@@ -41,6 +47,16 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         grid.setColumns("subject", "dueDate");
         grid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    // configure the filterText
+    private HorizontalLayout getToolbar(){
+        filterText.setItems(URService.findAllEmployees(null));
+        filterText.setItemLabelGenerator(Employee::getFullName);
+        filterText.addValueChangeListener(e -> updateListBySearch());
+        filterText.setPlaceholder("Search Employee");
+
+        return new HorizontalLayout(filterText);
     }
 
     @Override
@@ -54,5 +70,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         grid.setItems(TTService.findAllTickets(this.projectName));
     }
 
+    private void updateListBySearch(){
+        grid.setItems(TTService.findTicketsAssignedToEmployee(filterText.getValue()));
+    }
 
 }
