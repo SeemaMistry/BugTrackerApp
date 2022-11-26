@@ -33,7 +33,7 @@ public class Ticket extends AbstractEntity{
     @UpdateTimestamp
     private Timestamp updatedDate;
 
-   @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dueDate;
 
     @ManyToOne

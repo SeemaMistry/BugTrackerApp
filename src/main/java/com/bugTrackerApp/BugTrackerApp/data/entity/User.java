@@ -1,6 +1,5 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,9 +7,8 @@ import lombok.Setter;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 
-import javax.annotation.Nullable;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -39,7 +37,7 @@ public class User extends AbstractEntity{
     @NotNull
     private AccountStatus accountStatus;
 
-    //TODO: map 1:1 relation to Employee
+    // TODO: map 1:1 relation to Employee
 
     public User(String username, String password, Role role) {
         this.username = username;

@@ -26,6 +26,9 @@ import java.util.List;
         @AttributeOverride(name = "id", column = @Column(name = "employeeId"))
 })
 public class Employee extends AbstractEntity{
+
+    // TODO: map 1:1 relation to User
+
     @ManyToOne
     @JoinColumn(name = "companyId")
     @NotNull
@@ -75,10 +78,6 @@ public class Employee extends AbstractEntity{
     )
     private List<Project> projectsAssignedToEmployee = new ArrayList<>();
 
-
-    // TODO: things i needed to add when extracting fields to Usesr entity
-
-
     public Employee(Company company, SecurityClearance securityClearance, String firstName, String lastName, String email) {
         this.company = company;
         this.securityClearance = securityClearance;
@@ -87,36 +86,9 @@ public class Employee extends AbstractEntity{
         this.email = email;
     }
 
-
     // get custom fullname
     public String getFullName() {
         return (firstName + " " + lastName);
     }
-
-
-    //TODO: things ive removed when i extracted some fields into Usesr entity
-    //TODO: might delete later
-//    public Employee(Company company, String firstName, String lastName, String email, String username, String password) {
-//        this.company = company;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.username = username;
-//        this.password = password;
-//    }
-
-//    @ManyToOne
-//    @JoinColumn(name = "account_status_id")
-//    @NotNull
-//    @JsonIgnoreProperties({"accountStatuses"})
-//    private AccountStatus accountStatus;
-
-//    @Column(unique = true)
-//    @NotEmpty
-//    private String username = "";
-//
-//    @Nullable
-//    private String password = "";
-
 
 }
