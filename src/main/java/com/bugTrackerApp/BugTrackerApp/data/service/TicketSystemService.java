@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -124,4 +125,13 @@ public class TicketSystemService {
     }
 
     //CUSTOM QUERIES
+    public List<Ticket> findTicketsAssignedToEmployee(Employee e){
+        if (e != null) {
+            return ticketRepo.findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(e.getId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
+
+
 }
