@@ -27,7 +27,8 @@ import java.util.List;
 })
 public class Employee extends AbstractEntity{
 
-    // TODO: map 1:1 relation to User
+    @OneToOne(mappedBy = "employee")
+    private User userAccountDetail;
 
     @ManyToOne
     @JoinColumn(name = "companyId")

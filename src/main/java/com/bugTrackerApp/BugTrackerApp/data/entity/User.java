@@ -37,7 +37,9 @@ public class User extends AbstractEntity{
     @NotNull
     private AccountStatus accountStatus;
 
-    // TODO: map 1:1 relation to Employee
+    @OneToOne
+    @JoinColumn(name = "employeeId", nullable = true)
+    private Employee employee;
 
     public User(String username, String password, Role role) {
         this.username = username;
