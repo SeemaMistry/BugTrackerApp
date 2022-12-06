@@ -33,8 +33,7 @@ public class User extends AbstractEntity{
 //    @NotNull
     private AccountStatus accountStatus;
 
-    @OneToOne
-    @JoinColumn(name = "employeeId")
+    @OneToOne(mappedBy = "userAccountDetail", cascade = CascadeType.ALL)
     private Employee employee;
 
     public User(String username, String password, Role role) {
