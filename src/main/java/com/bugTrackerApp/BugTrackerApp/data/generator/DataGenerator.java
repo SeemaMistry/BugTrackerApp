@@ -103,6 +103,8 @@ public class DataGenerator {
             employeeExampleDataGenerator.setData(Employee::setFirstName, DataType.FIRST_NAME);
             employeeExampleDataGenerator.setData(Employee::setLastName, DataType.LAST_NAME);
             employeeExampleDataGenerator.setData(Employee::setEmail, DataType.EMAIL);
+//            employeeExampleDataGenerator.setData(Employee::setUserAccountDetail, new User(Employee::getFirstName, Employee::getLastName, Role.USER));
+
 
             // TODO: things i removed when i extracted some fields to User entity
 //            employeeExampleDataGenerator.setData(Employee::setUsername, DataType.FULL_NAME); // set username as fullname for now
@@ -116,6 +118,7 @@ public class DataGenerator {
 //                employee.setAccountStatus(accountStatuses.get(0));
 
                 employee.setSecurityClearance(securityClearances.get(1));
+                employee.setUserAccountDetail(new User(employee.getFirstName(), employee.getFirstName(), Role.USER));
                 return employee;
             }).collect(Collectors.toList());
 

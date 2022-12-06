@@ -6,6 +6,7 @@ import org.hibernate.annotations.*;
 
 import javax.annotation.Nullable;
 import javax.persistence.*;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
@@ -23,7 +24,7 @@ import java.util.List;
 })
 public class Employee extends AbstractEntity{
 
-    @OneToOne(mappedBy = "employee")
+    @OneToOne(mappedBy = "employee", cascade = {CascadeType.ALL})
     private User userAccountDetail;
 
     @ManyToOne

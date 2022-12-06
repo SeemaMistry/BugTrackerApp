@@ -30,11 +30,11 @@ public class User extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "accountStatusId")
-    @NotNull
+//    @NotNull
     private AccountStatus accountStatus;
 
     @OneToOne
-    @JoinColumn(name = "employeeId", nullable = true)
+    @JoinColumn(name = "employeeId")
     private Employee employee;
 
     public User(String username, String password, Role role) {
