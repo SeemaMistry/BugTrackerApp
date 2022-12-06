@@ -22,7 +22,7 @@ import java.util.List;
 })
 public class Ticket extends AbstractEntity{
 
-    @NotNull
+    @NotNull 
     private String subject;
 
     @CreationTimestamp
