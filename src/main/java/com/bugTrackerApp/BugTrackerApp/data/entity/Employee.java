@@ -66,10 +66,12 @@ public class Employee extends AbstractEntity{
 
     // 1:M ETP mapped to composite key employee,
     // and comment out below
-    @ManyToMany(mappedBy = "employeesAssignedToTicket")
-    @Fetch(FetchMode.SELECT)
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Ticket> ticketsAssignedToEmployees = new ArrayList<>();
+    @OneToMany(mappedBy = "employee")
+    List<EmployeeTicketProject> assignedTickets = new ArrayList<>();
+//    @ManyToMany(mappedBy = "employeesAssignedToTicket")
+//    @Fetch(FetchMode.SELECT)
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private List<Ticket> ticketsAssignedToEmployees = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(

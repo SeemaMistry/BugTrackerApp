@@ -58,6 +58,8 @@ public class Project extends AbstractEntity{
     private List<Employee> employeesAssignedToProject = new ArrayList<>();
 
     // 1:M ETP mapped to composite key project
+    @OneToMany(mappedBy = "project")
+    List<EmployeeTicketProject> assignedTickets = new ArrayList<>();
 
     public Project(String name, String description, Employee creatorEmployee, Status projectStatus) {
         this.name = name;

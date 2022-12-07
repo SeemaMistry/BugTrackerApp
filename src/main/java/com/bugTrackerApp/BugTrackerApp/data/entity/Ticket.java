@@ -37,7 +37,7 @@ public class Ticket extends AbstractEntity{
     @ManyToOne
     @JoinColumn(name = "projectId")
     @NotNull
-    @JsonIgnoreProperties({"projectStatus", "employeesAssignedToTicket", "tickets", "creatorEmployee"})
+//    @JsonIgnoreProperties({"projectStatus", "employeesAssignedToTicket", "tickets", "creatorEmployee"})
     private Project project;
 
     @ManyToOne
@@ -71,14 +71,16 @@ public class Ticket extends AbstractEntity{
 
     // 1:M ETP mapped to composite key ticket,
     // and comment out below
-    @ManyToMany
-    @JoinTable(
-            name =  "ticketsAssignedToEmployees",
-            joinColumns = { @JoinColumn(name = "ticketId") },
-            inverseJoinColumns = { @JoinColumn(name = "employeeId") }
-    )
-    @LazyCollection(LazyCollectionOption.FALSE)
-    private List<Employee> employeesAssignedToTicket = new ArrayList<>();
+    @OneToMany(mappedBy = "project")
+    List<EmployeeTicketProject> assignedTickets = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name =  "ticketsAssignedToEmployees",
+//            joinColumns = { @JoinColumn(name = "ticketId") },
+//            inverseJoinColumns = { @JoinColumn(name = "employeeId") }
+//    )
+//    @LazyCollection(LazyCollectionOption.FALSE)
+//    private List<Employee> employeesAssignedToTicket = new ArrayList<>();
 
     public Ticket(String subject,
                   LocalDate dueDate,
@@ -99,24 +101,24 @@ public class Ticket extends AbstractEntity{
     }
 
     // comment out this constructor or alter List<Employee>?
-    public Ticket(String subject,
-                  LocalDate dueDate,
-                  Project project,
-                  Employee ticketReporter,
-                  TicketPriority ticketPriority,
-                  TicketEstimatedTime ticketEstimatedTime,
-                  TicketType ticketType,
-                  Status ticketStatus,
-                  List<Employee> employeesAssignedToTicket) {
-        this.subject = subject;
-        this.dueDate = dueDate;
-        this.project = project;
-        this.ticketReporter = ticketReporter;
-        this.ticketPriority = ticketPriority;
-        this.ticketEstimatedTime = ticketEstimatedTime;
-        this.ticketType = ticketType;
-        this.ticketStatus = ticketStatus;
-        this.employeesAssignedToTicket = employeesAssignedToTicket;
-    }
+//    public Ticket(String subject,
+//                  LocalDate dueDate,
+//                  Project project,
+//                  Employee ticketReporter,
+//                  TicketPriority ticketPriority,
+//                  TicketEstimatedTime ticketEstimatedTime,
+//                  TicketType ticketType,
+//                  Status ticketStatus,
+//                  List<Employee> employeesAssignedToTicket) {
+//        this.subject = subject;
+//        this.dueDate = dueDate;
+//        this.project = project;
+//        this.ticketReporter = ticketReporter;
+//        this.ticketPriority = ticketPriority;
+//        this.ticketEstimatedTime = ticketEstimatedTime;
+//        this.ticketType = ticketType;
+//        this.ticketStatus = ticketStatus;
+//        this.employeesAssignedToTicket = employeesAssignedToTicket;
+//    }
 
 }
