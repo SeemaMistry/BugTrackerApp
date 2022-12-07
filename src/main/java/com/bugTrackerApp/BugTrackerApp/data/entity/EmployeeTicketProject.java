@@ -11,4 +11,15 @@ import javax.persistence.Entity;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeTicketProject {
+
+    // embedded ETP key
+
+    // M:1 employee mapping to key
+
+    // M:1 ticket mapping to key
+
+    // M:1 project mapping to key
+
+    // constructor WITHOUT key
+
 }

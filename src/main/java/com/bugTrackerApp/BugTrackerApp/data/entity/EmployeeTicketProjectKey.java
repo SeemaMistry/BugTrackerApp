@@ -14,4 +14,10 @@ import java.io.Serializable;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class EmployeeTicketProjectKey implements Serializable {
+
+    // employee column
+
+    // ticket column
+
+    // project column
 }
