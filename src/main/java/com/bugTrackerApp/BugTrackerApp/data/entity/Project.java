@@ -57,6 +57,8 @@ public class Project extends AbstractEntity{
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Employee> employeesAssignedToProject = new ArrayList<>();
 
+    // 1:M ETP mapped to composite key project
+
     public Project(String name, String description, Employee creatorEmployee, Status projectStatus) {
         this.name = name;
         this.description = description;

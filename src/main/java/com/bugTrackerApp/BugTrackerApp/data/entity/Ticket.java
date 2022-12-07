@@ -69,6 +69,8 @@ public class Ticket extends AbstractEntity{
     @JsonIgnoreProperties({"description", "tickets",  "projects"})
     private Status ticketStatus;
 
+    // 1:M ETP mapped to composite key ticket,
+    // and comment out below
     @ManyToMany
     @JoinTable(
             name =  "ticketsAssignedToEmployees",
@@ -96,6 +98,7 @@ public class Ticket extends AbstractEntity{
         this.ticketStatus = ticketStatus;
     }
 
+    // comment out this constructor or alter List<Employee>?
     public Ticket(String subject,
                   LocalDate dueDate,
                   Project project,

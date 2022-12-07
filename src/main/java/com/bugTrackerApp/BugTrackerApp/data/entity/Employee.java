@@ -64,6 +64,8 @@ public class Employee extends AbstractEntity{
     @CreationTimestamp
     private Timestamp createdDate;
 
+    // 1:M ETP mapped to composite key employee,
+    // and comment out below
     @ManyToMany(mappedBy = "employeesAssignedToTicket")
     @Fetch(FetchMode.SELECT)
     @LazyCollection(LazyCollectionOption.FALSE)
