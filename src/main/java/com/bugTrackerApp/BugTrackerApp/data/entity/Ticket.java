@@ -80,7 +80,8 @@ public class Ticket extends AbstractEntity{
 //            inverseJoinColumns = { @JoinColumn(name = "employeeId") }
 //    )
 //    @LazyCollection(LazyCollectionOption.FALSE)
-//    private List<Employee> employeesAssignedToTicket = new ArrayList<>();
+    @Transient
+    private List<Employee> employeesAssignedToTicket = new ArrayList<>();
 
     public Ticket(String subject,
                   LocalDate dueDate,
@@ -101,24 +102,24 @@ public class Ticket extends AbstractEntity{
     }
 
     // comment out this constructor or alter List<Employee>?
-//    public Ticket(String subject,
-//                  LocalDate dueDate,
-//                  Project project,
-//                  Employee ticketReporter,
-//                  TicketPriority ticketPriority,
-//                  TicketEstimatedTime ticketEstimatedTime,
-//                  TicketType ticketType,
-//                  Status ticketStatus,
-//                  List<Employee> employeesAssignedToTicket) {
-//        this.subject = subject;
-//        this.dueDate = dueDate;
-//        this.project = project;
-//        this.ticketReporter = ticketReporter;
-//        this.ticketPriority = ticketPriority;
-//        this.ticketEstimatedTime = ticketEstimatedTime;
-//        this.ticketType = ticketType;
-//        this.ticketStatus = ticketStatus;
-//        this.employeesAssignedToTicket = employeesAssignedToTicket;
-//    }
+    public Ticket(String subject,
+                  LocalDate dueDate,
+                  Project project,
+                  Employee ticketReporter,
+                  TicketPriority ticketPriority,
+                  TicketEstimatedTime ticketEstimatedTime,
+                  TicketType ticketType,
+                  Status ticketStatus,
+                  List<Employee> employeesAssignedToTicket) {
+        this.subject = subject;
+        this.dueDate = dueDate;
+        this.project = project;
+        this.ticketReporter = ticketReporter;
+        this.ticketPriority = ticketPriority;
+        this.ticketEstimatedTime = ticketEstimatedTime;
+        this.ticketType = ticketType;
+        this.ticketStatus = ticketStatus;
+        this.employeesAssignedToTicket = employeesAssignedToTicket;
+    }
 
 }
