@@ -14,6 +14,6 @@ public interface TicketRepository extends JpaRepository<Ticket, UUID> {
     )
     List<Ticket> findTicketByProjectName(@Param("pName") String name);
 
-    List<Ticket> findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(UUID id);
+//    List<Ticket> findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(UUID id);
 
 }

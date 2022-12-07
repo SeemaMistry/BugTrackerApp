@@ -173,29 +173,29 @@ public class DataGenerator {
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
                             statuses.get(0)
-                    ),
-                    new Ticket(
-                            "Tester of set of employees",
-                            LocalDate.of(2022,9,10),
-                            projects.get(2),
-                            employees.get(1),
-                            ticketPriorities.get(0),
-                            ticketEstimatedTimes.get(4),
-                            ticketTypes.get(0),
-                            statuses.get(0),
-                            Arrays.asList(employees.get(1))
-                    ),
-                    new Ticket(
-                            "Tester of Barry R. List appearance",
-                            LocalDate.of(2022,9,10),
-                            projects.get(1),
-                            employees.get(1),
-                            ticketPriorities.get(0),
-                            ticketEstimatedTimes.get(4),
-                            ticketTypes.get(0),
-                            statuses.get(0),
-                            Arrays.asList(employees.get(1))
                     )
+//                    new Ticket(
+//                            "Tester of set of employees",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(2),
+//                            employees.get(1),
+//                            ticketPriorities.get(0),
+//                            ticketEstimatedTimes.get(4),
+//                            ticketTypes.get(0),
+//                            statuses.get(0),
+//                            Arrays.asList(employees.get(1))
+//                    ),
+//                    new Ticket(
+//                            "Tester of Barry R. List appearance",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(1),
+//                            employees.get(1),
+//                            ticketPriorities.get(0),
+//                            ticketEstimatedTimes.get(4),
+//                            ticketTypes.get(0),
+//                            statuses.get(0),
+//                            Arrays.asList(employees.get(1))
+//                    )
             );
             ticketRepo.saveAll(tickets);
 

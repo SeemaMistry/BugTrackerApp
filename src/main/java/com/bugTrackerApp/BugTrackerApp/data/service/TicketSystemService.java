@@ -127,7 +127,8 @@ public class TicketSystemService {
     //CUSTOM QUERIES
     public List<Ticket> findTicketsAssignedToEmployee(Employee e){
         if (e != null) {
-            return ticketRepo.findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(e.getId());
+//            return ticketRepo.findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(e.getId());
+            return new ArrayList<>();
         } else {
             return new ArrayList<>();
         }
