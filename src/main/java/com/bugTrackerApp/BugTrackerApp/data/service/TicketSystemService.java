@@ -137,5 +137,13 @@ public class TicketSystemService {
         return projectRepo.findByName(name);
     }
 
+    // search for all tickets in project by employee
+    public List<Ticket> searchTicketByProjectAndEmployee(Project p, Employee e) {
+        if(e != null){
+            return ticketRepo.findTicketsAssignedToEmployeesByEmployeesAssignedToTicketIdAndProjectId(e.getId(), p.getId());
+        } else {
+            return new ArrayList<>();
+        }
+    }
 
 }
