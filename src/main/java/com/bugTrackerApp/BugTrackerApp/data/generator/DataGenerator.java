@@ -29,7 +29,8 @@ public class DataGenerator {
                                       StatusRepository statusRepo,
                                       EmployeeRepository employeeRepo,
                                       ProjectRepository projectRepo,
-                                      TicketRepository ticketRepo
+                                      TicketRepository ticketRepo,
+                                      EmployeeTicketProjectRepo employeeTicketProjectRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -133,47 +134,47 @@ public class DataGenerator {
             );
             projectRepo.saveAll(projects);
 
-            List<Ticket> tickets = Arrays.asList(
-                    new Ticket(
-                            "Button to save not working",
-                            LocalDate.of(2022,9,10),
-                            projects.get(0),
-                            employees.get(5),
-                            ticketPriorities.get(0),
-                            ticketEstimatedTimes.get(0),
-                            ticketTypes.get(1),
-                            statuses.get(0)
-                            ),
-                    new Ticket(
-                            "Button to save the wrong colour",
-                            LocalDate.of(2022,9,10),
-                            projects.get(0),
-                            employees.get(5),
-                            ticketPriorities.get(2),
-                            ticketEstimatedTimes.get(3),
-                            ticketTypes.get(4),
-                            statuses.get(0)
-                    ),
-                    new Ticket(
-                            "Add a menu bar for navigation",
-                            LocalDate.of(2022,9,10),
-                            projects.get(1),
-                            employees.get(6),
-                            ticketPriorities.get(0),
-                            ticketEstimatedTimes.get(4),
-                            ticketTypes.get(0),
-                            statuses.get(0)
-                    ),
-                    new Ticket(
-                            "Add a menu bar for navigation",
-                            LocalDate.of(2022,9,10),
-                            projects.get(2),
-                            employees.get(6),
-                            ticketPriorities.get(0),
-                            ticketEstimatedTimes.get(4),
-                            ticketTypes.get(0),
-                            statuses.get(0)
-                    )
+//            List<Ticket> tickets = Arrays.asList(
+//                    new Ticket(
+//                            "Button to save not working",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(0),
+//                            employees.get(5),
+//                            ticketPriorities.get(0),
+//                            ticketEstimatedTimes.get(0),
+//                            ticketTypes.get(1),
+//                            statuses.get(0)
+//                            ),
+//                    new Ticket(
+//                            "Button to save the wrong colour",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(0),
+//                            employees.get(5),
+//                            ticketPriorities.get(2),
+//                            ticketEstimatedTimes.get(3),
+//                            ticketTypes.get(4),
+//                            statuses.get(0)
+//                    ),
+//                    new Ticket(
+//                            "Add a menu bar for navigation",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(1),
+//                            employees.get(6),
+//                            ticketPriorities.get(0),
+//                            ticketEstimatedTimes.get(4),
+//                            ticketTypes.get(0),
+//                            statuses.get(0)
+//                    ),
+//                    new Ticket(
+//                            "Add a menu bar for navigation",
+//                            LocalDate.of(2022,9,10),
+//                            projects.get(2),
+//                            employees.get(6),
+//                            ticketPriorities.get(0),
+//                            ticketEstimatedTimes.get(4),
+//                            ticketTypes.get(0),
+//                            statuses.get(0)
+//                    ),
 //                    new Ticket(
 //                            "Tester of set of employees",
 //                            LocalDate.of(2022,9,10),
@@ -196,8 +197,57 @@ public class DataGenerator {
 //                            statuses.get(0),
 //                            Arrays.asList(employees.get(1))
 //                    )
+//            );
+//
+//            // double loop through tickets -> employeesAssigned list to populate composite key entity table
+////            List<EmployeeTicketProject> allTicketETPs = new ArrayList<>();
+//            for (Ticket t : tickets) {
+//
+////             if (t.getEmployeesAssignedToTicket().size() != 0 ) {
+//                     List<EmployeeTicketProject> ticketETP = new ArrayList<>();
+//                     for (Employee e : t.getEmployeesAssignedToTicket()) {
+//                         // add each employee as a row into the EmployeeTicketProject table
+//                         ticketETP.add(new EmployeeTicketProject(e, t, t.getProject()));
+//                     }
+//                     // add ETP list of this ticket to allTicketETPs
+//                     t.setAssignedTickets(ticketETP);
+//                     ticketRepo.save(t);
+//                     employeeTicketProjectRepo.saveAll(ticketETP);
+////                 }
+//
+//            }
+
+            Ticket oneTicket = new Ticket(
+                    "Tester of set of employees",
+                    LocalDate.of(2022,9,10),
+                    projects.get(2),
+                    employees.get(1),
+                    ticketPriorities.get(0),
+                    ticketEstimatedTimes.get(4),
+                    ticketTypes.get(0),
+                    statuses.get(0),
+                    Arrays.asList(employees.get(1), employees.get(2))
             );
-            ticketRepo.saveAll(tickets);
+            System.out.println("\n~~~~~~~~~~~~~~~~~~HELLO WORLD THIS IS WORKING ~~~~~~~~~~~~~\n");
+//            System.out.println(oneTicket);
+            System.out.println("\n~~~~~~~~~~~~~~~~~~HELLO WORLD THIS IS WORKING ~~~~~~~~~~~~~\n");
+
+            List<EmployeeTicketProject> etp = new ArrayList<>();
+            for (Employee e : oneTicket.getEmployeesAssignedToTicket()) {
+                etp.add(new EmployeeTicketProject(e, oneTicket, oneTicket.getProject()));
+            }
+
+            System.out.println("\n~~~~~~~~~~~~~~~~~~HELLO WORLD THIS IS WORKING ~~~~~~~~~~~~~\n");
+            System.out.println(etp.get(0));
+            System.out.println("\n~~~~~~~~~~~~~~~~~~HELLO WORLD THIS IS WORKING ~~~~~~~~~~~~~\n");
+
+            oneTicket.setAssignedTickets(etp);
+            ticketRepo.save(oneTicket);
+            employeeTicketProjectRepo.saveAll(etp);
+
+
+
+//            ticketRepo.saveAll(tickets);
 
             logger.info("Generating demo data");
 

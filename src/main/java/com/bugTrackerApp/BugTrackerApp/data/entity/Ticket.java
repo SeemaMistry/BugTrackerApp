@@ -71,7 +71,8 @@ public class Ticket extends AbstractEntity{
 
     // 1:M ETP mapped to composite key ticket,
     // and comment out below
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "ticket")
+    @JsonIgnoreProperties({"subject", "createdDate", "updatedDate", "dueDate", "project", "ticketReporter", "ticketPriority", "ticketEstimatedTime", "ticketType", "employeesAssignedToTicket"})
     List<EmployeeTicketProject> assignedTickets = new ArrayList<>();
 //    @ManyToMany
 //    @JoinTable(

@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.data.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -18,14 +19,17 @@ import java.util.UUID;
 public class EmployeeTicketProjectKey implements Serializable {
 
     // employee column
-    @Column(name = "employee")
+    @Column(name = "employeeId")
+    @JsonIgnoreProperties({"userAccountDetail", "company", "securityClearance", "firstName", "lastName", "email", "reportedTickets", "projectsCreated", "projectsAssignedToEmployee"})
     UUID employeeId;
 
     // ticket column
-    @Column(name = "ticket")
+    @Column(name = "ticketId")
+    @JsonIgnoreProperties({"subject", "createdDate", "updatedDate", "dueDate", "project", "ticketReporter", "ticketPriority", "ticketEstimatedTime", "ticketType", "employeesAssignedToTicket", "assignedTickets"})
     UUID ticketId;
 
     // project column
-    @Column(name = "project")
+    @Column(name = "projectId")
+    @JsonIgnoreProperties({"name", "description", "createdDate", "updateDate", "company", "creatorEmployee", "tickets", "projectStatus", "employeesAssignedToProject"})
     UUID projectId;
 }
