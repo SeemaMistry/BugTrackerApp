@@ -76,7 +76,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     }
 
     private void updateListBySearch(){
-        grid.setItems(TTService.findTicketsAssignedToEmployee(filterText.getValue()));
+//        grid.setItems(TTService.findTicketsAssignedToEmployee(filterText.getValue()));
+        grid.setItems(TTService.searchTicketByProjectAndEmployee(project, filterText.getValue()));
     }
 
 }
