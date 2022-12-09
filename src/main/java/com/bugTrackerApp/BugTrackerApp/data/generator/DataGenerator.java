@@ -118,8 +118,8 @@ public class DataGenerator {
 //                employee.setAccountStatus(accountStatuses.get(0));
 
                 employee.setSecurityClearance(securityClearances.get(1));
-                employee.setUserAccountDetail(new User(employee.getFirstName(), employee.getFirstName(), Role.USER));
-                employee.getUserAccountDetail().setAccountStatus(accountStatuses.get(0));
+//                employee.setUserAccountDetail(new User(employee.getFirstName(), employee.getFirstName(), Role.USER));
+//                employee.getUserAccountDetail().setAccountStatus(accountStatuses.get(0));
 
                 return employee;
             }).collect(Collectors.toList());

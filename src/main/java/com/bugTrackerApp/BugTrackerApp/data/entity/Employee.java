@@ -24,9 +24,9 @@ import java.util.List;
 })
 public class Employee extends AbstractEntity{
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "userId")
-    private User userAccountDetail;
+//    @OneToOne(cascade = {CascadeType.ALL})
+//    @JoinColumn(name = "userId")
+//    private User userAccountDetail;
 
     @ManyToOne
     @JoinColumn(name = "companyId")
