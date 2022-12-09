@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
+import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
@@ -8,6 +9,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
@@ -27,6 +29,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // store URLParameter name here
     String projectName;
+    Project project;
 
     public TicketsList(TicketSystemService TTService, UserRelationsService URService) {
         this.TTService = TTService;
@@ -38,7 +41,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         setSizeFull();
         configureGrid();
         grid.setSizeFull();
-        add(welcome, getToolbar(), grid);
+        H2 projectH2 = new H2(this.project.getName());
+        add(welcome, getToolbar(), grid, projectH2);
         updateGrid();
     }
 
@@ -62,6 +66,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     @Override
     public void setParameter(BeforeEvent beforeEvent, String name) {
         this.projectName = name.replaceAll("%20", " ");
+        this.project = TTService.findProjectByName(projectName);
         getContent();
 
     }

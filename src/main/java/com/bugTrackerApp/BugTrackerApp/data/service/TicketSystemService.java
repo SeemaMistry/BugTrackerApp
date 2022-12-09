@@ -133,5 +133,9 @@ public class TicketSystemService {
         }
     }
 
+    public Project findProjectByName(String name) {
+        return projectRepo.findByName(name);
+    }
+
 
 }
