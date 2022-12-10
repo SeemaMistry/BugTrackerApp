@@ -41,8 +41,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         setSizeFull();
         configureGrid();
         grid.setSizeFull();
-        H2 projectH2 = new H2(this.project.getName());
-        add(welcome, getToolbar(), grid, projectH2);
+        add(welcome, getToolbar(), grid);
         updateGrid();
     }
 
