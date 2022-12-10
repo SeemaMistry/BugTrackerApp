@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
@@ -84,7 +85,14 @@ public class TicketForm extends FormLayout {
     private void configureMultiSelectComboBox() {}
 
     // button layout and click events
-    private HorizontalLayout createButtonLayout() {return new HorizontalLayout();}
+    private HorizontalLayout createButtonLayout() {
+        // set button colors
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        return new HorizontalLayout(save, delete, close);
+    }
 
     // validate and save ticket
 
