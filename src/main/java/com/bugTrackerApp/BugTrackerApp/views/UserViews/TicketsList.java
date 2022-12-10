@@ -80,12 +80,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // single select a ticket to see employees assigned
         ticketGrid.asSingleSelect().addValueChangeListener( e -> {
             // if ticket selected, populate employeeGrid with assigned employees, else close employeeGrid
-            if (e.getValue() != null)  {
-                populateEmployeeGrid(e.getValue());
-            } else {
-                closeEmployeeGrid();
-            }
-//            e.getValue() != null ? populateEmployeeGrid() : closeEmployeeGrid();
+            if (e.getValue() != null) { populateEmployeeGrid(e.getValue()); }
+            else { closeEmployeeGrid(); }
         });
     }
 
