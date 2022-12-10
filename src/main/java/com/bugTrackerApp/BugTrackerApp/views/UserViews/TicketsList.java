@@ -20,14 +20,16 @@ import javax.annotation.security.RolesAllowed;
 @Route(value="tickets")
 @RolesAllowed({"USER", "ADMIN"})
 public class TicketsList extends VerticalLayout implements HasUrlParameter<String> {
+    // Services
     TicketSystemService TTService;
     UserRelationsService URService;
-    Grid<Ticket> grid = new Grid<>(Ticket.class);
 
+    // Components: tickets grid, employee grid, ticket and employee search ComboBoxes
+    Grid<Ticket> grid = new Grid<>(Ticket.class);
     // search for tickets based on employee ComboBox
     ComboBox<Employee> filterText = new ComboBox<>("Search Tickets by Employee");
 
-    // store URLParameter name here
+    // store URLParameter Project object here
     String projectName;
     Project project;
 
@@ -36,46 +38,61 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         this.URService = URService;
     }
 
+    // display page content: grids and search ComboBoxes, and forms. Functions as constructor usually does
     private void getContent() {
         H1 welcome = new H1("A list of all the tickets for project: " + this.projectName);
+
+        // configure grids
         setSizeFull();
         configureGrid();
         grid.setSizeFull();
+
+        // display grids and update grids
         add(welcome, getToolbar(), grid);
         updateGrid();
     }
 
+    // configure Ticket grid
     private void configureGrid() {
         grid.setSizeFull();
+        // configure columns
         grid.setColumns("subject", "dueDate");
         grid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
-    // configure the filterText
+    // configure the employee search ComboBox
     private HorizontalLayout getToolbar(){
+        // find all employees assigned to this project
         filterText.setItems(URService.findAllEmployees(null));
         filterText.setItemLabelGenerator(Employee::getFullName);
+
+        // update ticket grid when search ComboBox applied
         filterText.addValueChangeListener(e -> updateListBySearch());
         filterText.setPlaceholder("Search Employee");
 
         return new HorizontalLayout(filterText);
     }
 
+    // HasURLParameter override: parse url string to retrieve and store Project object to class
     @Override
     public void setParameter(BeforeEvent beforeEvent, String name) {
         this.projectName = name.replaceAll("%20", " ");
         this.project = TTService.findProjectByName(projectName);
+
+        // call getContent() to render components to webpage
+        // getContent() acts as the constructor
         getContent();
 
     }
 
+    // update ticket grid to find all the tickets
     private void updateGrid() {
         grid.setItems(TTService.findAllTickets(this.projectName));
     }
 
+    // update ticket grid by employee search ComboBox value
     private void updateListBySearch(){
-//        grid.setItems(TTService.findTicketsAssignedToEmployee(filterText.getValue()));
         grid.setItems(TTService.searchTicketByProjectAndEmployee(project, filterText.getValue()));
     }
 
