@@ -62,6 +62,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // display grids and update grids
         add(welcome, getToolbar(), ticketGrid, employeeGrid);
         updateGrid();
+        closeEmployeeGrid();
     }
 
     // configure Ticket ticketGrid
@@ -71,6 +72,17 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setColumns("subject", "dueDate");
         ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
         ticketGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        // single select a ticket to see employees assigned
+        ticketGrid.asSingleSelect().addValueChangeListener( e -> {
+            // if ticket selected, populate employeeGrid with assigned employees, else close employeeGrid
+            if (e.getValue() != null)  {
+                populateEmployeeGrid(e.getValue());
+            } else {
+                closeEmployeeGrid();
+            }
+//            e.getValue() != null ? populateEmployeeGrid() : closeEmployeeGrid();
+        });
     }
 
     // configure Employee employee grid
@@ -102,6 +114,16 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // update ticket ticketGrid by employee search ComboBox value
     private void updateListBySearch(){
         ticketGrid.setItems(TTService.searchTicketByProjectAndEmployee(project, searchTicketsByEmployee.getValue()));
+    }
+
+    // populate employeeGrid with assigned employees
+    private void populateEmployeeGrid(Ticket ticket){
+        employeeGrid.setItems(ticket.getEmployeesAssignedToTicket());
+        employeeGrid.setVisible(true);
+    }
+
+    private void closeEmployeeGrid(){
+        employeeGrid.setVisible(false);
     }
 
 }
