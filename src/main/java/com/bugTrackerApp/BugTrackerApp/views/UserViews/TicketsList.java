@@ -38,6 +38,17 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         this.URService = URService;
     }
 
+    // HasURLParameter override: parse url string to retrieve and store Project object to class
+    @Override
+    public void setParameter(BeforeEvent beforeEvent, String name) {
+        this.projectName = name.replaceAll("%20", " ");
+        this.project = TTService.findProjectByName(projectName);
+
+        // call getContent() to render components to webpage
+        // getContent() acts as the constructor
+        getContent();
+    }
+
     // display page content: grids and search ComboBoxes, and forms. Functions as constructor usually does
     private void getContent() {
         H1 welcome = new H1("A list of all the tickets for project: " + this.projectName);
@@ -72,18 +83,6 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         filterText.setPlaceholder("Search Employee");
 
         return new HorizontalLayout(filterText);
-    }
-
-    // HasURLParameter override: parse url string to retrieve and store Project object to class
-    @Override
-    public void setParameter(BeforeEvent beforeEvent, String name) {
-        this.projectName = name.replaceAll("%20", " ");
-        this.project = TTService.findProjectByName(projectName);
-
-        // call getContent() to render components to webpage
-        // getContent() acts as the constructor
-        getContent();
-
     }
 
     // update ticket grid to find all the tickets
