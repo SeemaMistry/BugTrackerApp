@@ -15,6 +15,7 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TicketForm extends FormLayout {
     // Components: TextField, Multiselect ComboBox, ComboBox, Buttons
@@ -82,7 +83,16 @@ public class TicketForm extends FormLayout {
     }
 
     // stream employees selected from multiselect comboBox as a string to TextArea
-    private void configureMultiSelectComboBox() {}
+    private void configureMultiSelectComboBox() {
+        // map full names of employees selected to read only TextArea
+        employeesAssignedToTicket.addValueChangeListener(e -> {
+            String assignedEmployeesText = e.getValue()
+                    .stream()
+                    .map(Employee::getFullName)
+                    .collect(Collectors.joining(", "));
+            assignedEmployees.setValue(assignedEmployeesText);
+        });
+    }
 
     // button layout and click events
     private HorizontalLayout createButtonLayout() {
