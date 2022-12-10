@@ -22,33 +22,39 @@ import javax.annotation.security.RolesAllowed;
 @Route(value="projects")
 @RolesAllowed({"USER", "ADMIN"})
 public class ProjectsList extends VerticalLayout {
-    Grid<Project> grid = new Grid<>(Project.class);
-    TextField filterText = new TextField();
-
-    ProjectForm projectForm;
-
+    // Services and Components
     TicketSystemService TSService;
     UserRelationsService URService;
+    Grid<Project> grid = new Grid<>(Project.class);
+    TextField filterText = new TextField();
+    ProjectForm projectForm;
+
     public ProjectsList(TicketSystemService TSService,  UserRelationsService URService) {
         this.TSService = TSService;
         this.URService = URService;
         H1 welcome = new H1("A list of all your projects");
 
-        //configure grid
+        //configure Grid
         setSizeFull();
         configureGrid();
         configureForm();
 
+        // add new project btn with clickListener
         Button addNewProjectBtn = new Button("Add new project");
         addNewProjectBtn.addClickListener(e ->  addProject());
 
+        // display components, update grids
         add(welcome, addNewProjectBtn, getContent());
         updateList();
+
+        // close project form as default
         closeEditor();
     }
 
 
+    // configure project form with button click listeners
     private void configureForm() {
+        // populate form ComboBoxes
         projectForm = new ProjectForm(
                 URService.findAllEmployees(null),
                 TSService.findAllStatuses()
@@ -61,18 +67,23 @@ public class ProjectsList extends VerticalLayout {
         projectForm.addListener(ProjectForm.CloseEvent.class, e -> closeEditor());
     }
 
+    // update project grid with all projects
     private void updateList() {
         grid.setItems(TSService.findAllProjects());
     }
 
+    // return page content (grid and form)
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, projectForm);
         content.setSizeFull();
         return content;
     }
 
+    // configure project grid
     private void configureGrid() {
         grid.setSizeFull();
+
+        // configure columns
         grid.setColumns("name", "description");
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
         grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
@@ -87,16 +98,16 @@ public class ProjectsList extends VerticalLayout {
         );
     }
 
-    // Form manipulation: save, delete, open, close
+    // Form manipulations: save, delete, open, close
 
-    // Save project to database and update grid
+    // Save project to database, update ticketGrid, and close form
     private void saveProject(ProjectForm.SaveEvent e) {
         TSService.saveProject(e.getProject());
         updateList();
         closeEditor();
     }
 
-    // Delete project from database and update the grid
+    // Delete project from database, update the ticketGrid, and close form
     private void deleteProject(ProjectForm.DeleteEvent e) {
         TSService.deleteProject(e.getProject());
         updateList();
@@ -105,7 +116,7 @@ public class ProjectsList extends VerticalLayout {
 
     // Edit existing project or create new project
     private void editProject(Project project) {
-        // no project selected = close editor. Else set project and show form
+        // no project selected = close editor. Else populate form with project and open form
         if (project == null) {
             closeEditor();
         } else {
@@ -121,6 +132,7 @@ public class ProjectsList extends VerticalLayout {
         projectForm.setVisible(false);
     }
 
+    // Add a new project
     private void addProject() {
         // clear form and open editor
         grid.asSingleSelect().clear();

@@ -5,11 +5,9 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
-import com.vaadin.flow.component.html.H2;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
@@ -24,10 +22,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     TicketSystemService TTService;
     UserRelationsService URService;
 
-    // Components: tickets grid, employee grid, ticket and employee search ComboBoxes
-    Grid<Ticket> grid = new Grid<>(Ticket.class);
+    // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
+    Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
     // search for tickets based on employee ComboBox
-    ComboBox<Employee> filterText = new ComboBox<>("Search Tickets by Employee");
+    ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
 
     // store URLParameter Project object here
     String projectName;
@@ -55,44 +53,44 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
         // configure grids
         setSizeFull();
-        configureGrid();
-        grid.setSizeFull();
+        configureTicketGrid();
+        ticketGrid.setSizeFull();
 
         // display grids and update grids
-        add(welcome, getToolbar(), grid);
+        add(welcome, getToolbar(), ticketGrid);
         updateGrid();
     }
 
-    // configure Ticket grid
-    private void configureGrid() {
-        grid.setSizeFull();
+    // configure Ticket ticketGrid
+    private void configureTicketGrid() {
+        ticketGrid.setSizeFull();
         // configure columns
-        grid.setColumns("subject", "dueDate");
-        grid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+        ticketGrid.setColumns("subject", "dueDate");
+        ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
+        ticketGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     // configure the employee search ComboBox
     private HorizontalLayout getToolbar(){
         // find all employees assigned to this project
-        filterText.setItems(URService.findAllEmployees(null));
-        filterText.setItemLabelGenerator(Employee::getFullName);
+        searchTicketsByEmployee.setItems(URService.findAllEmployees(null));
+        searchTicketsByEmployee.setItemLabelGenerator(Employee::getFullName);
 
-        // update ticket grid when search ComboBox applied
-        filterText.addValueChangeListener(e -> updateListBySearch());
-        filterText.setPlaceholder("Search Employee");
+        // update ticket ticketGrid when search ComboBox applied
+        searchTicketsByEmployee.addValueChangeListener(e -> updateListBySearch());
+        searchTicketsByEmployee.setPlaceholder("Search Employee");
 
-        return new HorizontalLayout(filterText);
+        return new HorizontalLayout(searchTicketsByEmployee);
     }
 
-    // update ticket grid to find all the tickets
+    // update ticket ticketGrid to find all the tickets
     private void updateGrid() {
-        grid.setItems(TTService.findAllTickets(this.projectName));
+        ticketGrid.setItems(TTService.findAllTickets(this.projectName));
     }
 
-    // update ticket grid by employee search ComboBox value
+    // update ticket ticketGrid by employee search ComboBox value
     private void updateListBySearch(){
-        grid.setItems(TTService.searchTicketByProjectAndEmployee(project, filterText.getValue()));
+        ticketGrid.setItems(TTService.searchTicketByProjectAndEmployee(project, searchTicketsByEmployee.getValue()));
     }
 
 }
