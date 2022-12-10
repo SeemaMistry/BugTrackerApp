@@ -24,6 +24,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
     Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
+    Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
 
@@ -54,10 +55,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // configure grids
         setSizeFull();
         configureTicketGrid();
+        configureEmployeeGrid();
         ticketGrid.setSizeFull();
+        employeeGrid.setSizeFull();
 
         // display grids and update grids
-        add(welcome, getToolbar(), ticketGrid);
+        add(welcome, getToolbar(), ticketGrid, employeeGrid);
         updateGrid();
     }
 
@@ -68,6 +71,14 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setColumns("subject", "dueDate");
         ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
         ticketGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    // configure Employee employee grid
+    private void configureEmployeeGrid(){
+        employeeGrid.setSizeFull();
+        // configure columns
+        employeeGrid.setColumns("firstName", "lastName");
+        employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
     // configure the employee search ComboBox
