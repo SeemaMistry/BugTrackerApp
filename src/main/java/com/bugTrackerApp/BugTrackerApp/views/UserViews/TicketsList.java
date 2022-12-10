@@ -59,8 +59,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setSizeFull();
         employeeGrid.setSizeFull();
 
+        // display grids in horizontal layout
+        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
+        grids.setSizeFull();
+
         // display grids and update grids
-        add(welcome, getToolbar(), ticketGrid, employeeGrid);
+        add(welcome, getToolbar(), grids);
         updateGrid();
         closeEmployeeGrid();
     }
