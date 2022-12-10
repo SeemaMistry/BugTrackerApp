@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -27,6 +28,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
+
+    // Ticket form
+    TicketForm ticketForm;
 
     // store URLParameter Project object here
     String projectName;
@@ -59,8 +63,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setSizeFull();
         employeeGrid.setSizeFull();
 
+        // configure form
+        configureTicketForm();
+
         // display grids in horizontal layout
-        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
+        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid, ticketForm);
         grids.setSizeFull();
 
         // display grids and update grids
@@ -104,6 +111,19 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         searchTicketsByEmployee.setPlaceholder("Search Employee");
 
         return new HorizontalLayout(searchTicketsByEmployee);
+    }
+
+    // configure ticket form
+    private void configureTicketForm(){
+        // initialize ticket form data and size
+        ticketForm = new TicketForm(
+                URService.findAllEmployees(null),
+                TTService.findAllTicketPriority(),
+                TTService.findAllTicketEstimatedTimes(),
+                TTService.findAllTicketType(),
+                TTService.findAllStatuses()
+        );
+        ticketForm.setWidth("25em");
     }
 
     // update ticket ticketGrid to find all the tickets
