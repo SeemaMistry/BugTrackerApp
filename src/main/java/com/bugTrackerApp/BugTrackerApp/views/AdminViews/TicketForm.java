@@ -9,6 +9,8 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 
 public class TicketForm extends FormLayout {
     // Components: TextField, Multiselect ComboBox, ComboBox, Buttons
@@ -24,10 +26,13 @@ public class TicketForm extends FormLayout {
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
-    
-    // Ticket object
+
+    // Entity objects
+    Ticket ticket;
+    Project project;
 
     // bean Binder
+    Binder<Ticket> binder = new BeanValidationBinder<>(Ticket.class);
 
     public TicketForm() {
         // bind instance fields
