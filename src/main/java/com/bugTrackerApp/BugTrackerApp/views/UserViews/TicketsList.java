@@ -67,11 +67,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         configureTicketForm();
 
         // display grids in horizontal layout
-        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid, ticketForm);
+        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
         grids.setSizeFull();
 
         // display grids and update grids
-        add(welcome, getToolbar(), grids);
+        add(welcome, getToolbar(), ticketForm, grids);
         updateGrid();
         closeEmployeeGrid();
     }
@@ -123,7 +123,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 TTService.findAllTicketType(),
                 TTService.findAllStatuses()
         );
-        ticketForm.setWidth("25em");
+        ticketForm.setWidth("30em");
     }
 
     // update ticket ticketGrid to find all the tickets
