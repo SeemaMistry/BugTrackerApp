@@ -50,7 +50,6 @@ public class TicketForm extends FormLayout {
         binder.bindInstanceFields(this);
 
         // configure components
-        H1 welcome = new H1("Edit an ticket's info here");
         ticketReporter.setItems(employeeList);
         ticketReporter.setItemLabelGenerator(Employee::getFullName);
         ticketPriority.setItems(ticketPriorityList);
@@ -68,7 +67,7 @@ public class TicketForm extends FormLayout {
         configureMultiSelectComboBox();
 
         // render to screen
-        add(welcome,
+        add(
                 subject,
                 dueDate,
                 ticketReporter,
