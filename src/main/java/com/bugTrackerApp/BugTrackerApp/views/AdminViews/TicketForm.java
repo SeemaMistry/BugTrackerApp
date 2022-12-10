@@ -1,10 +1,21 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.textfield.TextField;
 
 public class TicketForm extends FormLayout {
     // Components: TextField, Multiselect ComboBox, ComboBox, Buttons
+    TextField subject = new TextField("Ticket Subject");
+    DatePicker dueDate = new DatePicker();
+    ComboBox<Employee> ticketReporter = new ComboBox<>("Ticket Reporter");
+    ComboBox<TicketPriority> ticketPriority;
+    ComboBox<TicketEstimatedTime> ticketEstimatedTime;
+    ComboBox<TicketType> ticketType;
+    ComboBox<Status> ticketStatus;
 
     // Ticket object
 
