@@ -1,10 +1,13 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 
 public class TicketForm extends FormLayout {
@@ -12,11 +15,16 @@ public class TicketForm extends FormLayout {
     TextField subject = new TextField("Ticket Subject");
     DatePicker dueDate = new DatePicker();
     ComboBox<Employee> ticketReporter = new ComboBox<>("Ticket Reporter");
-    ComboBox<TicketPriority> ticketPriority;
-    ComboBox<TicketEstimatedTime> ticketEstimatedTime;
-    ComboBox<TicketType> ticketType;
-    ComboBox<Status> ticketStatus;
-
+    ComboBox<TicketPriority> ticketPriority = new ComboBox<>("Priority");
+    ComboBox<TicketEstimatedTime> ticketEstimatedTime = new ComboBox<>("Estimated Time");
+    ComboBox<TicketType> ticketType = new ComboBox<>("Type");
+    ComboBox<Status> ticketStatus = new ComboBox<>("Status");
+    MultiSelectComboBox employeesAssignedToTicket = new MultiSelectComboBox<>("Assigned Employees");
+    TextArea assignedEmployees = new TextArea("Assigned Employees");
+    Button save = new Button("Save");
+    Button delete = new Button("Delete");
+    Button close = new Button("Cancel");
+    
     // Ticket object
 
     // bean Binder
