@@ -26,8 +26,8 @@ public class TicketForm extends FormLayout {
     ComboBox<TicketEstimatedTime> ticketEstimatedTime = new ComboBox<>("Estimated Time");
     ComboBox<TicketType> ticketType = new ComboBox<>("Type");
     ComboBox<Status> ticketStatus = new ComboBox<>("Status");
-//    MultiSelectComboBox<Employee> employeesAssignedToTicket = new MultiSelectComboBox<>("Assigned Employees");
-//    TextArea assignedEmployees = new TextArea("Assigned Employees");
+    MultiSelectComboBox<Employee> ticketsAssignedToEmployees = new MultiSelectComboBox<>("Assigned Employees");
+    TextArea assignedEmployees = new TextArea("Assigned Employees");
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
@@ -62,10 +62,10 @@ public class TicketForm extends FormLayout {
         ticketStatus.setItems(statuses);
         ticketStatus.setItemLabelGenerator(Status::getName);
 
-//        employeesAssignedToTicket.setItems(employeeList);
-//        employeesAssignedToTicket.setItemLabelGenerator(Employee::getFullName);
-//        assignedEmployees.setReadOnly(true);
-//        configureMultiSelectComboBox();
+        ticketsAssignedToEmployees.setItems(employeeList);
+        ticketsAssignedToEmployees.setItemLabelGenerator(Employee::getFullName);
+        assignedEmployees.setReadOnly(true);
+        configureMultiSelectComboBox();
 
         // render to screen
         add(welcome,
@@ -76,23 +76,23 @@ public class TicketForm extends FormLayout {
                 ticketEstimatedTime,
                 ticketType,
                 ticketStatus,
-//                employeesAssignedToTicket,
-//                assignedEmployees,
+                ticketsAssignedToEmployees,
+                assignedEmployees,
                 createButtonLayout()
         );
     }
 
     // stream employees selected from multiselect comboBox as a string to TextArea
-//    private void configureMultiSelectComboBox() {
-//        // map full names of employees selected to read only TextArea
-//        employeesAssignedToTicket.addValueChangeListener(e -> {
-//            String assignedEmployeesText = e.getValue()
-//                    .stream()
-//                    .map(Employee::getFullName)
-//                    .collect(Collectors.joining(", "));
-//            assignedEmployees.setValue(assignedEmployeesText);
-//        });
-//    }
+    private void configureMultiSelectComboBox() {
+        // map full names of employees selected to read only TextArea
+        ticketsAssignedToEmployees.addValueChangeListener(e -> {
+            String assignedEmployeesText = e.getValue()
+                    .stream()
+                    .map(Employee::getFullName)
+                    .collect(Collectors.joining(", "));
+            assignedEmployees.setValue(assignedEmployeesText);
+        });
+    }
 
     // button layout and click events
     private HorizontalLayout createButtonLayout() {
