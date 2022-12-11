@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -37,6 +38,8 @@ public class TicketForm extends FormLayout {
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
+    FormLayout formLayout = new FormLayout();
+
     // Entity objects
     Ticket ticket;
     Project project;
@@ -71,8 +74,17 @@ public class TicketForm extends FormLayout {
         assignedEmployees.setReadOnly(true);
         configureMultiSelectComboBox();
 
-        FormLayout formLayout = new FormLayout();
-        formLayout.add(subject,
+        // configure Form styling
+        configureForm();
+
+        VerticalLayout form = new VerticalLayout(getForm(), createButtonLayout());
+
+        // render to screen
+        add(form);
+    }
+
+    private void configureForm() {
+       formLayout.add(subject,
                 dueDate,
                 ticketReporter,
                 ticketPriority,
@@ -85,11 +97,10 @@ public class TicketForm extends FormLayout {
         formLayout.setColspan(subject, 3);
         formLayout.setResponsiveSteps(new ResponsiveStep("0", 1),
                 new ResponsiveStep("500px", 3));
+    }
 
-        VerticalLayout form = new VerticalLayout( formLayout, createButtonLayout());
-
-        // render to screen
-        add(form);
+    private FormLayout getForm() {
+        return formLayout;
     }
 
     // stream employees selected from multiselect comboBox as a string to TextArea
