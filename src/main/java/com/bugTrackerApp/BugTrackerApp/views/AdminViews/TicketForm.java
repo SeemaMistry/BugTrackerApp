@@ -130,8 +130,12 @@ public class TicketForm extends FormLayout {
         }
     }
 
-
     // set a ticket to the form through readBean()
+    public void setTicket(Ticket ticket) {
+        // set ticket through readBean
+        this.ticket = ticket;
+        binder.readBean(ticket);
+    }
 
 
     // retrieve selected employees from multiselect comboBox
