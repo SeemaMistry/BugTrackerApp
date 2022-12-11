@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
 public class TicketForm extends FormLayout {
     // Components: TextField, Multiselect ComboBox, ComboBox, Buttons
     TextField subject = new TextField("Ticket Subject");
-    DatePicker dueDate = new DatePicker();
+    DatePicker dueDate = new DatePicker("Due Date");
     ComboBox<Employee> ticketReporter = new ComboBox<>("Ticket Reporter");
     ComboBox<TicketPriority> ticketPriority = new ComboBox<>("Priority");
     ComboBox<TicketEstimatedTime> ticketEstimatedTime = new ComboBox<>("Estimated Time");
