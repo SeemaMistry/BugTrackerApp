@@ -1,6 +1,8 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.vaadin.flow.component.ComponentEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
@@ -14,6 +16,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -121,6 +124,43 @@ public class TicketForm extends FormLayout {
 
 
     // EVENT BUS - VAADIN COMPONENT EVENTS
+    public static abstract class ContactFormEvent extends ComponentEvent<TicketForm> {
+        private Ticket ticket;
+
+        protected ContactFormEvent(TicketForm source, Ticket ticket) {
+            super(source, false);
+            this.ticket = ticket;
+        }
+
+        public Ticket getTicket() {
+            return ticket;
+        }
+    }
+
+
+    public static class SaveEvent extends TicketForm.ContactFormEvent {
+        SaveEvent(TicketForm source, Ticket ticket) {
+            super(source, ticket);
+        }
+    }
+
+    public static class DeleteEvent extends TicketForm.ContactFormEvent {
+        DeleteEvent(TicketForm source, Ticket ticket) {
+            super(source, ticket);
+        }
+
+    }
+
+    public static class CloseEvent extends TicketForm.ContactFormEvent {
+        CloseEvent(TicketForm source) {
+            super(source, null);
+        }
+    }
+
+    public <T extends ComponentEvent<?>> Registration addListener(Class<T> eventType,
+                                                                  ComponentEventListener<T> listener) {
+        return getEventBus().addListener(eventType, listener);
+    }
 
 
 }
