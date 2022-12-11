@@ -72,21 +72,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // configure form
         configureTicketForm();
 
-        // display grids in horizontal layout
-        VerticalLayout labelledTicketGrid = new VerticalLayout(
-                new H3("Tickets for " + this.projectName), ticketGrid
-        );
-        VerticalLayout labelledEmployeeGrid = new VerticalLayout(
-                new H3("Assigned Employees"), employeeGrid
-        );
-        HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
-        grids.setSizeFull();
-
         // configure Scroller (wraps ticketForm inside)
         configureScroller();
 
         // display grids and update grids
-        add(welcome, getToolbar(), getScroller(), grids);
+        add(welcome, getToolbar(), getScroller(), getGrids());
         updateGrid();
         closeEmployeeGrid();
     }
@@ -113,6 +103,15 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // configure columns
         employeeGrid.setColumns("firstName", "lastName");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+    }
+
+    private HorizontalLayout getGrids() {
+        // label grids
+        VerticalLayout labelledTicketGrid = new VerticalLayout(new H3("Tickets for " + this.projectName), ticketGrid);
+        VerticalLayout labelledEmployeeGrid = new VerticalLayout(new H3("Assigned Employees"), employeeGrid);
+        // display grids in horizontal layout
+        HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
+        grids.setSizeFull();
     }
 
     // configure the employee search ComboBox
