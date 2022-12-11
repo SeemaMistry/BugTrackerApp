@@ -33,7 +33,7 @@ public class TicketForm extends FormLayout {
     ComboBox<TicketType> ticketType = new ComboBox<>("Type");
     ComboBox<Status> ticketStatus = new ComboBox<>("Status");
     MultiSelectComboBox<Employee> ticketsAssignedToEmployees = new MultiSelectComboBox<>("Assigned Employees");
-    TextArea assignedEmployees = new TextArea("Assigned Employees");
+    TextArea assignedEmployees = new TextArea();
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
