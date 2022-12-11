@@ -9,9 +9,13 @@ import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H2;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.router.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -69,7 +73,13 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         configureTicketForm();
 
         // display grids in horizontal layout
-        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
+        VerticalLayout labelledTicketGrid = new VerticalLayout(
+                new H3("Tickets for " + projectName), ticketGrid
+        );
+        VerticalLayout labelledEmployeeGrid = new VerticalLayout(
+                new H3("Assigned Employees"), employeeGrid
+        );
+        HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
         grids.setSizeFull();
 
         // configure Scroller (wraps ticketForm inside)
