@@ -94,10 +94,12 @@ public class TicketForm extends FormLayout {
                 ticketEstimatedTime,
                 ticketType,
                 ticketStatus,
-                ticketsAssignedToEmployees,
-                assignedEmployees);
+               ticketsAssignedToEmployees,
+               assignedEmployees
+                );
 
         formLayout.setColspan(subject, 3);
+        formLayout.setColspan(assignedEmployees,3);
         formLayout.setResponsiveSteps(
                 new ResponsiveStep("0", 1),
                 new ResponsiveStep("500px", 3)
