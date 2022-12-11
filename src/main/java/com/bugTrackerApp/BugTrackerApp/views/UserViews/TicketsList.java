@@ -123,7 +123,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 TTService.findAllTicketType(),
                 TTService.findAllStatuses()
         );
-        ticketForm.setWidth("30em");
+//        ticketForm.setSizeFull();
     }
 
     // update ticket ticketGrid to find all the tickets

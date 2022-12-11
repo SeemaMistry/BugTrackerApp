@@ -9,6 +9,7 @@ import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -66,9 +67,8 @@ public class TicketForm extends FormLayout {
         assignedEmployees.setReadOnly(true);
         configureMultiSelectComboBox();
 
-        // render to screen
-        add(
-                subject,
+        FormLayout formLayout = new FormLayout();
+        formLayout.add(subject,
                 dueDate,
                 ticketReporter,
                 ticketPriority,
@@ -76,9 +76,17 @@ public class TicketForm extends FormLayout {
                 ticketType,
                 ticketStatus,
                 ticketsAssignedToEmployees,
-                assignedEmployees,
-                createButtonLayout()
-        );
+                assignedEmployees);
+//        VerticalLayout left = new VerticalLayout( );
+        formLayout.setColspan(subject, 3);
+        formLayout.setResponsiveSteps(new ResponsiveStep("0", 1),
+                new ResponsiveStep("500px", 3));
+
+        VerticalLayout form = new VerticalLayout( formLayout, createButtonLayout());
+//
+//        HorizontalLayout form = new HorizontalLayout();
+        // render to screen
+        add(form);
     }
 
     // stream employees selected from multiselect comboBox as a string to TextArea
