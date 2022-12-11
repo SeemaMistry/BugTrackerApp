@@ -78,6 +78,9 @@ public class TicketForm extends FormLayout {
         configureForm();
 
         VerticalLayout form = new VerticalLayout(getForm(), createButtonLayout());
+        form.getStyle()
+                .set("margin-top", "0px")
+                .set("padding-top", "0px");
 
         // render to screen
         add(form);
@@ -95,8 +98,10 @@ public class TicketForm extends FormLayout {
                 assignedEmployees);
 
         formLayout.setColspan(subject, 3);
-        formLayout.setResponsiveSteps(new ResponsiveStep("0", 1),
-                new ResponsiveStep("500px", 3));
+        formLayout.setResponsiveSteps(
+                new ResponsiveStep("0", 1),
+                new ResponsiveStep("500px", 3)
+        );
     }
 
     private FormLayout getForm() {
