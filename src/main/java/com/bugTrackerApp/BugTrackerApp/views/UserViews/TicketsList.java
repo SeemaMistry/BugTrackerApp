@@ -30,8 +30,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
 
-    // Ticket form
+    // Ticket form and scroll wrapper
     TicketForm ticketForm;
+    Scroller scroller = new Scroller();
 
     // store URLParameter Project object here
     String projectName;
@@ -71,17 +72,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
         grids.setSizeFull();
 
-        // Make Scroller
-        Scroller scroller = new Scroller();
-        scroller.setScrollDirection(Scroller.ScrollDirection.VERTICAL);
-        VerticalLayout form = new VerticalLayout(ticketForm);
-        form.getStyle().set("padding", "0px");
-        scroller.setContent(form);
-        scroller.getStyle()
-                .set("border", "1px solid grey");
+        // configure Scroller (wraps ticketForm inside)
+        configureScroller();
 
         // display grids and update grids
-        add(welcome, getToolbar(), scroller, grids);
+        add(welcome, getToolbar(), getScroller(), grids);
         updateGrid();
         closeEmployeeGrid();
     }
@@ -134,6 +129,21 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 TTService.findAllStatuses()
         );
 //        ticketForm.setSizeFull();
+    }
+
+    // wrap ticketForm inside a Scroller
+    private void configureScroller() {
+        scroller.setScrollDirection(Scroller.ScrollDirection.VERTICAL);
+        VerticalLayout form = new VerticalLayout(ticketForm);
+        form.getStyle().set("padding", "0px");
+        scroller.setContent(form);
+        scroller.getStyle()
+                .set("border", "1px solid grey");
+    }
+
+    // return scroller
+    private Scroller getScroller() {
+        return this.scroller;
     }
 
     // update ticket ticketGrid to find all the tickets
