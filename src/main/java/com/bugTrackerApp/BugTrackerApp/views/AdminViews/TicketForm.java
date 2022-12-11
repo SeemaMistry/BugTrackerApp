@@ -81,14 +81,13 @@ public class TicketForm extends FormLayout {
                 ticketStatus,
                 ticketsAssignedToEmployees,
                 assignedEmployees);
-//        VerticalLayout left = new VerticalLayout( );
+
         formLayout.setColspan(subject, 3);
         formLayout.setResponsiveSteps(new ResponsiveStep("0", 1),
                 new ResponsiveStep("500px", 3));
 
         VerticalLayout form = new VerticalLayout( formLayout, createButtonLayout());
-//
-//        HorizontalLayout form = new HorizontalLayout();
+
         // render to screen
         add(form);
     }
@@ -136,7 +135,6 @@ public class TicketForm extends FormLayout {
         this.ticket = ticket;
         binder.readBean(ticket);
     }
-
 
     // retrieve selected employees from multiselect comboBox
 
