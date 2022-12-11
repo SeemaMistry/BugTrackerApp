@@ -112,6 +112,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // display grids in horizontal layout
         HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
         grids.setSizeFull();
+        return grids;
     }
 
     // configure the employee search ComboBox
