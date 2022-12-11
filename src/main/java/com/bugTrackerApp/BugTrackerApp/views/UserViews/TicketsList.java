@@ -53,8 +53,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         this.projectName = name.replaceAll("%20", " ");
         this.project = TTService.findProjectByName(projectName);
 
-        // call getContent() to render components to webpage
-        // getContent() acts as the constructor
+        // call getContent() (acts as the constructor) to render components to webpage
         getContent();
     }
 
@@ -66,8 +65,6 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         setSizeFull();
         configureTicketGrid();
         configureEmployeeGrid();
-        ticketGrid.setSizeFull();
-        employeeGrid.setSizeFull();
 
         // configure form
         configureTicketForm();
@@ -83,7 +80,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // configure Ticket ticketGrid
     private void configureTicketGrid() {
-//        ticketGrid.setSizeFull();
+        ticketGrid.setSizeFull();
         // configure columns
         ticketGrid.setColumns("subject", "dueDate");
         ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
@@ -99,7 +96,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // configure Employee employee grid
     private void configureEmployeeGrid(){
-//        employeeGrid.setSizeFull();
+        employeeGrid.setSizeFull();
         // configure columns
         employeeGrid.setColumns("firstName", "lastName");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
