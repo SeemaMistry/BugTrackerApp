@@ -10,6 +10,7 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.*;
 
@@ -70,15 +71,24 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
         grids.setSizeFull();
 
+        // Make Scroller
+        Scroller scroller = new Scroller();
+        scroller.setScrollDirection(Scroller.ScrollDirection.VERTICAL);
+        VerticalLayout form = new VerticalLayout(ticketForm);
+        form.getStyle().set("padding", "0px");
+        scroller.setContent(form);
+        scroller.getStyle()
+                .set("border", "1px solid grey");
+
         // display grids and update grids
-        add(welcome, getToolbar(), ticketForm, grids);
+        add(welcome, getToolbar(), scroller, grids);
         updateGrid();
         closeEmployeeGrid();
     }
 
     // configure Ticket ticketGrid
     private void configureTicketGrid() {
-        ticketGrid.setSizeFull();
+//        ticketGrid.setSizeFull();
         // configure columns
         ticketGrid.setColumns("subject", "dueDate");
         ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
@@ -94,7 +104,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // configure Employee employee grid
     private void configureEmployeeGrid(){
-        employeeGrid.setSizeFull();
+//        employeeGrid.setSizeFull();
         // configure columns
         employeeGrid.setColumns("firstName", "lastName");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
