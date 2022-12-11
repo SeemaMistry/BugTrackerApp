@@ -111,6 +111,11 @@ public class TicketForm extends FormLayout {
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
         close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
 
+        // fire events
+        save.addClickListener(e -> validateAndSave());
+        delete.addClickListener(e -> fireEvent(new TicketForm.DeleteEvent(this, ticket)));
+        close.addClickListener(e -> fireEvent(new TicketForm.CloseEvent(this)));
+
         return new HorizontalLayout(save, delete, close);
     }
 
