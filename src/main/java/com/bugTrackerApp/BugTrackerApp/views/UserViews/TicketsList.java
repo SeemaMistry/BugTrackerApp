@@ -74,7 +74,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
         // display grids in horizontal layout
         VerticalLayout labelledTicketGrid = new VerticalLayout(
-                new H3("Tickets for " + projectName), ticketGrid
+                new H3("Tickets for " + this.projectName), ticketGrid
         );
         VerticalLayout labelledEmployeeGrid = new VerticalLayout(
                 new H3("Assigned Employees"), employeeGrid
