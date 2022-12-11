@@ -16,6 +16,7 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
+import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.List;
@@ -120,6 +121,14 @@ public class TicketForm extends FormLayout {
     }
 
     // validate and save ticket
+    private void validateAndSave() {
+        try {
+            binder.writeBean(ticket);
+            fireEvent(new TicketForm.SaveEvent(this, ticket));
+        } catch (ValidationException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     // set a ticket to the form through readBean()
