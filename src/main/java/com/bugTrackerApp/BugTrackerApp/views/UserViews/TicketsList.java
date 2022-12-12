@@ -35,6 +35,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // add new ticket button
     Button addNewTicketBtn = new Button("Add Ticket");
 
+    // clear search button
+    Button clearSearchBtn = new Button("Clear Search");
+
     // Ticket form and scroll wrapper
     TicketForm ticketForm;
     Scroller scroller = new Scroller();
@@ -164,7 +167,15 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // add new ticket button with listener for addTicket()
         addNewTicketBtn.addClickListener(e -> addTicket());
 
-        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee);
+        // clear search and close form and employee grid
+        clearSearchBtn.addClickListener(e -> {
+            searchTicketsByEmployee.clear(); // clear search comboBox
+            updateGrid(); // go back to all tickets in grid
+            closeTicketForm();
+            closeEmployeeGrid();
+        });
+
+        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee, clearSearchBtn);
         // display toolbar in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
