@@ -30,7 +30,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
     Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
-    H3 ticketGridLabel = new H3("Tickets for " + this.projectName);
+    H3 ticketGridLabel = new H3("Tickets for ");
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     H3 employeeGridLabel = new H3("Assigned Employees");
     // search for tickets based on employee ComboBox
@@ -106,6 +106,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     private HorizontalLayout getGrids() {
         // label grids
+        this.ticketGridLabel.setText(this.ticketGridLabel.getText() + this.projectName);
         VerticalLayout labelledTicketGrid = new VerticalLayout(this.ticketGridLabel, ticketGrid);
         VerticalLayout labelledEmployeeGrid = new VerticalLayout(this.employeeGridLabel, employeeGrid);
         // display grids in horizontal layout
@@ -157,7 +158,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // update ticket ticketGrid to find all the tickets
     private void updateGrid() {
-        ticketGrid.setItems(TTService.findAllTickets(this.projectName));
+        ticketGrid.setItems(TTService.findAllTickets(projectName));
     }
 
     // update ticket ticketGrid by employee search ComboBox value
@@ -169,10 +170,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     private void populateEmployeeGrid(Ticket ticket){
         employeeGrid.setItems(ticket.getEmployeesAssignedToTicket());
         employeeGrid.setVisible(true);
+        employeeGridLabel.setVisible(true);
     }
 
     private void closeEmployeeGrid(){
         employeeGrid.setVisible(false);
+        employeeGridLabel.setVisible(false);
     }
 
 }
