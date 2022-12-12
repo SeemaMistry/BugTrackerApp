@@ -165,7 +165,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         addNewTicketBtn.addClickListener(e -> addTicket());
 
         HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee);
-        // display toolbar in a clean line 
+        // display toolbar in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
     }
@@ -199,8 +199,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // add a new ticket
     private void addTicket() {
+        Ticket newTicket = new Ticket();
+        // pass in this project for field validation when saving ticket (cannot be null)
+        newTicket.setProject(this.project);
         // call editTicket with new ticket object
-        editTicket(new Ticket());
+        editTicket(newTicket);
     }
 
     // populate form and employeeGrid for editing
