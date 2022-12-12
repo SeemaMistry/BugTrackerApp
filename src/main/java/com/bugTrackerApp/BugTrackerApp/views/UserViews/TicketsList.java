@@ -182,12 +182,20 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // populate employeeGrid with assigned employees
     private void populateEmployeeGrid(Ticket ticket){
-        employeeGrid.setItems(ticket.getEmployeesAssignedToTicket());
-        employeeGrid.setVisible(true);
+        // no ticket = close form, else open form and populate form with ticket info
+        if (ticket == null) {
+            closeTicketForm();
+        } else {
+            ticketForm.setTicket(ticket);
+            employeeGrid.setItems(ticket.getEmployeesAssignedToTicket());
+            employeeGrid.setVisible(true);
+            ticketForm.setVisible(true);
+        }
     }
 
     private void closeEmployeeGrid(){
         employeeGrid.setVisible(false);
+        closeTicketForm();
     }
 
     // Form Manipulation: save, delete, open and close
