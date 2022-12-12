@@ -122,7 +122,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // Use API  calls for save, delete, close events
         ticketForm.addListener(TicketForm.SaveEvent.class, this::saveTicket);
         ticketForm.addListener(TicketForm.DeleteEvent.class,  this::deleteTicket);
-        ticketForm.addListener(TicketForm.CloseEvent.class, e -> closeTicketForm());
+        ticketForm.addListener(TicketForm.CloseEvent.class, e -> {
+            closeTicketForm();
+            closeEmployeeGrid();
+        });
     }
 
     // wrap ticketForm inside a Scroller
