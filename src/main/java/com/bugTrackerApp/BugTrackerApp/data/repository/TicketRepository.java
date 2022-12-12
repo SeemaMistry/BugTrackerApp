@@ -14,6 +14,9 @@ public interface TicketRepository extends JpaRepository<Ticket, UUID> {
     )
     List<Ticket> findTicketByProjectName(@Param("pName") String name);
 
+    @Query("select t from Ticket t where lower(t.subject) like lower(concat('%', :searchTerm, '%')) and t.project.id = :pid")
+    List<Ticket> searchTickets(@Param("searchTerm") String searchTerm,
+                               @Param("pid") UUID projectId);
     List<Ticket> findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(UUID id);
 
     List<Ticket> findTicketsAssignedToEmployeesByEmployeesAssignedToTicketIdAndProjectId(UUID eId, UUID pId);
