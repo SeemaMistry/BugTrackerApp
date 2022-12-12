@@ -13,6 +13,8 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.Scroller;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
 
 import javax.annotation.security.RolesAllowed;
@@ -31,6 +33,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
+    // search for tickets by subject
+    TextField searchTicketsBySubject = new TextField("Search Ticket by Subject");
 
     // add new ticket button
     Button addNewTicketBtn = new Button("Add Ticket");
@@ -178,6 +182,16 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         searchTicketsByEmployee.addValueChangeListener(e -> updateListBySearch());
         searchTicketsByEmployee.setPlaceholder("Search Employee");
 
+        // populate ticket search with tickets
+        searchTicketsBySubject.setPlaceholder("Filter by subject...");
+//        searchTicketsBySubject.setSizeFull();
+        searchTicketsBySubject.setClearButtonVisible(true);
+        searchTicketsBySubject.setValueChangeMode(ValueChangeMode.LAZY);
+        searchTicketsBySubject.addValueChangeListener(e -> updateListByTicketSubjectSearch());
+
+        // update ticket grid with ticket subject search applied
+        searchTicketsBySubject.addValueChangeListener(e -> updateListByTicketSubjectSearch());
+
         // add new ticket button with listener for addTicket()
         addNewTicketBtn.addClickListener(e -> addTicket());
 
@@ -189,7 +203,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
             closeEmployeeGrid();
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee, clearSearchBtn);
+        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee, searchTicketsBySubject, clearSearchBtn);
         // display toolbar in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
@@ -208,6 +222,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // update ticket ticketGrid by employee search ComboBox value
     private void updateListBySearch(){
         ticketGrid.setItems(TTService.searchTicketByProjectAndEmployee(project, searchTicketsByEmployee.getValue()));
+    }
+
+    // update ticket grid by ticket subject search ComboBox value
+    private void updateListByTicketSubjectSearch(){
+        ticketGrid.setItems(TTService.searchTicketBySubjectAndProject(searchTicketsBySubject.getValue(), this.project));
     }
 
     private void closeEmployeeGrid(){
