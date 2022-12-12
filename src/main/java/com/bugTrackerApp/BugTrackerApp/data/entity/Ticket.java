@@ -116,4 +116,7 @@ public class Ticket extends AbstractEntity{
         this.employeesAssignedToTicket = employeesAssignedToTicket;
     }
 
+    public LocalDate getFormattedCreatedDate() {
+        return this.createdDate.toLocalDateTime().toLocalDate();
+    }
 }
