@@ -30,7 +30,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
     Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
+    H3 ticketGridLabel = new H3("Tickets for " + this.projectName);
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
+    H3 employeeGridLabel = new H3("Assigned Employees");
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
 
@@ -104,8 +106,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     private HorizontalLayout getGrids() {
         // label grids
-        VerticalLayout labelledTicketGrid = new VerticalLayout(new H3("Tickets for " + this.projectName), ticketGrid);
-        VerticalLayout labelledEmployeeGrid = new VerticalLayout(new H3("Assigned Employees"), employeeGrid);
+        VerticalLayout labelledTicketGrid = new VerticalLayout(this.ticketGridLabel, ticketGrid);
+        VerticalLayout labelledEmployeeGrid = new VerticalLayout(this.employeeGridLabel, employeeGrid);
         // display grids in horizontal layout
         HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
         grids.setSizeFull();
