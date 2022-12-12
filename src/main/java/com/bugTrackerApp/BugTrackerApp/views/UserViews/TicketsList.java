@@ -88,13 +88,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setSizeFull();
         // configure columns
         ticketGrid.setColumns("subject");
-        ticketGrid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created Date");
-        ticketGrid.addColumn(e -> e.getTicketType().getName()).setHeader("Type");
-
-        ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter");
-        ticketGrid.addColumn(e -> e.getTicketPriority().getName()).setHeader("Priority");
-        ticketGrid.addColumn(e -> e.getTicketStatus().getName()).setHeader("Status");
-        ticketGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time");
+        ticketGrid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created Date").setSortable(true);
+        ticketGrid.addColumn(e -> e.getTicketType().getName()).setHeader("Type").setSortable(true);
+        ticketGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter").setSortable(true);
+        ticketGrid.addColumn(e -> e.getTicketPriority().getName()).setHeader("Priority").setSortable(true);
+        ticketGrid.addColumn(e -> e.getTicketStatus().getName()).setHeader("Status").setSortable(true);
+        ticketGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time").setSortable(true);
         ticketGrid.addColumn("dueDate");
 
         ticketGrid.getColumns().forEach(col -> col.setAutoWidth(true));
