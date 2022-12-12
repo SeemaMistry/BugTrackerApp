@@ -63,7 +63,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // display page content: grids and search ComboBoxes, and forms. Functions as constructor usually does
     private void getContent() {
-        H1 welcome = new H1("A list of all the tickets for project: " + this.projectName);
+        H1 welcome = new H1("Tickets of: " + this.projectName);
+        // remove excess margins
+        welcome.getStyle()
+                .set("margin-top", "30px")
+                .set("margin-bottom", "0px");
 
         // configure grids
         setSizeFull();
