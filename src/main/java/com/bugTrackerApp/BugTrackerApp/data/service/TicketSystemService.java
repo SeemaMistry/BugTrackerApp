@@ -146,4 +146,12 @@ public class TicketSystemService {
         }
     }
 
+    public List<Ticket> searchTicketBySubjectAndProject(String subject, Project project){
+        if (subject.isEmpty()) {
+            return findAllTickets(project.getName());
+        } else {
+            return ticketRepo.searchTickets(subject, project.getId());
+        }
+    }
+
 }
