@@ -32,6 +32,10 @@ public class TicketEstimatedTime extends AbstractEntity{
         this.estimatedTime = estimatedTime;
         this.description = description;
     }
+
+    public String getEstimatedTimeToString(){
+        return String.valueOf(this.estimatedTime);
+    }
 }
 
 

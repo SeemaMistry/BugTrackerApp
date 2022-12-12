@@ -64,7 +64,7 @@ public class TicketForm extends FormLayout {
         ticketPriority.setItems(ticketPriorityList);
         ticketPriority.setItemLabelGenerator(TicketPriority::getName);
         ticketEstimatedTime.setItems(ticketEstimatedTimeList);
-        ticketEstimatedTime.setItemLabelGenerator(TicketEstimatedTime::getDescription);
+        ticketEstimatedTime.setItemLabelGenerator(TicketEstimatedTime::getEstimatedTimeToString);
         ticketType.setItems(ticketTypeList);
         ticketType.setItemLabelGenerator(TicketType::getName);
         ticketStatus.setItems(statuses);
