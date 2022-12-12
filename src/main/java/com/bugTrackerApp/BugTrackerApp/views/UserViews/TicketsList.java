@@ -206,6 +206,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     }
 
     private void saveTicket(TicketForm.SaveEvent e) {
+        // retrieve and set employees selected from MutliSelectComboBox to ticket
+        e.getTicket().setEmployeesAssignedToTicket(ticketForm.getEmployeesAssigned());
         TTService.saveTicket(e.getTicket());
         updateGrid();
         closeTicketForm();

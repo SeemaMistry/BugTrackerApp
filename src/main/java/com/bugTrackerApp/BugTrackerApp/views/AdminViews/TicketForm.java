@@ -20,6 +20,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -159,7 +160,9 @@ public class TicketForm extends FormLayout {
     }
 
     // retrieve selected employees from multiselect comboBox
-
+    public List<Employee> getEmployeesAssigned() {
+        return new ArrayList<>(ticketsAssignedToEmployees.getValue());
+    }
 
     // EVENT BUS - VAADIN COMPONENT EVENTS
     public static abstract class ContactFormEvent extends ComponentEvent<TicketForm> {
