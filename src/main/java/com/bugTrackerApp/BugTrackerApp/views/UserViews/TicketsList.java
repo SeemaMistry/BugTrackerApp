@@ -164,7 +164,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // add new ticket button with listener for addTicket()
         addNewTicketBtn.addClickListener(e -> addTicket());
 
-        return new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee);
+        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee);
+        // display toolbar in a clean line 
+        toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
+        return toolbar;
     }
 
     // return scroller
