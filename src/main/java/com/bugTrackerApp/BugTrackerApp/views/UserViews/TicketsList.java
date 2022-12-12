@@ -30,9 +30,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
     Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
-    H3 ticketGridLabel = new H3("Tickets for ");
+//    H3 ticketGridLabel = new H3("Tickets for ");
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
-    H3 employeeGridLabel = new H3("Assigned Employees");
+//    H3 employeeGridLabel = new H3("Assigned Employees");
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
 
@@ -106,11 +106,19 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     private HorizontalLayout getGrids() {
         // label grids
-        this.ticketGridLabel.setText(this.ticketGridLabel.getText() + this.projectName);
-        VerticalLayout labelledTicketGrid = new VerticalLayout(this.ticketGridLabel, ticketGrid);
-        VerticalLayout labelledEmployeeGrid = new VerticalLayout(this.employeeGridLabel, employeeGrid);
+//        this.ticketGridLabel.setText(this.ticketGridLabel.getText() + this.projectName);
+//        VerticalLayout labelledTicketGrid = new VerticalLayout(this.ticketGridLabel, ticketGrid);
+//        VerticalLayout labelledEmployeeGrid = new VerticalLayout(this.employeeGridLabel, employeeGrid);
+
         // display grids in horizontal layout
-        HorizontalLayout grids = new HorizontalLayout(labelledTicketGrid, labelledEmployeeGrid);
+        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
+//        if (labelledEmployeeGrid.isVisible()) {
+//            H1 test = new H1("The employee grid is visible");
+//            grids.add(test, labelledTicketGrid, labelledEmployeeGrid);
+//        } else {
+//            H1 test = new H1("The employee grid is NOT visible");
+//            grids.add(test, labelledTicketGrid);
+//        }
         grids.setSizeFull();
         return grids;
     }
@@ -170,12 +178,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     private void populateEmployeeGrid(Ticket ticket){
         employeeGrid.setItems(ticket.getEmployeesAssignedToTicket());
         employeeGrid.setVisible(true);
-        employeeGridLabel.setVisible(true);
     }
 
     private void closeEmployeeGrid(){
         employeeGrid.setVisible(false);
-        employeeGridLabel.setVisible(false);
     }
 
 }
