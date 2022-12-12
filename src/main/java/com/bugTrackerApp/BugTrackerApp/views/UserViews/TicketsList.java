@@ -78,6 +78,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         add(welcome, getToolbar(), getScroller(), getGrids());
         updateGrid();
         closeEmployeeGrid();
+        closeTicketForm();
     }
 
     // configure Ticket ticketGrid
@@ -147,6 +148,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 TTService.findAllStatuses()
         );
 //        ticketForm.setSizeFull();
+
+        // Use API  calls for save, delete, close events
+        ticketForm.addListener(TicketForm.SaveEvent.class, this::saveTicket);
+        ticketForm.addListener(TicketForm.DeleteEvent.class,  this::deleteTicket);
+        ticketForm.addListener(TicketForm.CloseEvent.class, e -> closeTicketForm());
     }
 
     // wrap ticketForm inside a Scroller
@@ -182,6 +188,28 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     private void closeEmployeeGrid(){
         employeeGrid.setVisible(false);
+    }
+
+    // Form Manipulation: save, delete, open and close
+    private void closeTicketForm() {
+        // clear form and close it
+        ticketForm.setTicket(null);
+        ticketForm.setVisible(false);
+    }
+
+    private void saveTicket(TicketForm.SaveEvent e) {
+        TTService.saveTicket(e.getTicket());
+        updateGrid();
+        closeTicketForm();
+        closeEmployeeGrid();
+    }
+
+    private void deleteTicket(TicketForm.DeleteEvent e) {
+        TTService.deleteTicket(e.getTicket());
+        updateGrid();
+        closeEmployeeGrid();
+        closeTicketForm();
+
     }
 
 }
