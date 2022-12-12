@@ -6,6 +6,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
@@ -30,6 +31,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // search for tickets based on employee ComboBox
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
+
+    // add new ticket button
+    Button addNewTicketBtn = new Button("Add Ticket");
 
     // Ticket form and scroll wrapper
     TicketForm ticketForm;
@@ -157,7 +161,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         searchTicketsByEmployee.addValueChangeListener(e -> updateListBySearch());
         searchTicketsByEmployee.setPlaceholder("Search Employee");
 
-        return new HorizontalLayout(searchTicketsByEmployee);
+        // add new ticket button with listener for addTicket()
+        addNewTicketBtn.addClickListener(e -> addTicket());
+
+        return new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee);
     }
 
     // return scroller
@@ -185,6 +192,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // clear form and close it
         ticketForm.setTicket(null);
         ticketForm.setVisible(false);
+    }
+
+    // add a new ticket
+    private void addTicket() {
+        // call editTicket with new ticket object
+        editTicket(new Ticket());
     }
 
     // populate form and employeeGrid for editing
