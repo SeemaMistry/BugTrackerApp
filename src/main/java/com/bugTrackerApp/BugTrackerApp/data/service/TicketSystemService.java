@@ -154,4 +154,7 @@ public class TicketSystemService {
         }
     }
 
+    // find project by project name through like searchTerm
+    public List<Project> searchProjectByLikeName(String name) { return projectRepo.searchProject(name); }
+
 }
