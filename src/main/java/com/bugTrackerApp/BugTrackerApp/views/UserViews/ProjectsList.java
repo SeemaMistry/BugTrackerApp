@@ -29,6 +29,7 @@ public class ProjectsList extends VerticalLayout {
     Grid<Project> grid = new Grid<>(Project.class);
     TextField searchProjectByName = new TextField();
     ProjectForm projectForm;
+    Button clearSearch = new Button("Clear Search");
 
     public ProjectsList(TicketSystemService TSService,  UserRelationsService URService) {
         this.TSService = TSService;
@@ -89,6 +90,12 @@ public class ProjectsList extends VerticalLayout {
         searchProjectByName.setClearButtonVisible(true);
         searchProjectByName.setValueChangeMode(ValueChangeMode.LAZY);
         searchProjectByName.addValueChangeListener(e -> updateListByProjectNameSearch(e.getValue()));
+
+        // configure clearSearch button to remove grid by search
+        clearSearch.addClickListener(e -> {
+            searchProjectByName.clear();
+            updateList();
+        });
 
         HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn);
         return toolbar;
