@@ -125,6 +125,8 @@ public class ProjectsList extends VerticalLayout {
 
     // Save project to database, update ticketGrid, and close form
     private void saveProject(ProjectForm.SaveEvent e) {
+        // retrieve and set employees selected from MutliSelectComboBox to project
+        e.getProject().setEmployeesAssignedToProject(projectForm.getEmployeesAssigned());
         TSService.saveProject(e.getProject());
         updateList();
         closeEditor();

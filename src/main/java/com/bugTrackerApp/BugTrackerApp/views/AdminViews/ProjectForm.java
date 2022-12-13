@@ -20,6 +20,7 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.shared.Registration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectForm extends FormLayout {
@@ -98,6 +99,8 @@ public class ProjectForm extends FormLayout {
         // populate MultiSelectComboBox with employees assigned to project
         if (project != null) {projectsAssignedToEmployee.select(project.getEmployeesAssignedToProject());}
     }
+
+    public List<Employee> getEmployeesAssigned() { return new ArrayList<>(projectsAssignedToEmployee.getValue()); }
 
     // Events
     public static abstract class ContactFormEvent extends ComponentEvent<ProjectForm> {
