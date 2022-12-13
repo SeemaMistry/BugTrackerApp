@@ -39,12 +39,8 @@ public class ProjectsList extends VerticalLayout {
         configureGrid();
         configureForm();
 
-        // add new project btn with clickListener
-        Button addNewProjectBtn = new Button("Add new project");
-        addNewProjectBtn.addClickListener(e ->  addProject());
-
         // display components, update grids
-        add(welcome, addNewProjectBtn, getContent());
+        add(welcome, getToolbar(), getContent());
         updateList();
 
         // close project form as default
@@ -77,6 +73,15 @@ public class ProjectsList extends VerticalLayout {
         HorizontalLayout content = new HorizontalLayout(grid, projectForm);
         content.setSizeFull();
         return content;
+    }
+
+    private HorizontalLayout getToolbar() {
+        // add new project btn with clickListener
+        Button addNewProjectBtn = new Button("Add new project");
+        addNewProjectBtn.addClickListener(e ->  addProject());
+
+        HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn);
+        return toolbar;
     }
 
     // configure project grid
