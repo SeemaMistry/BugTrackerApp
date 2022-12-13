@@ -12,6 +12,7 @@ import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -26,7 +27,7 @@ public class ProjectsList extends VerticalLayout {
     TicketSystemService TSService;
     UserRelationsService URService;
     Grid<Project> grid = new Grid<>(Project.class);
-    TextField filterText = new TextField();
+    TextField searchProjectByName = new TextField();
     ProjectForm projectForm;
 
     public ProjectsList(TicketSystemService TSService,  UserRelationsService URService) {
@@ -68,6 +69,9 @@ public class ProjectsList extends VerticalLayout {
         grid.setItems(TSService.findAllProjects());
     }
 
+    // update project grid with projects based on searchBYProjectName value
+    private void updateListByProjectNameSearch(String searchName)  { grid.setItems(TSService.searchProjectByLikeName(searchName)); }
+
     // return page content (grid and form)
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, projectForm);
@@ -79,6 +83,12 @@ public class ProjectsList extends VerticalLayout {
         // add new project btn with clickListener
         Button addNewProjectBtn = new Button("Add new project");
         addNewProjectBtn.addClickListener(e ->  addProject());
+
+        // populate project grid with projects found via search
+        searchProjectByName.setPlaceholder("Search Project ...");
+        searchProjectByName.setClearButtonVisible(true);
+        searchProjectByName.setValueChangeMode(ValueChangeMode.LAZY);
+        searchProjectByName.addValueChangeListener(e -> updateListByProjectNameSearch(e.getValue()));
 
         HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn);
         return toolbar;
