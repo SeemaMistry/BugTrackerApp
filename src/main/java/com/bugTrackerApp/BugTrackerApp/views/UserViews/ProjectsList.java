@@ -97,7 +97,7 @@ public class ProjectsList extends VerticalLayout {
             updateList();
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn);
+        HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn, searchProjectByName, clearSearch);
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
     }
