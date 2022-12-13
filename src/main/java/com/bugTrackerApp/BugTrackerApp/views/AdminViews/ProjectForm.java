@@ -25,7 +25,7 @@ public class ProjectForm extends FormLayout {
     TextField name = new TextField("Project Name");
     TextArea description = new TextArea("Project Description"); // might need to set label
     ComboBox<Employee> creatorEmployee = new ComboBox<Employee>("Creator");
-    ComboBox<Status> projectStatus = new ComboBox<Status>("Status");
+    ComboBox<Status> projectStatus = new ComboBox<Status>("Status"); 
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
