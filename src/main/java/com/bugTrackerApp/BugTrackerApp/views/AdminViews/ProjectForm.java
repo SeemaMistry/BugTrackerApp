@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Status;
@@ -8,6 +9,7 @@ import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -25,13 +27,18 @@ public class ProjectForm extends FormLayout {
     TextField name = new TextField("Project Name");
     TextArea description = new TextArea("Project Description"); // might need to set label
     ComboBox<Employee> creatorEmployee = new ComboBox<Employee>("Creator");
-    ComboBox<Status> projectStatus = new ComboBox<Status>("Status"); 
+    ComboBox<Status> projectStatus = new ComboBox<Status>("Status");
+    MultiSelectComboBox<Employee> projectsAssignedToEmployee = new MultiSelectComboBox<>("Assigned Employees");
+
+    // fields to add:M:N employeesAssignedToProject
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
+    // Project and Company object
     private Project project;
+    private Company company;
 
     // initialize bean binder
     Binder<Project> binder = new BeanValidationBinder<>(Project.class);
