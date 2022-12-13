@@ -25,12 +25,10 @@ import java.util.List;
 public class ProjectForm extends FormLayout {
     // fields and components
     TextField name = new TextField("Project Name");
-    TextArea description = new TextArea("Project Description"); // might need to set label
-    ComboBox<Employee> creatorEmployee = new ComboBox<Employee>("Creator");
-    ComboBox<Status> projectStatus = new ComboBox<Status>("Status");
+    TextArea description = new TextArea("Project Description");
+    ComboBox<Employee> creatorEmployee = new ComboBox<>("Creator");
+    ComboBox<Status> projectStatus = new ComboBox<>("Status");
     MultiSelectComboBox<Employee> projectsAssignedToEmployee = new MultiSelectComboBox<>("Assigned Employees");
-
-    // fields to add:M:N employeesAssignedToProject
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
@@ -48,17 +46,20 @@ public class ProjectForm extends FormLayout {
         // bind instance fields
         binder.bindInstanceFields(this);
 
-        // configure comboBox
+        // configure comboBox and multiselect comboBox
         creatorEmployee.setItems(employees);
         creatorEmployee.setItemLabelGenerator(Employee::getFullName);
         projectStatus.setItems(statuses);
         projectStatus.setItemLabelGenerator(Status::getName);
+        projectsAssignedToEmployee.setItems(employees);
+        projectsAssignedToEmployee.setItemLabelGenerator(Employee::getFullName);
 
         add(welcome,
                 name,
                 description,
                 creatorEmployee,
                 projectStatus,
+                projectsAssignedToEmployee,
                 createButtonLayout()
         );
     }
