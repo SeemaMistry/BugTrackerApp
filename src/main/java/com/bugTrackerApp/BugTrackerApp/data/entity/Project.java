@@ -52,8 +52,12 @@ public class Project extends AbstractEntity{
     @NotNull
     private Status projectStatus;
 
-    @ManyToMany(mappedBy = "projectsAssignedToEmployee")
-    @Fetch(FetchMode.SELECT)
+    @ManyToMany
+    @JoinTable(
+            name = "projectsAssignedToEmployees",
+            joinColumns = { @JoinColumn(name = "projectId")},
+            inverseJoinColumns = { @JoinColumn(name = "employeeId")}
+    )
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Employee> employeesAssignedToProject = new ArrayList<>();
 

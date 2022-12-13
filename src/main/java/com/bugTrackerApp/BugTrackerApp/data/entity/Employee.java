@@ -69,12 +69,9 @@ public class Employee extends AbstractEntity{
     @LazyCollection(LazyCollectionOption.FALSE)
     private List<Ticket> ticketsAssignedToEmployees = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            name = "projectsAssignedToEmployees",
-            joinColumns = { @JoinColumn(name = "employeeId")},
-            inverseJoinColumns = { @JoinColumn(name = "projectId")}
-    )
+    @ManyToMany(mappedBy = "employeesAssignedToProject")
+    @Fetch(FetchMode.SELECT)
+    @LazyCollection(LazyCollectionOption.FALSE)
     private List<Project> projectsAssignedToEmployee = new ArrayList<>();
 
     public Employee(Company company, SecurityClearance securityClearance, String firstName, String lastName, String email) {
