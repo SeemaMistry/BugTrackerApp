@@ -22,6 +22,7 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TicketForm extends FormLayout {
@@ -48,18 +49,24 @@ public class TicketForm extends FormLayout {
     // bean Binder
     Binder<Ticket> binder = new BeanValidationBinder<>(Ticket.class);
 
+    // list to populate MultiselectComboBox
+    List<Employee> employeeList;
+
     public TicketForm(
             List<Employee> employeeList,
+            List<Employee> employeeReporterList,
             List<TicketPriority> ticketPriorityList,
             List<TicketEstimatedTime> ticketEstimatedTimeList,
             List<TicketType> ticketTypeList,
             List<Status> statuses
     ) {
-        // bind instance fields
+        this.employeeList = employeeList;
+        // bind instance fields and lists
         binder.bindInstanceFields(this);
 
+
         // configure components
-        ticketReporter.setItems(employeeList);
+        ticketReporter.setItems(employeeReporterList);
         ticketReporter.setItemLabelGenerator(Employee::getFullName);
         ticketPriority.setItems(ticketPriorityList);
         ticketPriority.setItemLabelGenerator(TicketPriority::getName);
@@ -70,7 +77,7 @@ public class TicketForm extends FormLayout {
         ticketStatus.setItems(statuses);
         ticketStatus.setItemLabelGenerator(Status::getName);
 
-        ticketsAssignedToEmployees.setItems(employeeList);
+        ticketsAssignedToEmployees.setItems(this.employeeList);
         ticketsAssignedToEmployees.setItemLabelGenerator(Employee::getFullName);
         assignedEmployees.setReadOnly(true);
         configureMultiSelectComboBox();
@@ -153,10 +160,23 @@ public class TicketForm extends FormLayout {
     public void setTicket(Ticket ticket) {
         // set ticket through readBean
         this.ticket = ticket;
-        binder.readBean(ticket);
         ticketsAssignedToEmployees.deselectAll();
+        binder.readBean(ticket);
+
         // populate MultiSelectComboBox with employees assigned to this ticket
-        if (ticket != null) {ticketsAssignedToEmployees.select(ticket.getEmployeesAssignedToTicket());}
+        if (ticket != null) {
+
+            // for each assigned employee, add each individually as a selected subList() of the employeeList
+            for(Employee eAssigned : ticket.getEmployeesAssignedToTicket()) {
+                for(Employee eFromFullList : this.employeeList) {
+                    // check if Ids match (Employee Objects will not match even if they are the same)
+                    if(eFromFullList.getId().equals(eAssigned.getId())){
+                        int eInt = this.employeeList.indexOf(eFromFullList);
+                        ticketsAssignedToEmployees.select(this.employeeList.subList(eInt, eInt+1 ));
+                    }
+                }
+            }
+        }
     }
 
     // retrieve selected employees from multiselect comboBox
