@@ -42,17 +42,21 @@ public class ProjectForm extends FormLayout {
     // initialize bean binder
     Binder<Project> binder = new BeanValidationBinder<>(Project.class);
 
+    // list to populate MultiselecComboBox
+    List<Employee> employees;
+
     public ProjectForm(List<Employee> employees, List<Status> statuses) {
         H1 welcome = new H1("Edit a project's info here");
         // bind instance fields
         binder.bindInstanceFields(this);
+        this.employees = employees;
 
         // configure comboBox and multiselect comboBox
-        creatorEmployee.setItems(employees);
+        creatorEmployee.setItems(this.employees);
         creatorEmployee.setItemLabelGenerator(Employee::getFullName);
         projectStatus.setItems(statuses);
         projectStatus.setItemLabelGenerator(Status::getName);
-        projectsAssignedToEmployee.setItems(employees);
+        projectsAssignedToEmployee.setItems(this.employees);
         projectsAssignedToEmployee.setItemLabelGenerator(Employee::getFullName);
 
         add(welcome,
@@ -97,7 +101,18 @@ public class ProjectForm extends FormLayout {
         // deselect MultiSelectComboBox of employees
         projectsAssignedToEmployee.deselectAll();
         // populate MultiSelectComboBox with employees assigned to project
-        if (project != null) {projectsAssignedToEmployee.select(project.getEmployeesAssignedToProject());}
+        if (project != null) {
+            // for each assigned employee, add each individually as a selected subList() of the employeeList
+            for(Employee eAssigned : project.getEmployeesAssignedToProject()) {
+                for(Employee eFromFullList : this.employees) {
+                    // check if Ids match (Employee Objects will not match even if they are the same)
+                    if(eFromFullList.getId().equals(eAssigned.getId())){
+                        int eInt = this.employees.indexOf(eFromFullList);
+                        projectsAssignedToEmployee.select(this.employees.subList(eInt, eInt+1 ));
+                    }
+                }
+            }
+        }
     }
 
     public List<Employee> getEmployeesAssigned() { return new ArrayList<>(projectsAssignedToEmployee.getValue()); }
