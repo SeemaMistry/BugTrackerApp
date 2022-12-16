@@ -7,6 +7,7 @@ import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -110,6 +111,7 @@ public class ProjectsList extends VerticalLayout {
         grid.setColumns("name", "description");
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
         grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
+        grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // single click to edit project

@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,5 +67,9 @@ public class Project extends AbstractEntity{
         this.description = description;
         this.creatorEmployee = creatorEmployee;
         this.projectStatus = projectStatus;
+    }
+
+    public LocalDate getFormattedCreatedDate() {
+        return this.createdDate.toLocalDateTime().toLocalDate();
     }
 }
