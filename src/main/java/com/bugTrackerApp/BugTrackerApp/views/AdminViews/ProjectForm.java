@@ -46,7 +46,6 @@ public class ProjectForm extends FormLayout {
     List<Employee> employees;
 
     public ProjectForm(List<Employee> employees, List<Status> statuses) {
-        H1 welcome = new H1("Edit a project's info here");
         // bind instance fields
         binder.bindInstanceFields(this);
         this.employees = employees;
@@ -59,7 +58,7 @@ public class ProjectForm extends FormLayout {
         projectsAssignedToEmployee.setItems(this.employees);
         projectsAssignedToEmployee.setItemLabelGenerator(Employee::getFullName);
 
-        add(welcome,
+        add(
                 name,
                 description,
                 creatorEmployee,
