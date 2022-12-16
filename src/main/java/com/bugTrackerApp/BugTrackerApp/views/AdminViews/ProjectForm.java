@@ -10,6 +10,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
+import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -42,7 +43,7 @@ public class ProjectForm extends FormLayout {
     // initialize bean binder
     Binder<Project> binder = new BeanValidationBinder<>(Project.class);
 
-    // list to populate MultiselecComboBox
+    // list to populate MultiSelectComboBox
     List<Employee> employees;
 
     public ProjectForm(List<Employee> employees, List<Status> statuses) {
