@@ -1,10 +1,16 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
+import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
+import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
+import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProjectsList;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.router.HighlightConditions;
+import com.vaadin.flow.router.RouterLink;
 
 public class MainLayout extends AppLayout {
     public MainLayout() {
@@ -35,9 +41,20 @@ public class MainLayout extends AppLayout {
 
     private void createDrawer() {
         // create router links
+        RouterLink employeeLink = new RouterLink("Employees", EmployeesList.class);
+        RouterLink projectLink = new RouterLink("Projects", ProjectsList.class);
+        RouterLink profileLink = new RouterLink("My Profile", ProfileView.class);
+        RouterLink homeLink = new RouterLink("Homepage", HomeView.class);
 
         // set highlight conditions
+        homeLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-        // add router links to Drawer navigation 
+        // add router links to Drawer navigation
+        addToDrawer(new VerticalLayout(
+                homeLink,
+                employeeLink,
+                projectLink,
+                profileLink
+        ));
     }
 }
