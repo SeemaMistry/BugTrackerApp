@@ -126,7 +126,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     private void configureTicketForm(){
         // initialize ticket form data and size
         ticketForm = new TicketForm(
-                URService.findAllEmployees(null),
+                URService.findAllEmployeesAssignedToProject(project),
                 URService.findAllEmployees(null),
                 TTService.findAllTicketPriority(),
                 TTService.findAllTicketEstimatedTimes(),
@@ -176,7 +176,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // configure the employee search ComboBox
     private HorizontalLayout getToolbar(){
         // find all employees assigned to this project
-        searchTicketsByEmployee.setItems(URService.findAllEmployees(null));
+        searchTicketsByEmployee.setItems(URService.findAllEmployeesAssignedToProject(project));
         searchTicketsByEmployee.setItemLabelGenerator(Employee::getFullName);
 
         // update ticket ticketGrid when search ComboBox applied
