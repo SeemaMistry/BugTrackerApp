@@ -16,7 +16,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Home | Bug Tracker")
-@Route(value="home", layout = MainLayout.class)
+@Route(value="", layout = MainLayout.class)
 @PermitAll
 public class HomeView extends VerticalLayout {
     // TODO: test company search is working
