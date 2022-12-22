@@ -4,6 +4,7 @@ import com.vaadin.flow.component.applayout.AppLayout;
 
 public class MainLayout extends AppLayout {
     public MainLayout() {
+        // Header and side Drawer navigation's
         createHeader();
         createDrawer();
     }
