@@ -13,8 +13,16 @@ import javax.annotation.security.RolesAllowed;
 @Route(value="profile", layout = MainLayout.class)
 @RolesAllowed({"USER", "ADMIN"})
 public class ProfileView extends VerticalLayout {
+    // User relation service
+
+    // components
+
     public ProfileView() {
         H1 welcome = new H1("My Profile");
+        // hardcode in an employee
+
+        // configure my profile components
+
         add(welcome);
     }
 }
