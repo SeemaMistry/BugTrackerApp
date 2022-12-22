@@ -34,6 +34,10 @@ public class MainLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        // TODO: make menu bar navigation
+        // create router links
+
+        // set highlight conditions
+
+        // add router links to Drawer navigation 
     }
 }
