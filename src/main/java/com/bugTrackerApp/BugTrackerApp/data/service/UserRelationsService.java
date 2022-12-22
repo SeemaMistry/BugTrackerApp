@@ -114,4 +114,13 @@ public class UserRelationsService {
         return accountStatusRepo.findAll();
     }
 
+    // find all employees assigned to a project
+    public List<Employee> findAllEmployeesAssignedToProject(Project p) {
+        if (p == null || p.getEmployeesAssignedToProject().size() == 0) {
+            return findAllEmployees(null);
+        } else {
+            return employeeRepo.findProjectsAssignedToEmployeesByProjectsAssignedToEmployeeId(p.getId());
+        }
+    }
+
 }

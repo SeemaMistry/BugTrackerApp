@@ -15,4 +15,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
             "or lower(e.lastName) like lower(concat('%', :searchTerm, '%'))"
     )
     List<Employee> search(@Param("searchTerm") String searchTerm);
+
+    List<Employee> findProjectsAssignedToEmployeesByProjectsAssignedToEmployeeId(UUID id);
 }
