@@ -37,7 +37,7 @@ public class ProjectsList extends VerticalLayout {
     public ProjectsList(TicketSystemService TSService,  UserRelationsService URService) {
         this.TSService = TSService;
         this.URService = URService;
-        H1 welcome = new H1("A list of all your projects");
+        H1 welcome = new H1("Projects Grid");
 
         //configure Grid
         setSizeFull();
