@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
+import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
@@ -9,7 +10,7 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Profile | Bug Tracker")
-@Route(value="profile")
+@Route(value="profile", layout = MainLayout.class)
 @RolesAllowed({"USER", "ADMIN"})
 public class ProfileView extends VerticalLayout {
     public ProfileView() {

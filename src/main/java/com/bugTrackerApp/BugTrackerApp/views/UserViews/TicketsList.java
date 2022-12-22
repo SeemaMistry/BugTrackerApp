@@ -6,6 +6,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
+import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.grid.Grid;
@@ -20,7 +21,7 @@ import com.vaadin.flow.router.*;
 import javax.annotation.security.RolesAllowed;
 
 @PageTitle("Tickets | Bug Tracker")
-@Route(value="tickets")
+@Route(value="tickets", layout = MainLayout.class)
 @RolesAllowed({"USER", "ADMIN"})
 public class TicketsList extends VerticalLayout implements HasUrlParameter<String> {
     // Services

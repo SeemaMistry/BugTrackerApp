@@ -4,6 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
+import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -20,7 +21,7 @@ import javax.annotation.security.RolesAllowed;
 
 
 @PageTitle("Projects | Bug Tracker")
-@Route(value="projects")
+@Route(value="projects", layout = MainLayout.class)
 @RolesAllowed({"USER", "ADMIN"})
 public class ProjectsList extends VerticalLayout {
     // Services and Components

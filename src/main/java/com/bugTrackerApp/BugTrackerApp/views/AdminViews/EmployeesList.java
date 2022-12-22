@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -19,7 +20,7 @@ import javax.annotation.security.RolesAllowed;
     Employee list displays a list of all the emplpyees with a form to edit/add employees (by admin only)
 */
 @PageTitle("Employees List | Bug Tracker")
-@Route(value="employees")
+@Route(value="employees", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class EmployeesList extends VerticalLayout {
     // instantiate components, services and form
