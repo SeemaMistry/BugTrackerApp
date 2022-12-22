@@ -10,7 +10,13 @@ public class MainLayout extends AppLayout {
     }
 
     private void createHeader() {
-        // TODO: make header navigation
+        // create Logo (just an H1 tag)
+
+        // create Horizontal layout with a Drawer and logo
+
+        // add stylings
+
+        // add to nav bar at the top of screen
     }
 
     private void createDrawer() {
