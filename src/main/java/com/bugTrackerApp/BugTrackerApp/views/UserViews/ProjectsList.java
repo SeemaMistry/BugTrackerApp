@@ -7,12 +7,14 @@ import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -109,6 +111,12 @@ public class ProjectsList extends VerticalLayout {
 
         // configure columns
         grid.setColumns("name", "description");
+        // create "View Tickets" button per row which redirects to project's ticketList page
+        grid.addComponentColumn(project -> {
+            Button btn = new Button("View Tickets",
+                    event -> UI.getCurrent().navigate(TicketsList.class, project.getName()));
+            return btn;
+        });
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
         grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
         grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on");
