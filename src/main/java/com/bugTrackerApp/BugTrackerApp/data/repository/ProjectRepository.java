@@ -9,8 +9,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface ProjectRepository extends JpaRepository<Project, UUID> {
+
+    // find project by name
     Project findByName(String name);
 
+    // search for like projects based Project.name
     @Query("select p from Project p " +
             "where lower(p.name) like lower(concat('%', :searchTerm, '%'))")
     List<Project> searchProject(@Param("searchTerm") String searchTerm);

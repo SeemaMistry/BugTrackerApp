@@ -1,7 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -10,7 +9,6 @@ import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
 import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
@@ -22,7 +20,6 @@ import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class TicketForm extends FormLayout {
@@ -44,7 +41,6 @@ public class TicketForm extends FormLayout {
 
     // Entity objects
     Ticket ticket;
-    Project project;
 
     // bean Binder
     Binder<Ticket> binder = new BeanValidationBinder<>(Ticket.class);
@@ -94,6 +90,7 @@ public class TicketForm extends FormLayout {
         add(form);
     }
 
+    // configure ticket form layout
     private void configureForm() {
        formLayout.add(subject,
                 dueDate,
@@ -169,7 +166,7 @@ public class TicketForm extends FormLayout {
             // for each assigned employee, add each individually as a selected subList() of the employeeList
             for(Employee eAssigned : ticket.getEmployeesAssignedToTicket()) {
                 for(Employee eFromFullList : this.employeeList) {
-                    // check if Ids match (Employee Objects will not match even if they are the same)
+                    // check if Ids match (Employee Objects will not match even if they are the same. Use .equals() not "==")
                     if(eFromFullList.getId().equals(eAssigned.getId())){
                         int eInt = this.employeeList.indexOf(eFromFullList);
                         ticketsAssignedToEmployees.select(this.employeeList.subList(eInt, eInt+1 ));

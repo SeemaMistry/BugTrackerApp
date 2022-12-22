@@ -10,9 +10,7 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.combobox.MultiSelectComboBox;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
@@ -25,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProjectForm extends FormLayout {
-    // fields and components
+    // Components: TextField, TextArea Multiselect ComboBox, ComboBox, Buttons
     TextField name = new TextField("Project Name");
     TextArea description = new TextArea("Project Description");
     ComboBox<Employee> creatorEmployee = new ComboBox<>("Creator");
@@ -36,9 +34,8 @@ public class ProjectForm extends FormLayout {
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
 
-    // Project and Company object
+    // Project Object
     private Project project;
-    private Company company;
 
     // initialize bean binder
     Binder<Project> binder = new BeanValidationBinder<>(Project.class);
@@ -46,10 +43,10 @@ public class ProjectForm extends FormLayout {
     // list to populate MultiSelectComboBox
     List<Employee> employees;
 
-    public ProjectForm(List<Employee> employees, List<Status> statuses) {
+    public ProjectForm(List<Employee> employeesList, List<Status> statuses) {
         // bind instance fields
         binder.bindInstanceFields(this);
-        this.employees = employees;
+        this.employees = employeesList;
 
         // configure comboBox and multiselect comboBox
         creatorEmployee.setItems(this.employees);
@@ -84,6 +81,7 @@ public class ProjectForm extends FormLayout {
         return new HorizontalLayout(save, delete, close);
     }
 
+    // save valid project
     private void validateAndSave() {
         try {
             binder.writeBean(project);
@@ -105,7 +103,7 @@ public class ProjectForm extends FormLayout {
             // for each assigned employee, add each individually as a selected subList() of the employeeList
             for(Employee eAssigned : project.getEmployeesAssignedToProject()) {
                 for(Employee eFromFullList : this.employees) {
-                    // check if Ids match (Employee Objects will not match even if they are the same)
+                    // check if Ids match (Employee Objects will not match even if they are the same so use .equals())
                     if(eFromFullList.getId().equals(eAssigned.getId())){
                         int eInt = this.employees.indexOf(eFromFullList);
                         projectsAssignedToEmployee.select(this.employees.subList(eInt, eInt+1 ));
@@ -115,6 +113,7 @@ public class ProjectForm extends FormLayout {
         }
     }
 
+    // get employees selected from MultiSelectComboBox
     public List<Employee> getEmployeesAssigned() { return new ArrayList<>(projectsAssignedToEmployee.getValue()); }
 
     // Events

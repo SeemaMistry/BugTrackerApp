@@ -27,19 +27,19 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     TicketSystemService TTService;
     UserRelationsService URService;
 
-    // Components: tickets ticketGrid, employee ticketGrid, ticket and employee search ComboBoxes
+    // Instantiate and define Components: grids, filters, buttons, forms
+
+    // Grids: tickets and employeesAssigned
     Grid<Ticket> ticketGrid = new Grid<>(Ticket.class);
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
 
-    // search for tickets based on employee ComboBox
+    // Filters: search by employee or Ticket.subject
     ComboBox<Employee> searchTicketsByEmployee = new ComboBox<>("Search Tickets by Employee");
     // search for tickets by subject
     TextField searchTicketsBySubject = new TextField("Search Ticket by Subject");
 
-    // add new ticket button
+    //Buttons:  add new ticket and clear filters/searches
     Button addNewTicketBtn = new Button("Add Ticket");
-
-    // clear search button
     Button clearSearchBtn = new Button("Clear Search");
 
     // Ticket form and scroll wrapper
@@ -65,7 +65,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         getContent();
     }
 
-    // display page content: grids and search ComboBoxes, and forms. Functions as constructor usually does
+    // configure and display page content: grids, filters, buttons and forms
     private void getContent() {
         H1 welcome = new H1("Tickets of: " + this.projectName);
         // remove excess margins
@@ -91,7 +91,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         closeTicketForm();
     }
 
-    // configure Ticket ticketGrid
+    // configure ticketGrid
     private void configureTicketGrid() {
         ticketGrid.setSizeFull();
         // configure columns
@@ -103,10 +103,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.addColumn(e -> e.getTicketStatus().getName()).setHeader("Status").setSortable(true);
         ticketGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time").setSortable(true);
         ticketGrid.addColumn("dueDate");
-
         ticketGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
-        // single select a ticket to see employees assigned
+        // single select a ticket to see employees assigned to it
         ticketGrid.asSingleSelect().addValueChangeListener( e -> {
             // if ticket selected, populate employeeGrid with assigned employees, else close employeeGrid
             if (e.getValue() != null) { editTicket(e.getValue()); }
@@ -114,7 +113,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         });
     }
 
-    // configure Employee employee grid
+    // configure employeeGrid
     private void configureEmployeeGrid(){
         employeeGrid.setSizeFull();
         // configure columns
@@ -122,7 +121,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
-    // configure ticket form
+    // configure ticket Form
     private void configureTicketForm(){
         // initialize ticket form data and size
         ticketForm = new TicketForm(
@@ -133,7 +132,6 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 TTService.findAllTicketType(),
                 TTService.findAllStatuses()
         );
-//        ticketForm.setSizeFull();
 
         // Use API  calls for save, delete, close events
         ticketForm.addListener(TicketForm.SaveEvent.class, this::saveTicket);
@@ -146,57 +144,45 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // wrap ticketForm inside a Scroller
     private void configureScroller() {
+        // set content and orientation orientation
         scroller.setScrollDirection(Scroller.ScrollDirection.VERTICAL);
         VerticalLayout form = new VerticalLayout(ticketForm);
-        form.getStyle().set("padding", "0px");
         scroller.setContent(form);
+        // correct styling
+        form.getStyle().set("padding", "0px");
         scroller.getStyle()
                 .set("border", "1px solid grey");
     }
 
+    // display ticket and emplopyee grids in horizontal layout
     private HorizontalLayout getGrids() {
-        // label grids
-//        this.ticketGridLabel.setText(this.ticketGridLabel.getText() + this.projectName);
-//        VerticalLayout labelledTicketGrid = new VerticalLayout(this.ticketGridLabel, ticketGrid);
-//        VerticalLayout labelledEmployeeGrid = new VerticalLayout(this.employeeGridLabel, employeeGrid);
-
         // display grids in horizontal layout
         HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
-//        if (labelledEmployeeGrid.isVisible()) {
-//            H1 test = new H1("The employee grid is visible");
-//            grids.add(test, labelledTicketGrid, labelledEmployeeGrid);
-//        } else {
-//            H1 test = new H1("The employee grid is NOT visible");
-//            grids.add(test, labelledTicketGrid);
-//        }
         grids.setSizeFull();
         return grids;
     }
 
-    // configure the employee search ComboBox
+    // configure toolbar: filters and add new Ticket button
     private HorizontalLayout getToolbar(){
-        // find all employees assigned to this project
+        // populate ComboBox with all employees assigned to this project
         searchTicketsByEmployee.setItems(URService.findAllEmployeesAssignedToProject(project));
         searchTicketsByEmployee.setItemLabelGenerator(Employee::getFullName);
-
-        // update ticket ticketGrid when search ComboBox applied
-        searchTicketsByEmployee.addValueChangeListener(e -> updateListBySearch());
         searchTicketsByEmployee.setPlaceholder("Search Employee");
+        // update ticketGrid when search by employee applied
+        searchTicketsByEmployee.addValueChangeListener(e -> updateListByEmployeeSearch());
 
-        // populate ticket search with tickets
+
+        // configure search for Tickets based on Ticket.subject
         searchTicketsBySubject.setPlaceholder("Filter by subject...");
-//        searchTicketsBySubject.setSizeFull();
         searchTicketsBySubject.setClearButtonVisible(true);
+        // update ticketGrid when search by Ticket.subject applied
         searchTicketsBySubject.setValueChangeMode(ValueChangeMode.LAZY);
         searchTicketsBySubject.addValueChangeListener(e -> updateListByTicketSubjectSearch());
 
-        // update ticket grid with ticket subject search applied
-        searchTicketsBySubject.addValueChangeListener(e -> updateListByTicketSubjectSearch());
-
-        // add new ticket button with listener for addTicket()
+        // add new ticket button
         addNewTicketBtn.addClickListener(e -> addTicket());
 
-        // clear search and close form and employee grid
+        // clear filters and close ticketForm and employeeGrid
         clearSearchBtn.addClickListener(e -> {
             searchTicketsByEmployee.clear(); // clear search comboBox
             updateGrid(); // go back to all tickets in grid
@@ -215,27 +201,30 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         return this.scroller;
     }
 
-    // update ticket ticketGrid to find all the tickets
+    // update ticketGrid to find all the tickets
     private void updateGrid() {
         ticketGrid.setItems(TTService.findAllTickets(projectName));
     }
 
-    // update ticket ticketGrid by employee search ComboBox value
-    private void updateListBySearch(){
+    // update ticketGrid by employee search ComboBox value
+    private void updateListByEmployeeSearch(){
         ticketGrid.setItems(TTService.searchTicketByProjectAndEmployee(project, searchTicketsByEmployee.getValue()));
     }
 
-    // update ticket grid by ticket subject search ComboBox value
+    // update ticketGrid by Ticket.subject value
     private void updateListByTicketSubjectSearch(){
         ticketGrid.setItems(TTService.searchTicketBySubjectAndProject(searchTicketsBySubject.getValue(), this.project));
     }
 
+    // close employeeGrid
     private void closeEmployeeGrid(){
         employeeGrid.setVisible(false);
         closeTicketForm();
     }
 
-    // Form Manipulation: save, delete, open and close
+    // TICKET FORM MANIPULATIONS: save, delete, open and close
+
+    // close ticketForm
     private void closeTicketForm() {
         // clear form and close it
         ticketForm.setTicket(null);
@@ -253,7 +242,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // populate form and employeeGrid for editing
     private void editTicket(Ticket ticket){
-        // no ticket = close form, else open form and populate form with ticket info
+        // no ticket = close form, else open form and employeeGrid and populate with ticket info
         if (ticket == null) {
             closeTicketForm();
         } else {
@@ -266,7 +255,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     // save ticket
     private void saveTicket(TicketForm.SaveEvent e) {
-        // retrieve and set employees selected from MutliSelectComboBox to ticket
+        // retrieve and set employees selected from MultiSelectComboBox to ticket.assignedEmployees
         e.getTicket().setEmployeesAssignedToTicket(ticketForm.getEmployeesAssigned());
         TTService.saveTicket(e.getTicket());
         updateGrid();

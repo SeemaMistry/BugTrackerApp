@@ -10,11 +10,13 @@ import java.util.UUID;
 
 public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
+    // search for like employees based on first or last name
     @Query("select e from Employee e " +
             "where lower(e.firstName) like lower(concat('%', :searchTerm, '%')) " +
             "or lower(e.lastName) like lower(concat('%', :searchTerm, '%'))"
     )
     List<Employee> search(@Param("searchTerm") String searchTerm);
 
+    // find all employees assigned to a project (in M:N table="ProjectsAssignedToEmployees")
     List<Employee> findProjectsAssignedToEmployeesByProjectsAssignedToEmployeeId(UUID id);
 }

@@ -124,7 +124,9 @@ public class TicketSystemService {
         return ticketTypeRepo.findAll();
     }
 
-    //CUSTOM QUERIES
+    // CUSTOM QUERIES
+
+    // find all tickets assigned to employee (regardless of project)
     public List<Ticket> findTicketsAssignedToEmployee(Employee e){
         if (e != null) {
             return ticketRepo.findTicketsAssignedToEmployeesByEmployeesAssignedToTicketId(e.getId());
@@ -133,6 +135,7 @@ public class TicketSystemService {
         }
     }
 
+    // find project by name
     public Project findProjectByName(String name) {
         return projectRepo.findByName(name);
     }
@@ -146,6 +149,7 @@ public class TicketSystemService {
         }
     }
 
+    // search for ticket(s) by subject and project
     public List<Ticket> searchTicketBySubjectAndProject(String subject, Project project){
         if (subject.isEmpty()) {
             return findAllTickets(project.getName());

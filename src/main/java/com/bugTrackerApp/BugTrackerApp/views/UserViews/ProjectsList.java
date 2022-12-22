@@ -7,14 +7,11 @@ import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.datepicker.DatePicker;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.renderer.ComponentRenderer;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -29,6 +26,7 @@ public class ProjectsList extends VerticalLayout {
     // Services and Components
     TicketSystemService TSService;
     UserRelationsService URService;
+
     Grid<Project> grid = new Grid<>(Project.class);
     TextField searchProjectByName = new TextField();
     ProjectForm projectForm;
@@ -53,7 +51,7 @@ public class ProjectsList extends VerticalLayout {
     }
 
 
-    // configure project form with button click listeners
+    // configure project Form with button click listeners
     private void configureForm() {
         // populate form ComboBoxes
         projectForm = new ProjectForm(
@@ -76,19 +74,20 @@ public class ProjectsList extends VerticalLayout {
     // update project grid with projects based on searchBYProjectName value
     private void updateListByProjectNameSearch(String searchName)  { grid.setItems(TSService.searchProjectByLikeName(searchName)); }
 
-    // return page content (grid and form)
+    // return page content (grid and form) in Horizontal layout
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, projectForm);
         content.setSizeFull();
         return content;
     }
 
+    // configure toolbar: filters and add new Project button
     private HorizontalLayout getToolbar() {
-        // add new project btn with clickListener
+        // add new project btn
         Button addNewProjectBtn = new Button("Add new project");
         addNewProjectBtn.addClickListener(e ->  addProject());
 
-        // populate project grid with projects found via search
+        // populate project grid with projects found via search value
         searchProjectByName.setPlaceholder("Search Project ...");
         searchProjectByName.setClearButtonVisible(true);
         searchProjectByName.setValueChangeMode(ValueChangeMode.LAZY);
@@ -101,6 +100,7 @@ public class ProjectsList extends VerticalLayout {
         });
 
         HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn, searchProjectByName, clearSearch);
+        // display toolbar content in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
     }
@@ -131,7 +131,7 @@ public class ProjectsList extends VerticalLayout {
         );
     }
 
-    // Form manipulations: save, delete, open, close
+    // FORM MANIPULATIONS: save, delete, open, close
 
     // Save project to database, update ticketGrid, and close form
     private void saveProject(ProjectForm.SaveEvent e) {
