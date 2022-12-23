@@ -45,6 +45,7 @@ public class HomeView extends VerticalLayout {
 
     public HomeView(TicketSystemService TSService, UserRelationsService URService) {
         this.TSService = TSService;
+        this.URService = URService;
 
         // hard code an employee to test if grid is populating
         List<Employee> employeeList = URService.findAllEmployees(null);
@@ -55,6 +56,8 @@ public class HomeView extends VerticalLayout {
         configureCardResponsiveFormLayout();
         configureTicketGrid();
 
+        // TODO: get user session
+        // TODO: add labels (Name as H1, "All projects", and "All [NAME] Assigned Tickets"
         add(new H1(this.employee.getFullName()), cardResponsiveFormLayout, ticketsGrid);
     }
 
@@ -66,6 +69,7 @@ public class HomeView extends VerticalLayout {
         // loop through all projects to create cards with labels
         for(Project p : projectList) {
             Card newProjectCard = new Card(
+                    // TODO: add label "Invited: Yes / No" as a Secondary ir Item Label"
                     new TitleLabel(p.getName()),
                     new PrimaryLabel("Project Description:"),
                     new SecondaryLabel(p.getDescription()),
