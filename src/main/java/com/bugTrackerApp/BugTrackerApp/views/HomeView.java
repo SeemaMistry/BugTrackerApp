@@ -33,21 +33,12 @@ public class HomeView extends VerticalLayout {
     // Components: form, grid
     FormLayout cardResponsiveFormLayout = new FormLayout();
 
-
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
-        Card card = new Card(
-                new TitleLabel("This is a card"),
-                new PrimaryLabel("Some primary text"),
-                new SecondaryLabel("Some secondary text"),
-                new Item("Item title", "Item description"),
-                new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");})
-        );
-
         createProjectCards();
         configureCardResponsiveFormLayout();
 
-        add(cardResponsiveFormLayout, card);
+        add(cardResponsiveFormLayout);
     }
 
     // create project cards and add them to the FormLayout
