@@ -10,14 +10,16 @@ import com.github.appreciated.card.content.Item;
 import com.github.appreciated.card.label.PrimaryLabel;
 import com.github.appreciated.card.label.SecondaryLabel;
 import com.github.appreciated.card.label.TitleLabel;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 import javax.annotation.security.RolesAllowed;
-import java.awt.*;
+
 
 @PageTitle("Home | Bug Tracker")
 @Route(value="", layout = MainLayout.class)
@@ -44,6 +46,24 @@ public class HomeView extends VerticalLayout {
                 new PrimaryLabel(project.getDescription()),
                 new SecondaryLabel(project.getProjectStatus().getName())
         );
-        add(card, projectCard);
+
+        // will store all projects in a horizontalLayout
+        HorizontalLayout projectCards = new HorizontalLayout();
+
+        // get all projects
+        List<Project> projectList = TSService.findAllProjects();
+        // loop through all projects and set Labels
+        for(Project p : projectList) {
+            projectCards.add(new Card(
+                    new TitleLabel(p.getName()),
+                    new PrimaryLabel("Project Description:"),
+                    new SecondaryLabel(p.getDescription()),
+                    new Item("Project Status:", p.getProjectStatus().getName())
+
+            ));
+        }
+
+        add(new HorizontalLayout(card, projectCard), projectCards);
     }
+
 }
