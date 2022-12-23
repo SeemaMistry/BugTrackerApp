@@ -14,6 +14,7 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import java.util.List;
 
 @PageTitle("Profile | Bug Tracker")
 @Route(value="profile", layout = MainLayout.class)
@@ -34,13 +35,22 @@ public class ProfileView extends VerticalLayout {
 
     // binder
     Binder<Employee> binder = new BeanValidationBinder<>(Employee.class);
-    
+
     public ProfileView() {
         H1 welcome = new H1("My Profile");
         // hardcode in an employee
+        List<Employee> employeeList = URService.findAllEmployees(null);
+        this.employee = employeeList.get(0);
 
         // configure my profile components
+        configureComponents();
 
-        add(welcome);
+        add(welcome, getContent());
+    }
+
+    public void configureComponents() {}
+
+    public VerticalLayout getContent() {
+        return new VerticalLayout();
     }
 }
