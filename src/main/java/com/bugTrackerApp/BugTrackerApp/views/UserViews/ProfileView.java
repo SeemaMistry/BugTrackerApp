@@ -36,8 +36,9 @@ public class ProfileView extends VerticalLayout {
     // binder
     Binder<Employee> binder = new BeanValidationBinder<>(Employee.class);
 
-    public ProfileView() {
+    public ProfileView(UserRelationsService URService) {
         H1 welcome = new H1("My Profile");
+        this.URService = URService;
         // hardcode in an employee
         List<Employee> employeeList = URService.findAllEmployees(null);
         this.employee = employeeList.get(0);
@@ -48,9 +49,17 @@ public class ProfileView extends VerticalLayout {
         add(welcome, getContent());
     }
 
-    public void configureComponents() {}
+    public void configureComponents() {
+    
+    }
 
     public VerticalLayout getContent() {
-        return new VerticalLayout();
+        return new VerticalLayout(
+                this.firstName,
+                this.lastName,
+                this.email,
+                this.company,
+                this.securityClearance
+        );
     }
 }
