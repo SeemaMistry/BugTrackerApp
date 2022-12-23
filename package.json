@@ -7,6 +7,7 @@
     "@polymer/iron-list": "3.1.0",
     "@polymer/iron-meta": "3.0.1",
     "@polymer/iron-resizable-behavior": "3.0.1",
+    "@polymer/paper-ripple": "3.0.2",
     "@polymer/polymer": "3.5.1",
     "@vaadin/accordion": "23.2.6",
     "@vaadin/app-layout": "23.2.6",
@@ -130,6 +131,7 @@
       "@polymer/iron-list": "3.1.0",
       "@polymer/iron-meta": "3.0.1",
       "@polymer/iron-resizable-behavior": "3.0.1",
+      "@polymer/paper-ripple": "3.0.2",
       "@polymer/polymer": "3.5.1",
       "@vaadin/accordion": "23.2.6",
       "@vaadin/app-layout": "23.2.6",
@@ -245,7 +247,7 @@
       "workbox-core": "6.5.0",
       "workbox-precaching": "6.5.0"
     },
-    "hash": "50a59791460a23cc243b406b01767f050ecf45986928b6baf30c7a9eddf71fdd"
+    "hash": "34f36c10dfac2430f33783d12f8ce4e5cfe0fe16920c9f8b1428421bf89adef3"
   },
   "overrides": {
     "@vaadin/bundles": "$@vaadin/bundles",
@@ -351,6 +353,7 @@
     "line-awesome": "$line-awesome",
     "@vaadin/confirm-dialog": "$@vaadin/confirm-dialog",
     "@vaadin/multi-select-combo-box": "$@vaadin/multi-select-combo-box",
-    "@vaadin/vaadin-confirm-dialog": "$@vaadin/vaadin-confirm-dialog"
+    "@vaadin/vaadin-confirm-dialog": "$@vaadin/vaadin-confirm-dialog",
+    "@polymer/paper-ripple": "$@polymer/paper-ripple"
   }
 }
