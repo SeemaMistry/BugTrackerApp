@@ -56,6 +56,13 @@ public class ProfileView extends VerticalLayout {
         this.company.setValue("co company");
         this.securityClearance.setValue(this.employee.getSecurityClearance().getSecurityTitle());
 
+        // set size to 300px
+        this.firstName.setWidth("300px");
+        this.lastName.setWidth("300px");
+        this.email.setWidth("300px");
+        this.company.setWidth("300px");
+        this.securityClearance.setWidth("300px");
+
         // make all read only
         this.firstName.setReadOnly(true);
         this.lastName.setReadOnly(true);
@@ -65,12 +72,13 @@ public class ProfileView extends VerticalLayout {
     }
 
     public VerticalLayout getContent() {
-        return new VerticalLayout(
+        VerticalLayout content = new VerticalLayout(
                 this.firstName,
                 this.lastName,
                 this.email,
                 this.company,
                 this.securityClearance
         );
+        return content;
     }
 }
