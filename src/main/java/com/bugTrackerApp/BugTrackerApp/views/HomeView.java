@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
+import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
@@ -13,6 +14,7 @@ import com.github.appreciated.card.label.SecondaryLabel;
 import com.github.appreciated.card.label.TitleLabel;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -32,13 +34,15 @@ public class HomeView extends VerticalLayout {
 
     // Components: form, grid
     FormLayout cardResponsiveFormLayout = new FormLayout();
+    Grid<Ticket> ticketsGrid = new Grid<>();
 
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
         createProjectCards();
         configureCardResponsiveFormLayout();
+        configureTicketGrid();
 
-        add(cardResponsiveFormLayout);
+        add(cardResponsiveFormLayout, getGrid());
     }
 
     // create project cards and add them to the FormLayout
