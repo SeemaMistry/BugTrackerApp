@@ -85,18 +85,22 @@ public class HomeView extends VerticalLayout {
 
             );
             newCard.setAlignItems(Alignment.END);
-            newCard.getStyle().set("margin", "50px");
+            newCard.getStyle().set("margin", "10px");
             formLayout.add(newCard);
         }
 
-        formLayout.add(card, projectCard);
+        card.setAlignItems(Alignment.END);
+        projectCard.setAlignItems(Alignment.END);
+        formLayout.add(card, projectCard, card);
         formLayout.setResponsiveSteps(
                 // Use one column by default
                 new FormLayout.ResponsiveStep("0", 1),
                 // Use two columns, if the layout's width exceeds 320px
                 new FormLayout.ResponsiveStep("320px", 2),
                 // Use three columns, if the layout's width exceeds 500px
-                new FormLayout.ResponsiveStep("500px", 3));
+                new FormLayout.ResponsiveStep("500px", 3),
+                new FormLayout.ResponsiveStep("900px", 4)
+        );
         add(formLayout);
     }
 
