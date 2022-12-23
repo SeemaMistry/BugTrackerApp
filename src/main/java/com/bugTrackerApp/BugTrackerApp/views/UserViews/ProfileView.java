@@ -50,7 +50,18 @@ public class ProfileView extends VerticalLayout {
     }
 
     public void configureComponents() {
-    
+        this.firstName.setValue(this.employee.getFirstName());
+        this.lastName.setValue(this.employee.getLastName());
+        this.email.setValue(this.employee.getEmail());
+        this.company.setValue("co company");
+        this.securityClearance.setValue(this.employee.getSecurityClearance().getSecurityTitle());
+
+        // make all read only
+        this.firstName.setReadOnly(true);
+        this.lastName.setReadOnly(true);
+        this.email.setReadOnly(true);
+        this.company.setReadOnly(true);
+        this.securityClearance.setReadOnly(true);
     }
 
     public VerticalLayout getContent() {
