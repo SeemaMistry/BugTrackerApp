@@ -1,8 +1,10 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
+import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
 import com.github.appreciated.card.Card;
@@ -15,6 +17,7 @@ import com.github.appreciated.card.label.TitleLabel;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
+import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -31,20 +34,28 @@ import java.util.List;
 public class HomeView extends VerticalLayout {
     // Services
     TicketSystemService TSService;
+    UserRelationsService URService;
 
     // Components: form, grid
     FormLayout cardResponsiveFormLayout = new FormLayout();
     Grid<Ticket> ticketsGrid = new Grid<>(Ticket.class);
 
-    public HomeView(TicketSystemService TSService) {
+    // Employee entity
+    Employee employee;
+
+    public HomeView(TicketSystemService TSService, UserRelationsService URService) {
         this.TSService = TSService;
+
+        // hard code an employee to test if grid is populating
+        List<Employee> employeeList = URService.findAllEmployees(null);
+        this.employee = employeeList.get(0);
 
         // configure components
         createProjectCards();
         configureCardResponsiveFormLayout();
         configureTicketGrid();
 
-        add(cardResponsiveFormLayout, ticketsGrid);
+        add(new H1(this.employee.getFullName()), cardResponsiveFormLayout, ticketsGrid);
     }
 
     // create project cards and add them to the FormLayout
@@ -87,7 +98,7 @@ public class HomeView extends VerticalLayout {
 
     private void configureTicketGrid(){
         // populate ticketGrid
-        ticketsGrid.setItems(TSService.findTicketsAssignedToEmployee(null));
+        ticketsGrid.setItems(TSService.findTicketsAssignedToEmployee(this.employee));
 
         // configure columns (include project name)
         ticketsGrid.setColumns("subject");
