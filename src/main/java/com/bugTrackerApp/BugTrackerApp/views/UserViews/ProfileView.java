@@ -53,7 +53,7 @@ public class ProfileView extends VerticalLayout {
         this.firstName.setValue(this.employee.getFirstName());
         this.lastName.setValue(this.employee.getLastName());
         this.email.setValue(this.employee.getEmail());
-        this.company.setValue("co company");
+        this.company.setValue(this.employee.getCompany().getName());
         this.securityClearance.setValue(this.employee.getSecurityClearance().getSecurityTitle());
 
         // set size to 300px
