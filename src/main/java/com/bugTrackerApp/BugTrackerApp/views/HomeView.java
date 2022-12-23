@@ -10,6 +10,7 @@ import com.github.appreciated.card.content.Item;
 import com.github.appreciated.card.label.PrimaryLabel;
 import com.github.appreciated.card.label.SecondaryLabel;
 import com.github.appreciated.card.label.TitleLabel;
+import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -27,6 +28,8 @@ import javax.annotation.security.RolesAllowed;
 public class HomeView extends VerticalLayout {
 
     TicketSystemService TSService;
+
+
 
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
@@ -53,20 +56,50 @@ public class HomeView extends VerticalLayout {
         // get all projects
         List<Project> projectList = TSService.findAllProjects();
         // loop through all projects and set Labels
+//        for(Project p : projectList) {
+//            projectCards.add(new Card(
+//                    new TitleLabel(p.getName()),
+//                    new PrimaryLabel("Project Description:"),
+//                    new SecondaryLabel(p.getDescription()),
+//                    new Item("Project Status:", p.getProjectStatus().getName())
+//
+//            ));
+//        }
+
+//        projectCards.setJustifyContentMode(JustifyContentMode.AROUND);
+//        HorizontalLayout projectCards2 = new HorizontalLayout(card, projectCard);
+//        projectCards2.setJustifyContentMode(JustifyContentMode.CENTER);
+
+//        add(projectCards, projectCards2);
+
+        // try in a form with a max column size
+        FormLayout formLayout = new FormLayout();
+
+        // loop through all projects and set Labels
         for(Project p : projectList) {
-            projectCards.add(new Card(
+            Card newCard = new Card(
                     new TitleLabel(p.getName()),
                     new PrimaryLabel("Project Description:"),
                     new SecondaryLabel(p.getDescription()),
                     new Item("Project Status:", p.getProjectStatus().getName())
 
-            ));
+            );
+            newCard.setAlignItems(Alignment.END);
+            newCard.getStyle().set("margin", "50px");
+            formLayout.add(newCard);
         }
 
-        projectCards.setJustifyContentMode(JustifyContentMode.AROUND);
-        HorizontalLayout projectCards2 = new HorizontalLayout(card, projectCard);
-        projectCards2.setJustifyContentMode(JustifyContentMode.CENTER);
-        add(projectCards, projectCards2);
+        formLayout.add(card, projectCard);
+        formLayout.setResponsiveSteps(
+                // Use one column by default
+                new FormLayout.ResponsiveStep("0", 1),
+                // Use two columns, if the layout's width exceeds 320px
+                new FormLayout.ResponsiveStep("320px", 2),
+                // Use three columns, if the layout's width exceeds 500px
+                new FormLayout.ResponsiveStep("500px", 3));
+        add(formLayout);
     }
+
+
 
 }
