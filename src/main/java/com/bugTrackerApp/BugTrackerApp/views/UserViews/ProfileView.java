@@ -33,9 +33,6 @@ public class ProfileView extends VerticalLayout {
     // Employee entity
     Employee employee;
 
-    // binder
-    Binder<Employee> binder = new BeanValidationBinder<>(Employee.class);
-
     public ProfileView(UserRelationsService URService) {
         H1 welcome = new H1("My Profile");
         this.URService = URService;
@@ -49,6 +46,7 @@ public class ProfileView extends VerticalLayout {
         add(welcome, getContent());
     }
 
+    // configure component values and width to 300px
     public void configureComponents() {
         this.firstName.setValue(this.employee.getFirstName());
         this.lastName.setValue(this.employee.getLastName());
@@ -71,6 +69,7 @@ public class ProfileView extends VerticalLayout {
         this.securityClearance.setReadOnly(true);
     }
 
+    // set components in a vertical layout
     public VerticalLayout getContent() {
         VerticalLayout content = new VerticalLayout(
                 this.firstName,
