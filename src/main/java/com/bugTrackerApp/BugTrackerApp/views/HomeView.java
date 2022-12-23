@@ -34,7 +34,7 @@ public class HomeView extends VerticalLayout {
 
     // Components: form, grid
     FormLayout cardResponsiveFormLayout = new FormLayout();
-    Grid<Ticket> ticketsGrid = new Grid<>();
+    Grid<Ticket> ticketsGrid = new Grid<>(Ticket.class);
 
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
@@ -42,7 +42,7 @@ public class HomeView extends VerticalLayout {
         configureCardResponsiveFormLayout();
         configureTicketGrid();
 
-        add(cardResponsiveFormLayout, getGrid());
+        add(cardResponsiveFormLayout, ticketsGrid);
     }
 
     // create project cards and add them to the FormLayout
@@ -81,6 +81,23 @@ public class HomeView extends VerticalLayout {
                 // Use four columns, if the layout's width exceeds 900px
                 new FormLayout.ResponsiveStep("900px", 4)
         );
+    }
+
+    private void configureTicketGrid(){
+        // populate ticketGrid
+        ticketsGrid.setItems(TSService.findTicketsAssignedToEmployee(null));
+
+        // configure columns (include project name)
+        ticketsGrid.setColumns("subject");
+        ticketsGrid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created Date").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getTicketType().getName()).setHeader("Type").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getProject().getName()).setHeader("Project").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getTicketPriority().getName()).setHeader("Priority").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getTicketStatus().getName()).setHeader("Status").setSortable(true);
+        ticketsGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time").setSortable(true);
+        ticketsGrid.addColumn("dueDate");
+        ticketsGrid.getColumns().forEach(col -> col.setAutoWidth(true));
     }
 
 }
