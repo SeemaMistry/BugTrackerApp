@@ -1,5 +1,15 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
+import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
+import com.github.appreciated.card.Card;
+import com.github.appreciated.card.action.ActionButton;
+import com.github.appreciated.card.action.Actions;
+import com.github.appreciated.card.content.IconItem;
+import com.github.appreciated.card.content.Item;
+import com.github.appreciated.card.label.PrimaryLabel;
+import com.github.appreciated.card.label.SecondaryLabel;
+import com.github.appreciated.card.label.TitleLabel;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import com.vaadin.flow.router.PageTitle;
@@ -7,10 +17,33 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
+import java.awt.*;
 
 @PageTitle("Home | Bug Tracker")
 @Route(value="", layout = MainLayout.class)
 @PermitAll
 public class HomeView extends VerticalLayout {
 
+    TicketSystemService TSService;
+
+    public HomeView(TicketSystemService TSService) {
+        this.TSService = TSService;
+        Card card = new Card(
+                new TitleLabel("This is a card"),
+                new PrimaryLabel("Some primary text"),
+                new SecondaryLabel("Some secondary text"),
+                new Item("Item title", "Item description"),
+                new Actions(
+                        new ActionButton("Action 1", event -> {/* Handle Action*/}),
+                        new ActionButton("Action 2", event -> {/* Handle Action*/})
+                )
+        );
+        Project project = TSService.findProjectByName("Animals App");
+        Card projectCard = new Card(
+                new TitleLabel(project.getName()),
+                new PrimaryLabel(project.getDescription()),
+                new SecondaryLabel(project.getProjectStatus().getName())
+        );
+        add(card, projectCard);
+    }
 }
