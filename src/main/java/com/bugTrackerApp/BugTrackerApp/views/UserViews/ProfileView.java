@@ -28,7 +28,7 @@ public class ProfileView extends VerticalLayout {
     TextField lastName = new TextField("Last Name");
     EmailField email = new EmailField("Email address");
     TextField company = new TextField("Company");
-    TextField securityClearance = new TextField("jobTitle");
+    TextField securityClearance = new TextField("Job Title");
 
     // Employee entity
     Employee employee;
