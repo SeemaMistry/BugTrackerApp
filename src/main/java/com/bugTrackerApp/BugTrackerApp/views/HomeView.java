@@ -62,9 +62,9 @@ public class HomeView extends VerticalLayout {
                     new PrimaryLabel("Project Description:"),
                     new SecondaryLabel(p.getDescription()),
                     new Item("Project Status:", p.getProjectStatus().getName()),
-                    new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");}),
-                    new ActionButton("Tickets", e -> {UI.getCurrent().navigate(TicketsList.class, p.getName());})
-
+                    new Actions(
+                            new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");}),
+                            new ActionButton("Tickets", e -> {UI.getCurrent().navigate(TicketsList.class, p.getName());}))
             );
             // set styling
             newProjectCard.setAlignItems(Alignment.END);
