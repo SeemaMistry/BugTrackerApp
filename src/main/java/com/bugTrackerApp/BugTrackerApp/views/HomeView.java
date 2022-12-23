@@ -38,6 +38,8 @@ public class HomeView extends VerticalLayout {
 
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
+
+        // configure components
         createProjectCards();
         configureCardResponsiveFormLayout();
         configureTicketGrid();
