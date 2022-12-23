@@ -43,35 +43,6 @@ public class HomeView extends VerticalLayout {
 //                        new ActionButton("Action 2", event -> {/* Handle Action*/})
 //                )
 //        );
-//        Project project = TSService.findProjectByName("Animals App");
-//        Card projectCard = new Card(
-//                new TitleLabel(project.getName()),
-//                new PrimaryLabel(project.getDescription()),
-//                new SecondaryLabel(project.getProjectStatus().getName())
-//        );
-//
-//        // will store all projects in a horizontalLayout
-//        HorizontalLayout projectCards = new HorizontalLayout();
-
-        // get all projects
-        // loop through all projects and set Labels
-//        for(Project p : projectList) {
-//            projectCards.add(new Card(
-//                    new TitleLabel(p.getName()),
-//                    new PrimaryLabel("Project Description:"),
-//                    new SecondaryLabel(p.getDescription()),
-//                    new Item("Project Status:", p.getProjectStatus().getName())
-//
-//            ));
-//        }
-
-//        projectCards.setJustifyContentMode(JustifyContentMode.AROUND);
-//        HorizontalLayout projectCards2 = new HorizontalLayout(card, projectCard);
-//        projectCards2.setJustifyContentMode(JustifyContentMode.CENTER);
-
-//        add(projectCards, projectCards2);
-
-        // try in a form with a max column size
 
         createProjectCards();
         configureCardResponsiveFormLayout();
