@@ -2,6 +2,8 @@ package com.bugTrackerApp.BugTrackerApp.views;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
+import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
+import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
 import com.github.appreciated.card.Card;
 import com.github.appreciated.card.action.ActionButton;
 import com.github.appreciated.card.action.Actions;
@@ -9,6 +11,7 @@ import com.github.appreciated.card.content.Item;
 import com.github.appreciated.card.label.PrimaryLabel;
 import com.github.appreciated.card.label.SecondaryLabel;
 import com.github.appreciated.card.label.TitleLabel;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -33,21 +36,18 @@ public class HomeView extends VerticalLayout {
 
     public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
-//        Card card = new Card(
-//                new TitleLabel("This is a card"),
-//                new PrimaryLabel("Some primary text"),
-//                new SecondaryLabel("Some secondary text"),
-//                new Item("Item title", "Item description"),
-//                new Actions(
-//                        new ActionButton("Action 1", event -> {/* Handle Action*/}),
-//                        new ActionButton("Action 2", event -> {/* Handle Action*/})
-//                )
-//        );
+        Card card = new Card(
+                new TitleLabel("This is a card"),
+                new PrimaryLabel("Some primary text"),
+                new SecondaryLabel("Some secondary text"),
+                new Item("Item title", "Item description"),
+                new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");})
+        );
 
         createProjectCards();
         configureCardResponsiveFormLayout();
 
-        add(cardResponsiveFormLayout);
+        add(cardResponsiveFormLayout, card);
     }
 
     // create project cards and add them to the FormLayout
@@ -61,7 +61,9 @@ public class HomeView extends VerticalLayout {
                     new TitleLabel(p.getName()),
                     new PrimaryLabel("Project Description:"),
                     new SecondaryLabel(p.getDescription()),
-                    new Item("Project Status:", p.getProjectStatus().getName())
+                    new Item("Project Status:", p.getProjectStatus().getName()),
+                    new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");}),
+                    new ActionButton("Tickets", e -> {UI.getCurrent().navigate(TicketsList.class, p.getName());})
 
             );
             // set styling
