@@ -63,7 +63,10 @@ public class HomeView extends VerticalLayout {
             ));
         }
 
-        add(new HorizontalLayout(card, projectCard), projectCards);
+        projectCards.setJustifyContentMode(JustifyContentMode.AROUND);
+        HorizontalLayout projectCards2 = new HorizontalLayout(card, projectCard);
+        projectCards2.setJustifyContentMode(JustifyContentMode.CENTER);
+        add(projectCards, projectCards2);
     }
 
 }
