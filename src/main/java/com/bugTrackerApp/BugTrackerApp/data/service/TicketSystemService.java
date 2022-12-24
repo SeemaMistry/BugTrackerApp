@@ -161,4 +161,9 @@ public class TicketSystemService {
     // find project by project name through like searchTerm
     public List<Project> searchProjectByLikeName(String name) { return projectRepo.searchProject(name); }
 
+    // check if employee is assigned to this project
+    public boolean isEmployeeAssignedToProject(Employee e, Project p){
+        return projectRepo.existsProjectsAssignedToEmployeesByEmployeesAssignedToProjectIdAndId(e.getId(), p.getId());
+    }
+
 }

@@ -17,4 +17,7 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
     @Query("select p from Project p " +
             "where lower(p.name) like lower(concat('%', :searchTerm, '%'))")
     List<Project> searchProject(@Param("searchTerm") String searchTerm);
+
+    // check if employee is assigned to project
+    boolean existsProjectsAssignedToEmployeesByEmployeesAssignedToProjectIdAndId(UUID eId, UUID pId);
 }
