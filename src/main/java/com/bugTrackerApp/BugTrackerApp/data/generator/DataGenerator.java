@@ -131,6 +131,7 @@ public class DataGenerator {
                     new Project("Animals App", "Create an animal list app", employees.get(1), statuses.get(1)),
                     new Project("Plants App Project", "Create a plants list app", employees.get(2), statuses.get(2))
             );
+            projects.get(0).setEmployeesAssignedToProject(employees);
             projectRepo.saveAll(projects);
 
             List<Ticket> tickets = Arrays.asList(
