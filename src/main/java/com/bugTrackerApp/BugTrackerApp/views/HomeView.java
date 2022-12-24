@@ -18,6 +18,9 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.H4;
+import com.vaadin.flow.component.html.H5;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
@@ -57,8 +60,27 @@ public class HomeView extends VerticalLayout {
         configureTicketGrid();
 
         // TODO: get user session
-        // TODO: add labels (Name as H1, "All projects", and "All [NAME] Assigned Tickets"
-        add(new H1(this.employee.getFullName()), cardResponsiveFormLayout, ticketsGrid);
+
+        // Labels and styling
+        H3 projectLabel = new H3("All Projects");
+        H3 ticketsLabel = new H3("All My Tickets");
+        projectLabel.getStyle()
+                        .set("margin-top", "0px")
+                        .set("font-weight", "bold")
+                        .set("text-decoration", "underline");
+
+        ticketsLabel.getStyle()
+                        .set("margin-top", "30px")
+                        .set("font-weight", "bold")
+                        .set("text-decoration", "underline");
+
+        add(
+                new H1(this.employee.getFullName()),
+                projectLabel,
+                cardResponsiveFormLayout,
+                ticketsLabel,
+                ticketsGrid
+        );
     }
 
     // create project cards and add them to the FormLayout
