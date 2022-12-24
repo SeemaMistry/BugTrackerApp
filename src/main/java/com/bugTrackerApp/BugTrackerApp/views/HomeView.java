@@ -91,10 +91,10 @@ public class HomeView extends VerticalLayout {
         // loop through all projects to create cards with labels
         for(Project p : projectList) {
             Card newProjectCard = new Card(
-                    // TODO: add label "Invited: Yes / No" as a Secondary ir Item Label"
                     new TitleLabel(p.getName()),
                     new PrimaryLabel("Project Description:"),
                     new SecondaryLabel(p.getDescription()),
+                    new Item("Am I Assigned? ", getEmployeeInvitationStatus(p)),
                     new Item("Project Status:", p.getProjectStatus().getName()),
                     new Actions(
                             new ActionButton("Project", e -> {UI.getCurrent().navigate("projects");}),
@@ -144,4 +144,10 @@ public class HomeView extends VerticalLayout {
         );
     }
 
+    private String getEmployeeInvitationStatus(Project project){
+        // check if employee is invited to this project and return "Assigned" or "Not Assigned"
+        boolean invitationStatus = TSService.isEmployeeAssignedToProject(this.employee, project);
+        return invitationStatus ? "Assigned" : "Not Assigned";
+
+    }
 }
