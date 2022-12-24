@@ -137,6 +137,11 @@ public class HomeView extends VerticalLayout {
         ticketsGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time").setSortable(true);
         ticketsGrid.addColumn("dueDate");
         ticketsGrid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        // double select to go to tickets page
+        ticketsGrid.addItemDoubleClickListener(e ->
+                UI.getCurrent().navigate(TicketsList.class, e.getItem().getProject().getName())
+        );
     }
 
 }
