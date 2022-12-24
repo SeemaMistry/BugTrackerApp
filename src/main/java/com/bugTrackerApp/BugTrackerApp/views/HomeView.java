@@ -75,7 +75,7 @@ public class HomeView extends VerticalLayout {
                         .set("text-decoration", "underline");
 
         add(
-                new H1(this.employee.getFullName()),
+                new H1(String.format("Welcome %s", this.employee.getFullName())),
                 projectLabel,
                 cardResponsiveFormLayout,
                 ticketsLabel,
