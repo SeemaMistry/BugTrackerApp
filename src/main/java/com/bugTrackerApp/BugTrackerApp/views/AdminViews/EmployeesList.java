@@ -23,11 +23,14 @@ import javax.annotation.security.RolesAllowed;
 @Route(value="employees", layout = MainLayout.class)
 @RolesAllowed("ADMIN")
 public class EmployeesList extends VerticalLayout {
-    // instantiate components, services and form
+    // Services
+    UserRelationsService URService;
+
+    // instantiate components and form
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     TextField filterText = new TextField();
-    UserRelationsService URService;
     EmployeeForm employeeForm;
+
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
@@ -39,31 +42,40 @@ public class EmployeesList extends VerticalLayout {
         configureGrid();
         configureForm();
 
-        add(welcome, getToolbar(), getContent());
+        // render components and update list
+        add( welcome, getToolbar(), getContent());
         updateList();
         closeEditor();
     }
 
+    // configure toolbar
     private Component getToolbar() {
+        // configure filterText to search for employee by name and update the list
         filterText.setPlaceholder("Search by name");
         filterText.setClearButtonVisible(true);
         filterText.setValueChangeMode(ValueChangeMode.LAZY);
         filterText.addValueChangeListener(e -> updateList());
 
+        // configure button to add a new employee
         Button addEmployeeBtn = new Button("Add new employee");
         addEmployeeBtn.addClickListener(e -> addEmployee());
+
+        // add toolbar components in a horizontal layout
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);
 
         return toolbar;
     }
 
+    // add a new employee
     private void addEmployee() {
         // clear the form and open the editor
         employeeGrid.asSingleSelect().clear();
         editEmployee(new Employee());
     }
 
+    // configure employee grid
     private void configureGrid() {
+        // configure columns
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
         employeeGrid.setColumns("firstName", "lastName",  "email");
@@ -71,10 +83,10 @@ public class EmployeesList extends VerticalLayout {
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
-        // single select employee populates form
+        // single select employee populates employee form
         employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
     }
-    /* Return grid and form in a horizontal layout */
+    // return grid and form in a horizontal layout
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm);
         content.addClassName("content");
@@ -82,35 +94,44 @@ public class EmployeesList extends VerticalLayout {
         return content;
     }
 
+    // configure Employee Form
     private void configureForm() {
+        // instantiate employeeForm with Company and SecurityClearance data
         employeeForm = new EmployeeForm(
                 URService.findAllCompanies(filterText.getValue()),
                 URService.findAllSecurityClearances()
         );
+
+        // set size of form
         employeeForm.setWidth("25em");
+
+        // add save, delete and close click events
         employeeForm.addListener(EmployeeForm.SaveEvent.class, this::saveEmployee);
         employeeForm.addListener(EmployeeForm.DeleteEvent.class, this::deleteEmployee);
         employeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
     }
 
+    // delete employee from database and update list
     private void deleteEmployee(EmployeeForm.DeleteEvent e) {
         URService.deleteEmployee(e.getEmployee());
         updateList();
         closeEditor();
     }
 
+    // save employee to database and update list
     private void saveEmployee(EmployeeForm.SaveEvent e) {
         URService.saveEmployee(e.getEmployee());
         updateList();
         closeEditor();
     }
 
+    // update list based on search results or display all employees
     private void updateList() {
         employeeGrid.setItems(URService.findAllEmployees(filterText.getValue()));
     }
 
 
-    // Close editor when not in use
+    // close editor when not in use
     private void closeEditor() {
         // clear editor and close it
         employeeForm.setEmployee(null);
