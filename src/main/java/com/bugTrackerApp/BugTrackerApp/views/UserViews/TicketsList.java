@@ -1,8 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
@@ -17,6 +15,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -191,7 +190,12 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
             closeEmployeeGrid();
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(addNewTicketBtn, searchTicketsByEmployee, searchTicketsBySubject, clearSearchBtn);
+        // dynamically render toolbar based on current user session role
+        HorizontalLayout toolbar = new HorizontalLayout();
+        if (VaadinSession.getCurrent().getAttribute(User.class).getRole() == Role.ADMIN) {
+            toolbar.add(addNewTicketBtn);
+        }
+        toolbar.add(searchTicketsByEmployee, searchTicketsBySubject, clearSearchBtn);
         // display toolbar in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;

@@ -1,6 +1,8 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
+import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
+import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
@@ -16,6 +18,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -100,7 +103,12 @@ public class ProjectsList extends VerticalLayout {
             updateList();
         });
 
-        HorizontalLayout toolbar = new HorizontalLayout(addNewProjectBtn, searchProjectByName, clearSearch);
+        // dynamically render toolbar based on current user session role
+        HorizontalLayout toolbar = new HorizontalLayout();
+        if (VaadinSession.getCurrent().getAttribute(User.class).getRole() == Role.ADMIN) {
+            toolbar.add(addNewProjectBtn);
+        }
+        toolbar.add(searchProjectByName, clearSearch);
         // display toolbar content in a clean line
         toolbar.setDefaultVerticalComponentAlignment(Alignment.END);
         return toolbar;
