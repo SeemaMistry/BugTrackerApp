@@ -33,6 +33,10 @@ public class LoginView extends VerticalLayout {
                 new Button("Login")
         );
 
+        // centre login form
+        loginForm.setJustifyContentMode(JustifyContentMode.CENTER);
+        loginForm.setAlignItems(Alignment.CENTER);
+
         add(loginForm);
     }
 }
