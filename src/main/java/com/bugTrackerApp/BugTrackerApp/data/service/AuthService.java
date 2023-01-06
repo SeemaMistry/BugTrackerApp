@@ -22,15 +22,20 @@ import java.util.List;
 public class AuthService {
     UserRepository userRepository;
 
+    // Exception Class
+    public class AuthException extends Exception{}
+
 
     // retrieve User from the database if they exist and set Session and Routes
-    public void authenticate(String username, String password){
+    public void authenticate(String username, String password) throws AuthException {
         // retrieve user from database
         User user = userRepository.getByUsername(username);
         // if user exists, set session and create routes
         if (user != null && user.checkPassword(password)){
             VaadinSession.getCurrent().setAttribute(User.class, user);
             createRoutes(user.getRole());
+        } else {
+            throw new AuthException();
         }
     }
 
