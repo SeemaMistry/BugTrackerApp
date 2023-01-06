@@ -1,9 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Status;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -17,6 +14,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
@@ -77,6 +75,12 @@ public class ProjectForm extends FormLayout {
         save.addClickListener(e -> validateAndSave());
         delete.addClickListener(e -> fireEvent(new ProjectForm.DeleteEvent(this, project)));
         close.addClickListener(e -> fireEvent(new ProjectForm.CloseEvent(this)));
+
+        // remove save and delete buttons from view if User role is not Admin
+        if (VaadinSession.getCurrent().getAttribute(User.class).getRole() != Role.ADMIN) {
+            save.setVisible(false);
+            delete.setVisible(false);
+        }
 
         return new HorizontalLayout(save, delete, close);
     }

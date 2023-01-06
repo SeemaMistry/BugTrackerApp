@@ -16,6 +16,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
@@ -139,6 +140,12 @@ public class TicketForm extends FormLayout {
         save.addClickListener(e -> validateAndSave());
         delete.addClickListener(e -> fireEvent(new TicketForm.DeleteEvent(this, ticket)));
         close.addClickListener(e -> fireEvent(new TicketForm.CloseEvent(this)));
+
+        // remove save and delete buttons from view if User role is not Admin
+        if (VaadinSession.getCurrent().getAttribute(User.class).getRole() != Role.ADMIN) {
+            save.setVisible(false);
+            delete.setVisible(false);
+        }
 
         return new HorizontalLayout(save, delete, close);
     }
