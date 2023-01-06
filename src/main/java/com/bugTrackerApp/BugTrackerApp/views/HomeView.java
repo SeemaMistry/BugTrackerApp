@@ -37,7 +37,6 @@ import java.util.List;
 public class HomeView extends VerticalLayout {
     // Services
     TicketSystemService TSService;
-    UserRelationsService URService;
 
     // Components: form, grid
     FormLayout cardResponsiveFormLayout = new FormLayout();
@@ -46,9 +45,8 @@ public class HomeView extends VerticalLayout {
     // Employee entity
     Employee employee;
 
-    public HomeView(TicketSystemService TSService, UserRelationsService URService) {
+    public HomeView(TicketSystemService TSService) {
         this.TSService = TSService;
-        this.URService = URService;
 
         // get user session and set employee
         User user = VaadinSession.getCurrent().getAttribute(User.class);
