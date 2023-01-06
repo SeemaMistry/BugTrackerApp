@@ -54,16 +54,10 @@ public class HomeView extends VerticalLayout {
         User user = VaadinSession.getCurrent().getAttribute(User.class);
         this.employee = user.getEmployee();
 
-        // hard code an employee to test if grid is populating
-//        List<Employee> employeeList = URService.findAllEmployees(null);
-//        this.employee = employeeList.get(0);
-
         // configure components
         createProjectCards();
         configureCardResponsiveFormLayout();
         configureTicketGrid();
-
-        // TODO: get user session
 
         // Labels and styling
         H3 projectLabel = new H3("All Projects");
