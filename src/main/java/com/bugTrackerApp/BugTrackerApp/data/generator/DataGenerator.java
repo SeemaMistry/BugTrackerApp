@@ -123,7 +123,7 @@ public class DataGenerator {
 //                employee.getUserAccountDetail().setAccountStatus(accountStatuses.get(0));
 
                 // set the UserAccountDetails
-                User user = new User(employee.getFirstName(), employee.getFirstName(), Role.ADMIN);
+                User user = new User(employee.getFirstName(), employee.getFirstName(), Role.USER);
                 user.setAccountStatus(accountStatuses.get(0));
                 employee.setUserAccountDetail(user);
                 user.setEmployee(employee);
@@ -133,6 +133,19 @@ public class DataGenerator {
             }).collect(Collectors.toList());
 
             employeeRepo.saveAll(employees);
+
+            // Create 1 admin employee
+            Employee adminEmployee = new Employee();
+            adminEmployee.setFirstName("admin");
+            adminEmployee.setLastName("admin");
+            adminEmployee.setEmail("admin@123.com");
+            adminEmployee.setCompany(companies.get(0));
+            adminEmployee.setSecurityClearance(securityClearances.get(0));
+            User adminUser = new User(adminEmployee.getFirstName(), adminEmployee.getFirstName(), Role.ADMIN);
+            adminEmployee.setUserAccountDetail(adminUser);
+            adminUser.setEmployee(adminEmployee);
+            userRepo.save(adminUser);
+            employeeRepo.save(adminEmployee);
 
             List<Project> projects = Arrays.asList(
                     new Project("Grocery App", "Create a grocery list app", employees.get(0), statuses.get(0)),
