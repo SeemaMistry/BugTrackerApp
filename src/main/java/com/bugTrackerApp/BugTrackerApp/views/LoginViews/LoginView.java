@@ -21,7 +21,9 @@ import javax.annotation.security.PermitAll;
 @Route(value="login")
 @PermitAll
 public class LoginView extends VerticalLayout {
-    public LoginView() {
+    AuthService authService;
+    public LoginView(AuthService authService) {
+        this.authService = authService;
         addClassName("login-view");
         TextField username = new TextField("Username");
         PasswordField password = new PasswordField("Password");
@@ -30,7 +32,17 @@ public class LoginView extends VerticalLayout {
         VerticalLayout loginForm = new VerticalLayout(new H1("Ticket System Login"),
                 username,
                 password,
-                new Button("Login")
+                new Button("Login", e -> {
+                    try {
+                        // verify login credentials
+                        authService.authenticate(username.getValue(), password.getValue());
+                        // nagivate to HomeView.class
+                        UI.getCurrent().navigate("");
+                    } catch (AuthService.AuthException ex) {
+                        Notification.show("Wrong credentials");
+                    }
+
+                })
         );
 
         // centre login form
