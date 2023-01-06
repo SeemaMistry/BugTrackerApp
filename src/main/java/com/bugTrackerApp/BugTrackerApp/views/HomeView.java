@@ -1,8 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
@@ -26,6 +25,7 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.PermitAll;
 import java.util.List;
@@ -50,9 +50,13 @@ public class HomeView extends VerticalLayout {
         this.TSService = TSService;
         this.URService = URService;
 
+        // get user session and set employee
+        User user = VaadinSession.getCurrent().getAttribute(User.class);
+        this.employee = user.getEmployee();
+
         // hard code an employee to test if grid is populating
-        List<Employee> employeeList = URService.findAllEmployees(null);
-        this.employee = employeeList.get(0);
+//        List<Employee> employeeList = URService.findAllEmployees(null);
+//        this.employee = employeeList.get(0);
 
         // configure components
         createProjectCards();
