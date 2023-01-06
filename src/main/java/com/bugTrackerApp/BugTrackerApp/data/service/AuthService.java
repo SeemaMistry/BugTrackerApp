@@ -53,7 +53,7 @@ public class AuthService {
 
         // base case: User
         routes.add(new AuthorizedRoute("", "Home", HomeView.class));
-        routes.add(new AuthorizedRoute("projects", "Projects", EmployeesList.class));
+        routes.add(new AuthorizedRoute("projects", "Projects", ProjectsList.class));
         routes.add(new AuthorizedRoute("profile", "My Profile", ProfileView.class));
 
         // advanced case: Admin
