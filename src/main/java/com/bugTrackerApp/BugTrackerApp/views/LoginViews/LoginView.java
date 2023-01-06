@@ -25,6 +25,14 @@ public class LoginView extends VerticalLayout {
         addClassName("login-view");
         TextField username = new TextField("Username");
         PasswordField password = new PasswordField("Password");
-        add(username, password);
+
+        // place login form in a vertical layout
+        VerticalLayout loginForm = new VerticalLayout(new H1("Ticket System Login"),
+                username,
+                password,
+                new Button("Login")
+        );
+
+        add(loginForm);
     }
 }
