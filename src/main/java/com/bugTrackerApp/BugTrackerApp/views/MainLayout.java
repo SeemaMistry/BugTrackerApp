@@ -1,5 +1,8 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.User;
+import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
+import com.bugTrackerApp.BugTrackerApp.data.service.AuthorizedRoute;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProjectsList;
@@ -11,9 +14,14 @@ import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
+import com.vaadin.flow.server.VaadinSession;
+
+import java.util.stream.Collectors;
 
 public class MainLayout extends AppLayout {
-    public MainLayout() {
+    AuthService authService;
+    public MainLayout(AuthService authService) {
+        this.authService = authService;
         // Header and side Drawer navigation's
         createHeader();
         createDrawer();
@@ -40,21 +48,19 @@ public class MainLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        // create router links
-        RouterLink employeeLink = new RouterLink("Employees", EmployeesList.class);
-        RouterLink projectLink = new RouterLink("Projects", ProjectsList.class);
-        RouterLink profileLink = new RouterLink("My Profile", ProfileView.class);
-        RouterLink homeLink = new RouterLink("Homepage", HomeView.class);
+        // store routes in a vertical layout
+        VerticalLayout drawerLinks = new VerticalLayout();
 
-        // set highlight conditions
-        homeLink.setHighlightCondition(HighlightConditions.sameLocation());
+        // retrieve current user
+        User user = VaadinSession.getCurrent().getAttribute(User.class);
 
-        // add router links to Drawer navigation
-        addToDrawer(new VerticalLayout(
-                homeLink,
-                employeeLink,
-                projectLink,
-                profileLink
-        ));
+        // for each stored AuthorizedRoute, create new RouterLinks
+        for(AuthorizedRoute r : authService.getAuthorizedRoutes(user.getRole())){
+            drawerLinks.add(new RouterLink(r.getName(), r.getView()));
+        }
+
+        // add links to drawer
+        addToDrawer(drawerLinks);
+
     }
 }
