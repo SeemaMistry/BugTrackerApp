@@ -9,7 +9,9 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
@@ -33,8 +35,8 @@ public class User extends AbstractEntity{
 //    @NotNull
     private AccountStatus accountStatus;
 
-//    @OneToOne(mappedBy = "userAccountDetail", cascade = CascadeType.ALL)
-//    private Employee employee;
+    @OneToOne(mappedBy = "userAccountDetail", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Employee employee;
 
     public User(String username, String password, Role role) {
         this.username = username;

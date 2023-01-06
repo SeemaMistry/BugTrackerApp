@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Data
+//@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @AttributeOverrides({
@@ -24,9 +26,10 @@ import java.util.List;
 })
 public class Employee extends AbstractEntity{
 
-//    @OneToOne(cascade = {CascadeType.ALL})
-//    @JoinColumn(name = "userId")
-//    private User userAccountDetail;
+    // OWNER ENTITY OF 1:1 RS
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "userId", nullable = false)
+    private User userAccountDetail;
 
     @ManyToOne
     @JoinColumn(name = "companyId")
