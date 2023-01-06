@@ -51,17 +51,16 @@ public class AuthService {
         // create a list of AuthorizedRoutes based on User Role
         List<AuthorizedRoute> routes = new ArrayList<>();
 
-        if(role.equals(Role.USER)){
-            routes.add(new AuthorizedRoute("", "Home", HomeView.class));
-            routes.add(new AuthorizedRoute("projects", "Projects", EmployeesList.class));
-            routes.add(new AuthorizedRoute("profile", "My Profile", ProfileView.class));
-        } else if(role.equals(Role.ADMIN)) {
-            routes.add(new AuthorizedRoute("", "Home", HomeView.class));
-            routes.add(new AuthorizedRoute("projects", "Projects", ProjectsList.class));
-            routes.add(new AuthorizedRoute("employees", "Employees", EmployeesList.class));
-            routes.add(new AuthorizedRoute("profile", "My Profile", ProfileView.class));
+        // base case: User
+        routes.add(new AuthorizedRoute("", "Home", HomeView.class));
+        routes.add(new AuthorizedRoute("projects", "Projects", EmployeesList.class));
+        routes.add(new AuthorizedRoute("profile", "My Profile", ProfileView.class));
 
+        // advanced case: Admin
+        if (role.equals(Role.ADMIN)) {
+            routes.add(new AuthorizedRoute("employees", "Employees", EmployeesList.class));
         }
+
         return routes;
     }
 
