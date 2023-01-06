@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
+import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.html.H1;
@@ -9,6 +10,7 @@ import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -34,9 +36,10 @@ public class ProfileView extends VerticalLayout {
     public ProfileView(UserRelationsService URService) {
         H1 welcome = new H1("My Profile");
         this.URService = URService;
-        // hardcode in an employee
-        List<Employee> employeeList = URService.findAllEmployees(null);
-        this.employee = employeeList.get(0);
+
+        // get current session user and set employee
+        User user = VaadinSession.getCurrent().getAttribute(User.class);
+        this.employee = user.getEmployee();
 
         // configure my profile components
         configureComponents();
