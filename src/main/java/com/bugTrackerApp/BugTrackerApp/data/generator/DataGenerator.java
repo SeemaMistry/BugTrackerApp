@@ -29,7 +29,8 @@ public class DataGenerator {
                                       StatusRepository statusRepo,
                                       EmployeeRepository employeeRepo,
                                       ProjectRepository projectRepo,
-                                      TicketRepository ticketRepo
+                                      TicketRepository ticketRepo,
+                                      UserRepository userRepo
     )  {
         return args -> {
             Logger logger = LoggerFactory.getLogger(getClass());
@@ -120,6 +121,13 @@ public class DataGenerator {
                 employee.setSecurityClearance(securityClearances.get(1));
 //                employee.setUserAccountDetail(new User(employee.getFirstName(), employee.getFirstName(), Role.USER));
 //                employee.getUserAccountDetail().setAccountStatus(accountStatuses.get(0));
+
+                // set the UserAccountDetails
+                User user = new User(employee.getFirstName(), employee.getFirstName(), Role.ADMIN);
+                user.setAccountStatus(accountStatuses.get(0));
+                employee.setUserAccountDetail(user);
+                user.setEmployee(employee);
+                userRepo.save(user);
 
                 return employee;
             }).collect(Collectors.toList());
