@@ -1,40 +1,30 @@
-//package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
-//
-//import com.vaadin.flow.component.html.H1;
-//import com.vaadin.flow.component.login.LoginForm;
-//import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-//import com.vaadin.flow.router.BeforeEnterEvent;
-//import com.vaadin.flow.router.BeforeEnterObserver;
-//import com.vaadin.flow.router.PageTitle;
-//import com.vaadin.flow.router.Route;
-//
-//import javax.annotation.security.PermitAll;
-//
-//@PageTitle("Login | Bug Tracker")
-//@Route(value="login")
-//@PermitAll
-//public class LoginView extends VerticalLayout implements BeforeEnterObserver {
-//    private final LoginForm login = new LoginForm();
-//    public LoginView() {
-//        addClassName("login-view");
-//        setSizeFull();
-//        setAlignItems(Alignment.CENTER);
-//        setJustifyContentMode(JustifyContentMode.CENTER);
-//
-//        login.setAction("login");
-//
-//
-//        add(new H1("Ticket System Login"), login);
-//    }
-//    @Override
-//    public void beforeEnter(BeforeEnterEvent beforeEnterEvent) {
-//        if(beforeEnterEvent.getLocation()
-//                .getQueryParameters()
-//                .getParameters()
-//                .containsKey("error")) {
-//            login.setError(true);
-//
-//        }
-//
-//    }
-//}
+package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
+
+import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
+import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.login.LoginForm;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.VerticalLayout;
+import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.router.BeforeEnterEvent;
+import com.vaadin.flow.router.BeforeEnterObserver;
+import com.vaadin.flow.router.PageTitle;
+import com.vaadin.flow.router.Route;
+
+import javax.annotation.security.PermitAll;
+
+@PageTitle("Login | Bug Tracker")
+@Route(value="login")
+@PermitAll
+public class LoginView extends VerticalLayout {
+    public LoginView() {
+        addClassName("login-view");
+        TextField username = new TextField("Username");
+        PasswordField password = new PasswordField("Password");
+        add(username, password);
+    }
+}
