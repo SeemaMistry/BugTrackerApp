@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
 import com.bugTrackerApp.BugTrackerApp.views.HomeView;
+import com.bugTrackerApp.BugTrackerApp.views.LogoutViews.LogOut;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProjectsList;
@@ -60,6 +61,9 @@ public class AuthService {
         if (role.equals(Role.ADMIN)) {
             routes.add(new AuthorizedRoute("employees", "Employees", EmployeesList.class));
         }
+
+        // add logout button
+        routes.add(new AuthorizedRoute("logout", "Logout", LogOut.class));
 
         return routes;
     }
