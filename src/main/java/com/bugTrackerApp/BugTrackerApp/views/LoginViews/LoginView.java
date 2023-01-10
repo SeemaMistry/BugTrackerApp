@@ -28,7 +28,8 @@ public class LoginView extends VerticalLayout {
     // components
     Button userDemoBtn = new Button();
     Button adminDemoBtn = new Button();
-    Details demoAccDetails = new Details("I'm looking for a demo to play around with ...");
+    Details registerAccDetails = new Details("... register a new account");
+    Details demoAccDetails = new Details("... play around with a demo?");
 
     public LoginView(AuthService authService) {
         this.authService = authService;
@@ -56,7 +57,8 @@ public class LoginView extends VerticalLayout {
                         Notification.show("Wrong credentials");
                     }
                 }),
-//                new H3("Curious what's inside? Test out a User or Admin account below!"),
+                new H3("Don't have an Account? Are you looking to ..."),
+                this.registerAccDetails,
                 this.demoAccDetails
 
         );
