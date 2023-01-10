@@ -3,8 +3,12 @@ package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.icon.Icon;
+import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
@@ -18,11 +22,19 @@ import javax.annotation.security.PermitAll;
 @PermitAll
 public class LoginView extends VerticalLayout {
     AuthService authService;
+
+    // components
+    Button userDemoBtn = new Button();
+    Button adminDemoBtn = new Button();
+
     public LoginView(AuthService authService) {
         this.authService = authService;
         addClassName("login-view");
         TextField username = new TextField("Username");
         PasswordField password = new PasswordField("Password");
+
+        // configure User and Admin Demo account Buttons
+        configureDemoBtns();
 
         // place login form in a vertical layout
         VerticalLayout loginForm = new VerticalLayout(new H1("Ticket System Login"),
@@ -32,13 +44,13 @@ public class LoginView extends VerticalLayout {
                     try {
                         // verify login credentials
                         authService.authenticate(username.getValue(), password.getValue());
-                        // nagivate to HomeView.class
+                        // navigate to HomeView.class
                         UI.getCurrent().navigate("");
                     } catch (AuthService.AuthException ex) {
                         Notification.show("Wrong credentials");
                     }
-
-                })
+                }),
+                new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn)
         );
 
         // centre login form
@@ -46,5 +58,20 @@ public class LoginView extends VerticalLayout {
         loginForm.setAlignItems(Alignment.CENTER);
 
         add(loginForm);
+    }
+
+    // configure buttons to load User or Admin demo accounts
+    private void configureDemoBtns(){
+        // set button icons and text
+        Icon userIcon = new Icon(VaadinIcon.USER);
+        Icon adminIcon = new Icon(VaadinIcon.USER_STAR);
+        this.userDemoBtn.setIcon(userIcon);
+        this.adminDemoBtn.setIcon(adminIcon);
+
+        // make buttons large size
+        this.userDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        this.adminDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
+
+
     }
 }
