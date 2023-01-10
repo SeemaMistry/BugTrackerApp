@@ -120,14 +120,15 @@ public class HomeView extends VerticalLayout {
 
         // configure columns (include project name)
         ticketsGrid.setColumns("subject");
-        ticketsGrid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created Date").setSortable(true);
+        ticketsGrid.addColumn("dueDate");
+
         ticketsGrid.addColumn(e -> e.getTicketType().getName()).setHeader("Type").setSortable(true);
         ticketsGrid.addColumn(e -> e.getProject().getName()).setHeader("Project").setSortable(true);
         ticketsGrid.addColumn(e -> e.getTicketReporter().getFullName()).setHeader("Reporter").setSortable(true);
         ticketsGrid.addColumn(e -> e.getTicketPriority().getName()).setHeader("Priority").setSortable(true);
         ticketsGrid.addColumn(e -> e.getTicketStatus().getName()).setHeader("Status").setSortable(true);
         ticketsGrid.addColumn(e -> e.getTicketEstimatedTime().getEstimatedTime()).setHeader("Estimated Time").setSortable(true);
-        ticketsGrid.addColumn("dueDate");
+        ticketsGrid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created Date").setSortable(true);
         ticketsGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // double select to go to tickets page
