@@ -10,15 +10,13 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.router.BeforeEnterEvent;
-import com.vaadin.flow.router.BeforeEnterObserver;
-import com.vaadin.flow.router.PageTitle;
-import com.vaadin.flow.router.Route;
+import com.vaadin.flow.router.*;
 
 import javax.annotation.security.PermitAll;
 
 @PageTitle("Login | Bug Tracker")
 @Route(value="login")
+@RouteAlias("")
 @PermitAll
 public class LoginView extends VerticalLayout {
     AuthService authService;
