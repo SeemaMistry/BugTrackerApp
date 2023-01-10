@@ -5,7 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
-import com.bugTrackerApp.BugTrackerApp.views.AdminViews.ProjectForm;
+import com.bugTrackerApp.BugTrackerApp.views.Forms.ProjectForm;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;

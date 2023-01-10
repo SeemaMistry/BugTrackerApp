@@ -3,7 +3,7 @@ package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
-import com.bugTrackerApp.BugTrackerApp.views.AdminViews.TicketForm;
+import com.bugTrackerApp.BugTrackerApp.views.Forms.TicketForm;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.combobox.ComboBox;
