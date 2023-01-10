@@ -4,7 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
-import com.bugTrackerApp.BugTrackerApp.views.HomeView;
+import com.bugTrackerApp.BugTrackerApp.views.UserViews.HomeView;
 import com.bugTrackerApp.BugTrackerApp.views.LogoutViews.LogOut;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;

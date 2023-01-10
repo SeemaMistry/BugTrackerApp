@@ -1,4 +1,4 @@
-package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
+package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;

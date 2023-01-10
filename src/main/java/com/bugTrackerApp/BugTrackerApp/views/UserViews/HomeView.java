@@ -1,8 +1,9 @@
-package com.bugTrackerApp.BugTrackerApp.views;
+package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
+import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
 import com.github.appreciated.card.Card;
 import com.github.appreciated.card.action.ActionButton;
