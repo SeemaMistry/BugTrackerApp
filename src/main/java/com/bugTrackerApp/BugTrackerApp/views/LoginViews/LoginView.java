@@ -2,11 +2,15 @@ package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 
 import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.accordion.Accordion;
+import com.vaadin.flow.component.accordion.AccordionPanel;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.details.Details;
+import com.vaadin.flow.component.details.DetailsVariant;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
+import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -28,8 +32,8 @@ public class LoginView extends VerticalLayout {
     // components
     Button userDemoBtn = new Button();
     Button adminDemoBtn = new Button();
-    Details registerAccDetails = new Details("... register a new account");
-    Details demoAccDetails = new Details("... play around with a demo?");
+
+    Accordion noAccOptions = new Accordion();
 
     public LoginView(AuthService authService) {
         this.authService = authService;
@@ -39,9 +43,7 @@ public class LoginView extends VerticalLayout {
 
         // configure User and Admin Demo account Buttons
         configureDemoBtns();
-
-        this.demoAccDetails.setContent(getDemoBtns());
-        this.demoAccDetails.setOpened(false);
+        configureAccordion();
 
         // place login form in a vertical layout
         VerticalLayout loginForm = new VerticalLayout(new H1("Ticket System Login"),
@@ -58,8 +60,7 @@ public class LoginView extends VerticalLayout {
                     }
                 }),
                 new H3("Don't have an Account? Are you looking to ..."),
-                this.registerAccDetails,
-                this.demoAccDetails
+                this.noAccOptions
 
         );
 
@@ -110,5 +111,17 @@ public class LoginView extends VerticalLayout {
 
     private HorizontalLayout getDemoBtns() {
         return new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn);
+    }
+
+    private void configureAccordion(){
+        AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
+        demoAccs.addThemeVariants(DetailsVariant.FILLED);
+        demoAccs.setOpened(true);
+
+        AccordionPanel register = this.noAccOptions.add("... register a new account", new HorizontalLayout(new Span("Register a new account here")));
+        register.addThemeVariants(DetailsVariant.FILLED);
+
+        noAccOptions.setWidth("524px");
+
     }
 }
