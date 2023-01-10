@@ -67,6 +67,8 @@ public class LoginView extends VerticalLayout {
         Icon adminIcon = new Icon(VaadinIcon.USER_STAR);
         this.userDemoBtn.setIcon(userIcon);
         this.adminDemoBtn.setIcon(adminIcon);
+        this.userDemoBtn.setText("User Demo Account");
+        this.adminDemoBtn.setText("Admin Demo Account!");
 
         // make buttons large size
         this.userDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
