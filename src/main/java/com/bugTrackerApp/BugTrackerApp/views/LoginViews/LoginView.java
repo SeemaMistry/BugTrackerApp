@@ -52,7 +52,7 @@ public class LoginView extends VerticalLayout {
                     }
                 }),
                 new H3("Curious what's inside? Test out a User or Admin account below!"),
-                new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn)
+                getDemoBtns()
 
         );
 
@@ -101,4 +101,7 @@ public class LoginView extends VerticalLayout {
         });
     }
 
+    private HorizontalLayout getDemoBtns() {
+        return new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn);
+    }
 }
