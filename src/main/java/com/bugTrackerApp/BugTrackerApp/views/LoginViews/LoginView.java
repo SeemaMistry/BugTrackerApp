@@ -74,6 +74,29 @@ public class LoginView extends VerticalLayout {
         this.userDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
         this.adminDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
 
+        // set click event to call authservice.authenticate with admin/user values
+        this.userDemoBtn.addClickListener(e -> {
+            try {
+                // verify login credentials
+                authService.authenticate("Barry", "Barry");
+                // navigate to HomeView.class
+                UI.getCurrent().navigate("");
+            } catch (AuthService.AuthException ex) {
+                Notification.show("Wrong credentials");
+            }
+        });
+
+        this.adminDemoBtn.addClickListener(e -> {
+            try {
+                // verify login credentials
+                authService.authenticate("admin", "admin");
+                // navigate to HomeView.class
+                UI.getCurrent().navigate("");
+            } catch (AuthService.AuthException ex) {
+                Notification.show("Wrong credentials");
+            }
+        });
+
 
     }
 }
