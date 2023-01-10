@@ -5,6 +5,7 @@ import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.html.H1;
+import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.icon.VaadinIcon;
 import com.vaadin.flow.component.notification.Notification;
@@ -50,7 +51,9 @@ public class LoginView extends VerticalLayout {
                         Notification.show("Wrong credentials");
                     }
                 }),
+                new H3("Curious what's inside? Test out a User or Admin account below!"),
                 new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn)
+
         );
 
         // centre login form
@@ -67,7 +70,7 @@ public class LoginView extends VerticalLayout {
         Icon adminIcon = new Icon(VaadinIcon.USER_STAR);
         this.userDemoBtn.setIcon(userIcon);
         this.adminDemoBtn.setIcon(adminIcon);
-        this.userDemoBtn.setText("User Demo Account");
+        this.userDemoBtn.setText("User Demo Account!");
         this.adminDemoBtn.setText("Admin Demo Account!");
 
         // make buttons large size
@@ -96,7 +99,6 @@ public class LoginView extends VerticalLayout {
                 Notification.show("Wrong credentials");
             }
         });
-
-
     }
+
 }
