@@ -4,6 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
+import com.vaadin.flow.component.details.Details;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.icon.Icon;
@@ -27,6 +28,7 @@ public class LoginView extends VerticalLayout {
     // components
     Button userDemoBtn = new Button();
     Button adminDemoBtn = new Button();
+    Details demoAccDetails = new Details("I'm looking for a demo to play around with ...");
 
     public LoginView(AuthService authService) {
         this.authService = authService;
@@ -36,6 +38,9 @@ public class LoginView extends VerticalLayout {
 
         // configure User and Admin Demo account Buttons
         configureDemoBtns();
+
+        this.demoAccDetails.setContent(getDemoBtns());
+        this.demoAccDetails.setOpened(false);
 
         // place login form in a vertical layout
         VerticalLayout loginForm = new VerticalLayout(new H1("Ticket System Login"),
@@ -51,8 +56,8 @@ public class LoginView extends VerticalLayout {
                         Notification.show("Wrong credentials");
                     }
                 }),
-                new H3("Curious what's inside? Test out a User or Admin account below!"),
-                getDemoBtns()
+//                new H3("Curious what's inside? Test out a User or Admin account below!"),
+                this.demoAccDetails
 
         );
 
