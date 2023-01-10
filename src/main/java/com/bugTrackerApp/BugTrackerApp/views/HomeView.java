@@ -1,10 +1,8 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
-import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
+
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
-import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
-import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
 import com.github.appreciated.card.Card;
 import com.github.appreciated.card.action.ActionButton;
@@ -18,9 +16,6 @@ import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.H3;
-import com.vaadin.flow.component.html.H4;
-import com.vaadin.flow.component.html.H5;
-import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 
 import com.vaadin.flow.router.PageTitle;
