@@ -32,7 +32,7 @@ import java.util.List;
 
 
 @PageTitle("Home | Bug Tracker")
-@Route(value="", layout = MainLayout.class)
+@Route(value="home", layout = MainLayout.class)
 @PermitAll
 public class HomeView extends VerticalLayout {
     // Services
