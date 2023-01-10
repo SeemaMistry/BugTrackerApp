@@ -1,6 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 
-import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
+import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;

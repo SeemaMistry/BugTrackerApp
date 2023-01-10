@@ -1,22 +1,16 @@
 package com.bugTrackerApp.BugTrackerApp.views;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
-import com.bugTrackerApp.BugTrackerApp.data.service.AuthService;
-import com.bugTrackerApp.BugTrackerApp.data.service.AuthorizedRoute;
-import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
-import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
-import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProjectsList;
+import com.bugTrackerApp.BugTrackerApp.security.AuthService;
+import com.bugTrackerApp.BugTrackerApp.security.AuthorizedRoute;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.router.HighlightConditions;
 import com.vaadin.flow.router.RouterLink;
 import com.vaadin.flow.server.VaadinSession;
-
-import java.util.stream.Collectors;
 
 public class MainLayout extends AppLayout {
     AuthService authService;

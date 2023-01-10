@@ -1,4 +1,4 @@
-package com.bugTrackerApp.BugTrackerApp.data.service;
+package com.bugTrackerApp.BugTrackerApp.security;
 
 import com.vaadin.flow.component.Component;
 import lombok.AllArgsConstructor;

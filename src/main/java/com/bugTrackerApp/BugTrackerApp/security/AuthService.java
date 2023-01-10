@@ -1,4 +1,4 @@
-package com.bugTrackerApp.BugTrackerApp.data.service;
+package com.bugTrackerApp.BugTrackerApp.security;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
