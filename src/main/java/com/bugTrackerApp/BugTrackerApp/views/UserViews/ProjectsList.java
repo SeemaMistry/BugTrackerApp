@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
+import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
@@ -52,6 +53,15 @@ public class ProjectsList extends VerticalLayout {
 
         // close project form as default
         closeEditor();
+
+        // retrieve project session attribute and populate projectForm
+        if (VaadinSession.getCurrent().getAttribute(Project.class) != null){
+            this.editProject(VaadinSession.getCurrent().getAttribute(Project.class));
+            // remove project selected object from set attribute
+            VaadinSession.getCurrent().setAttribute(Project.class, null);
+        } else {
+            this.editProject(null);
+        }
     }
 
 
