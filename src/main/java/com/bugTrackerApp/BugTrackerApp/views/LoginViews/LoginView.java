@@ -19,6 +19,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
+import com.vaadin.flow.server.AmbiguousRouteConfigurationException;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.PermitAll;
 
@@ -37,6 +39,7 @@ public class LoginView extends VerticalLayout {
 
     public LoginView(AuthService authService) {
         this.authService = authService;
+
         addClassName("login-view");
         TextField username = new TextField("Username");
         PasswordField password = new PasswordField("Password");
@@ -55,8 +58,14 @@ public class LoginView extends VerticalLayout {
                         authService.authenticate(username.getValue(), password.getValue());
                         // navigate to HomeView.class
                         UI.getCurrent().navigate("");
+
                     } catch (AuthService.AuthException ex) {
                         Notification.show("Wrong credentials");
+                    } catch (AmbiguousRouteConfigurationException exception){
+                        // clear any session that you were on
+                        VaadinSession.getCurrent().getSession().invalidate();
+                        VaadinSession.getCurrent().close();
+
                     }
                 }),
                 new H3("Don't have an Account? Are you looking to ..."),
@@ -94,6 +103,11 @@ public class LoginView extends VerticalLayout {
                 UI.getCurrent().navigate("");
             } catch (AuthService.AuthException ex) {
                 Notification.show("Wrong credentials");
+            } catch (AmbiguousRouteConfigurationException exception){
+                // clear any session that you were on
+                VaadinSession.getCurrent().getSession().invalidate();
+                VaadinSession.getCurrent().close();
+
             }
         });
 
@@ -105,6 +119,11 @@ public class LoginView extends VerticalLayout {
                 UI.getCurrent().navigate("");
             } catch (AuthService.AuthException ex) {
                 Notification.show("Wrong credentials");
+            } catch (AmbiguousRouteConfigurationException exception){
+                // clear any session that you were on
+                VaadinSession.getCurrent().getSession().invalidate();
+                VaadinSession.getCurrent().close();
+
             }
         });
     }
