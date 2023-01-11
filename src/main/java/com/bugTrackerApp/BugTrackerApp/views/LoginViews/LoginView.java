@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.accordion.Accordion;
@@ -39,6 +40,11 @@ public class LoginView extends VerticalLayout {
 
     public LoginView(AuthService authService) {
         this.authService = authService;
+
+        // if user session already in session, then redirect to HomeView.class
+        if(VaadinSession.getCurrent().getAttribute(User.class) != null){
+            UI.getCurrent().navigate("");
+        }
 
         addClassName("login-view");
         TextField username = new TextField("Username");
