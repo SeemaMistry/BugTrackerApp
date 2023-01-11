@@ -18,6 +18,7 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.UUID;
 
 @PageTitle("Tickets | Bug Tracker")
 @Route(value="tickets", layout = MainLayout.class)
@@ -58,11 +59,22 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     // HasURLParameter override: parse url string to retrieve and store Project object to class
     @Override
     public void setParameter(BeforeEvent beforeEvent, String name) {
+        // set the project field
         this.projectName = name.replaceAll("%20", " ");
-        this.project = TTService.findProjectByName(projectName);
+        this.project = TTService.findProjectByName(this.projectName);
+
 
         // call getContent() (acts as the constructor) to render components to webpage
         getContent();
+
+        // Retrieve ticketSelected (from HomeView.class) attribute and populate ticketForm
+        if (VaadinSession.getCurrent().getAttribute(Ticket.class) != null){
+            this.editTicket(VaadinSession.getCurrent().getAttribute(Ticket.class));
+            // remove ticketSelected object from set attribute
+            VaadinSession.getCurrent().setAttribute(Ticket.class, null);
+        } else {
+            this.editTicket(null);
+        }
     }
 
     // configure and display page content: grids, filters, buttons and forms
@@ -262,6 +274,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     private void saveTicket(TicketForm.SaveEvent e) {
         // retrieve and set employees selected from MultiSelectComboBox to ticket.assignedEmployees
         e.getTicket().setEmployeesAssignedToTicket(ticketForm.getEmployeesAssigned());
+        // set project to ticket
+        e.getTicket().setProject(this.project);
+
         TTService.saveTicket(e.getTicket());
         updateGrid();
         closeTicketForm();
