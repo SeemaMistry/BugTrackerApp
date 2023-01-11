@@ -29,4 +29,7 @@ public interface TicketRepository extends JpaRepository<Ticket, UUID> {
     // find all tickets in project assigned to employee
     List<Ticket> findTicketsAssignedToEmployeesByEmployeesAssignedToTicketIdAndProjectId(UUID eId, UUID pId);
 
+    // retrieve ticket by ID
+    Ticket getById(UUID ticketId);
+
 }

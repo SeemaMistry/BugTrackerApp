@@ -166,4 +166,12 @@ public class TicketSystemService {
         return projectRepo.existsProjectsAssignedToEmployeesByEmployeesAssignedToProjectIdAndId(e.getId(), p.getId());
     }
 
+    // get ticket by ID
+    public Ticket getTicketByTicketId(UUID ticketId){
+        if (ticketId == null) {
+            return null;
+        } else {
+            return ticketRepo.getById(ticketId);
+        }
+    }
 }
