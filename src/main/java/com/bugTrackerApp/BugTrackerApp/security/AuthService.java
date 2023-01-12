@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.security;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
@@ -34,6 +35,7 @@ public class AuthService {
         // if user exists, set session and create routes
         if (user != null && user.checkPassword(password)){
             VaadinSession.getCurrent().setAttribute(User.class, user);
+            VaadinSession.getCurrent().setAttribute(Company.class, user.getEmployee().getCompany());
             createRoutes(user.getRole());
         } else {
             throw new AuthException();
