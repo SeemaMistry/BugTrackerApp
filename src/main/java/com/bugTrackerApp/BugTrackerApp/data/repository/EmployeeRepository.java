@@ -19,4 +19,16 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
 
     // find all employees assigned to a project (in M:N table="ProjectsAssignedToEmployees")
     List<Employee> findProjectsAssignedToEmployeesByProjectsAssignedToEmployeeId(UUID id);
+
+    // find all employees in a specified company
+    List<Employee> findByCompanyId(UUID companyId);
+
+    // search for like employees based on first or last name
+    @Query("select e from Employee e " +
+            "where e.company.id = :companyId " +
+            "and lower(e.firstName) like lower(concat('%', :searchTerm, '%')) " +
+            "or lower(e.lastName) like lower(concat('%', :searchTerm, '%'))"
+    )
+    List<Employee> searchEmployeeByCompany(@Param("searchTerm") String searchTerm, @Param("companyId") UUID companyId);
+
 }

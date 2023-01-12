@@ -2,10 +2,12 @@ package com.bugTrackerApp.BugTrackerApp.data.service;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.repository.*;
+import com.vaadin.flow.server.VaadinSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -97,14 +99,24 @@ public class UserRelationsService {
     public List<Department> findAllDepartments(){
         return departmentRepo.findAll();
     }
-    public List<Employee> findAllEmployees(String filterText){
+//    public List<Employee> findAllEmployees(String filterText){
+//        if (filterText == null || filterText.isEmpty()) {
+//            return employeeRepo.findAll();
+//        } else {
+//            return employeeRepo.search(filterText);
+//        }
+//
+//    }
+
+    public List<Employee> findAllEmployeesByCompany(String filterText, UUID companyId){
         if (filterText == null || filterText.isEmpty()) {
-            return employeeRepo.findAll();
+            return employeeRepo.findByCompanyId(companyId);
         } else {
-            return employeeRepo.search(filterText);
+            return employeeRepo.searchEmployeeByCompany(filterText, companyId);
         }
 
     }
+
     public List<SecurityClearance> findAllSecurityClearances(){
         return securityClearanceRepo.findAll();
     }
@@ -117,7 +129,7 @@ public class UserRelationsService {
     // find all employees assigned to a project
     public List<Employee> findAllEmployeesAssignedToProject(Project p) {
         if (p == null || p.getEmployeesAssignedToProject().size() == 0) {
-            return findAllEmployees(null);
+            return findAllEmployeesByCompany(null, VaadinSession.getCurrent().getAttribute(Company.class).getId());
         } else {
             return employeeRepo.findProjectsAssignedToEmployeesByProjectsAssignedToEmployeeId(p.getId());
         }
