@@ -20,6 +20,8 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -67,6 +69,10 @@ public class TicketForm extends FormLayout {
         ticketReporter.setItemLabelGenerator(Employee::getFullName);
         ticketPriority.setItems(ticketPriorityList);
         ticketPriority.setItemLabelGenerator(TicketPriority::getName);
+
+        // sort TicketEstimatedTimeList in ascending order
+        ticketEstimatedTimeList.sort(Comparator.comparing(TicketEstimatedTime::getEstimatedTime));
+
         ticketEstimatedTime.setItems(ticketEstimatedTimeList);
         ticketEstimatedTime.setItemLabelGenerator(TicketEstimatedTime::getEstimatedTimeToString);
         ticketType.setItems(ticketTypeList);
