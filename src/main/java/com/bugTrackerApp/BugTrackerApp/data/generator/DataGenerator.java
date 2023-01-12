@@ -10,9 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 
-import java.sql.Date;
 import java.time.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
@@ -106,15 +106,16 @@ public class DataGenerator {
             employeeExampleDataGenerator.setData(Employee::setEmail, DataType.EMAIL);
 //            employeeExampleDataGenerator.setData(Employee::setUserAccountDetail, new User(Employee::getFirstName, Employee::getLastName, Role.USER));
 
-
             // TODO: things i removed when i extracted some fields to User entity
 //            employeeExampleDataGenerator.setData(Employee::setUsername, DataType.FULL_NAME); // set username as fullname for now
 //            employeeExampleDataGenerator.setData(Employee::setPassword, DataType.WORD);
 
-
+            AtomicInteger count = new AtomicInteger(0);
             List<Employee> employees = employeeExampleDataGenerator.create(10, 123).stream().map(employee -> {
-                employee.setCompany(companies.get(0));
-
+                // set 5 employees each to company#1 and company#2
+                Company c = count.get() < 5 ? companies.get(0) : companies.get(1);
+                employee.setCompany(c);
+            count.getAndIncrement();
                 // TODO: things i removed when i extracted some fields to User entity
 //                employee.setAccountStatus(accountStatuses.get(0));
 
@@ -134,6 +135,7 @@ public class DataGenerator {
 
             employeeRepo.saveAll(employees);
 
+
             // Create 1 admin employee
             Employee adminEmployee = new Employee();
             adminEmployee.setFirstName("admin");
@@ -146,6 +148,19 @@ public class DataGenerator {
             adminUser.setEmployee(adminEmployee);
             userRepo.save(adminUser);
             employeeRepo.save(adminEmployee);
+
+            // Create 1 admin employee
+            Employee adminEmployee2 = new Employee();
+            adminEmployee2.setFirstName("admin2");
+            adminEmployee2.setLastName("admin2");
+            adminEmployee2.setEmail("admin2@123.com");
+            adminEmployee2.setCompany(companies.get(1));
+            adminEmployee2.setSecurityClearance(securityClearances.get(0));
+            User adminUser2 = new User(adminEmployee2.getFirstName(), adminEmployee2.getFirstName(), Role.ADMIN);
+            adminEmployee2.setUserAccountDetail(adminUser2);
+            adminUser2.setEmployee(adminEmployee2);
+            userRepo.save(adminUser2);
+            employeeRepo.save(adminEmployee2);
 
             List<Project> projects = Arrays.asList(
                     new Project("Grocery App", "Create a grocery list app", employees.get(0), statuses.get(0)),
