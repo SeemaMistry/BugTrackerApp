@@ -174,4 +174,12 @@ public class TicketSystemService {
             return ticketRepo.getById(ticketId);
         }
     }
+
+    public List<Project> getAllProjectByCompany(UUID companyId){
+        if (projectRepo.findByCompanyId(companyId).size() == 0){
+            return new ArrayList<Project>();
+        } else {
+            return projectRepo.findByCompanyId(companyId);
+        }
+    }
 }

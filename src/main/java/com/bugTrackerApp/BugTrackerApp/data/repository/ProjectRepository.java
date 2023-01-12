@@ -20,4 +20,7 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
     // check if employee is assigned to project
     boolean existsProjectsAssignedToEmployeesByEmployeesAssignedToProjectIdAndId(UUID eId, UUID pId);
+
+    // get all projects by specified company
+    List<Project> findByCompanyId(UUID companyId);
 }
