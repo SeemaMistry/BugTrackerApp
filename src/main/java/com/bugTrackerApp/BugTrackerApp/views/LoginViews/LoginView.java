@@ -173,11 +173,11 @@ public class LoginView extends VerticalLayout {
     }
 
     private void configureAccordion(){
-        AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
-        demoAccs.addThemeVariants(DetailsVariant.FILLED);
-
         AccordionPanel register = this.noAccOptions.add("... register a new account", new HorizontalLayout(new Span("Register a new account here")));
         register.addThemeVariants(DetailsVariant.FILLED);
+
+        AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
+        demoAccs.addThemeVariants(DetailsVariant.FILLED);
 
         noAccOptions.setWidth("524px");
 
