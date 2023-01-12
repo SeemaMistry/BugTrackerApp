@@ -59,12 +59,17 @@ public class TicketForm extends FormLayout {
             List<TicketType> ticketTypeList,
             List<Status> statuses
     ) {
+        // sort employees in alphabetical order
+        employeeList.sort(Comparator.comparing(Employee::getFirstName));
         this.employeeList = employeeList;
         // bind instance fields and lists
         binder.bindInstanceFields(this);
 
 
         // configure components
+
+        // sort employees in alphabetical order
+        employeeReporterList.sort(Comparator.comparing(Employee::getFirstName));
         ticketReporter.setItems(employeeReporterList);
         ticketReporter.setItemLabelGenerator(Employee::getFullName);
         ticketPriority.setItems(ticketPriorityList);

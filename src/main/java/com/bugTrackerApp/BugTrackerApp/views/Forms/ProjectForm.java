@@ -18,6 +18,7 @@ import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProjectForm extends FormLayout {
@@ -44,6 +45,9 @@ public class ProjectForm extends FormLayout {
     public ProjectForm(List<Employee> employeesList, List<Status> statuses) {
         // bind instance fields
         binder.bindInstanceFields(this);
+
+        // sort employees in alphabetical order
+        employeesList.sort(Comparator.comparing(Employee::getFirstName));
         this.employees = employeesList;
 
         // configure comboBox and multiselect comboBox
