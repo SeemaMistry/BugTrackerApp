@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
@@ -13,6 +14,7 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
+import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -30,7 +32,6 @@ public class EmployeesList extends VerticalLayout {
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     TextField filterText = new TextField();
     EmployeeForm employeeForm;
-
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
@@ -79,6 +80,7 @@ public class EmployeesList extends VerticalLayout {
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
         employeeGrid.setColumns("firstName", "lastName",  "email");
+        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company").setSortable(true);
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
@@ -126,7 +128,9 @@ public class EmployeesList extends VerticalLayout {
 
     // update list based on search results or display all employees
     private void updateList() {
-        employeeGrid.setItems(URService.findAllEmployees(filterText.getValue()));
+//        employeeGrid.setItems(URService.findAllEmployees(filterText.getValue()));
+
+        employeeGrid.setItems(URService.findAllEmployeesByCompany(filterText.getValue(), VaadinSession.getCurrent().getAttribute(Company.class).getId()));
     }
 
 

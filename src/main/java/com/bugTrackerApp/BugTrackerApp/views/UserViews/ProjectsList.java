@@ -1,9 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.UserViews;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.Project;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Role;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Ticket;
-import com.bugTrackerApp.BugTrackerApp.data.entity.User;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.ProjectForm;
@@ -69,7 +66,7 @@ public class ProjectsList extends VerticalLayout {
     private void configureForm() {
         // populate form ComboBoxes
         projectForm = new ProjectForm(
-                URService.findAllEmployees(null),
+                URService.findAllEmployeesByCompany(null, VaadinSession.getCurrent().getAttribute(Company.class).getId()),
                 TSService.findAllStatuses()
         );
         projectForm.setWidth("25em");

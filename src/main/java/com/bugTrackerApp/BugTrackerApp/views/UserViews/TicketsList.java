@@ -138,7 +138,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         // initialize ticket form data and size
         ticketForm = new TicketForm(
                 URService.findAllEmployeesAssignedToProject(project),
-                URService.findAllEmployees(null),
+                URService.findAllEmployeesByCompany(null, VaadinSession.getCurrent().getAttribute(Company.class).getId()),
                 TTService.findAllTicketPriority(),
                 TTService.findAllTicketEstimatedTimes(),
                 TTService.findAllTicketType(),
