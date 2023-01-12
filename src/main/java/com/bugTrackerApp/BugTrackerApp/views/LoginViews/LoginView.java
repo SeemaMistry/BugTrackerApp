@@ -19,6 +19,8 @@ import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.component.textfield.PasswordField;
+import com.vaadin.flow.component.textfield.TextArea;
+import com.vaadin.flow.component.textfield.TextAreaVariant;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.AmbiguousRouteConfigurationException;
@@ -137,7 +139,37 @@ public class LoginView extends VerticalLayout {
     }
 
     private HorizontalLayout getDemoBtns() {
-        return new HorizontalLayout(this.userDemoBtn, this.adminDemoBtn);
+        // demo account explanations
+        TextArea userDemoExplanation = new TextArea("User Demo Account");
+        userDemoExplanation.setValue("Test out a sample account of an employee named Barry! See " +
+                "the tickets assigned to him and the projects he's working on.\nBarry has less privileges than an " +
+                "ADMIN account.\nClick the button below to start testing Barry's account!");
+        userDemoExplanation.setWidth("450px");
+        userDemoExplanation.addThemeVariants(TextAreaVariant.LUMO_SMALL);
+
+        TextArea adminDemoExplanation = new TextArea("Admin Demo Account");
+        adminDemoExplanation.setValue("Test out a sample account of an employee named Admin! See " +
+                "the tickets assigned to her and the projects she's working on.\nAdmin has more privileges than an " +
+                "USER account. Create new projects and tickets, see a list of all your employees, and register " +
+                "new employees to your account!\nClick the button below to start testing Barry's account!");
+        adminDemoExplanation.setWidth("450px");
+        adminDemoExplanation.addThemeVariants(TextAreaVariant.LUMO_SMALL);
+
+        TextArea funTipExplanation = new TextArea("Fun Tip!");
+        funTipExplanation.setValue("Here's a fun test you can do!" +
+                "\nLogin to the Admin Demo account. Create a new project and assigned some new tickets to Barry." +
+                "\nLogout and login as the User account and see your new project and tickets assigned to Barry appear!");
+        funTipExplanation.setWidth("450px");
+        funTipExplanation.addThemeVariants(TextAreaVariant.LUMO_SMALL);
+
+        VerticalLayout demoDetails = new VerticalLayout(
+                userDemoExplanation,
+                this.userDemoBtn,
+                adminDemoExplanation,
+                this.adminDemoBtn,
+                funTipExplanation
+        );
+        return new HorizontalLayout(demoDetails);
     }
 
     private void configureAccordion(){
