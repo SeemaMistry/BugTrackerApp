@@ -79,7 +79,7 @@ public class ProjectsList extends VerticalLayout {
 
     // update project grid with all projects
     private void updateList() {
-        grid.setItems(TSService.findAllProjects());
+        grid.setItems(TSService.getAllProjectByCompany(VaadinSession.getCurrent().getAttribute(Company.class).getId()));
     }
 
     // update project grid with projects based on searchBYProjectName value

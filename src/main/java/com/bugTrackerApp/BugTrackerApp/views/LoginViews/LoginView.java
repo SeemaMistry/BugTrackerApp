@@ -38,6 +38,8 @@ public class LoginView extends VerticalLayout {
     // components
     Button userDemoBtn = new Button();
     Button adminDemoBtn = new Button();
+    Button userDemoBtn2 = new Button();
+    Button adminDemoBtn2 = new Button();
 
     Accordion noAccOptions = new Accordion();
 
@@ -100,9 +102,19 @@ public class LoginView extends VerticalLayout {
         this.userDemoBtn.setText("User Demo Account!");
         this.adminDemoBtn.setText("Admin Demo Account!");
 
+        this.userDemoBtn2.setIcon(userIcon);
+        this.adminDemoBtn2.setIcon(adminIcon);
+        this.userDemoBtn2.setText("User Demo Account 2!");
+        this.adminDemoBtn2.setText("Admin Demo Account 2!");
+
         // make buttons large size
         this.userDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
         this.adminDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
+
+//        this.adminDemoBtn2.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        this.adminDemoBtn2.addThemeVariants(ButtonVariant.LUMO_ERROR);
+//        this.userDemoBtn2.addThemeVariants(ButtonVariant.LUMO_LARGE);
+        this.userDemoBtn2.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
         // set click event to call authservice.authenticate with admin/user values
         this.userDemoBtn.addClickListener(e -> {
@@ -136,6 +148,37 @@ public class LoginView extends VerticalLayout {
 
             }
         });
+
+        this.adminDemoBtn2.addClickListener(e -> {
+            try {
+                // verify login credentials
+                authService.authenticate("admin2", "admin2");
+                // navigate to HomeView.class
+                UI.getCurrent().navigate("");
+            } catch (AuthService.AuthException ex) {
+                Notification.show("Wrong credentials");
+            } catch (AmbiguousRouteConfigurationException exception){
+                // clear any session that you were on
+                VaadinSession.getCurrent().getSession().invalidate();
+                VaadinSession.getCurrent().close();
+
+            }
+        });
+
+        this.userDemoBtn2.addClickListener(e -> {
+            try {
+                // verify login credentials
+                authService.authenticate("Mabel", "Mabel");
+                // navigate to HomeView.class
+                UI.getCurrent().navigate("");
+            } catch (AuthService.AuthException ex) {
+                Notification.show("Wrong credentials");
+            } catch (AmbiguousRouteConfigurationException exception){
+                // clear any session that you were on
+                VaadinSession.getCurrent().getSession().invalidate();
+                VaadinSession.getCurrent().close();
+            }
+        });
     }
 
     private HorizontalLayout getDemoBtns() {
@@ -158,7 +201,8 @@ public class LoginView extends VerticalLayout {
         TextArea funTipExplanation = new TextArea("Fun Tip!");
         funTipExplanation.setValue("Here's a fun test you can do!" +
                 "\nLogin to the Admin Demo account. Create a new project and assigned some new tickets to Barry." +
-                "\nLogout and login as the User account and see your new project and tickets assigned to Barry appear!");
+                "\nLogout and login as the User account and see your new project and tickets assigned to Barry " +
+                "appear!\n\n Here are 2 other Admin and User accounts to test out!");
         funTipExplanation.setWidth("450px");
         funTipExplanation.addThemeVariants(TextAreaVariant.LUMO_SMALL);
 
@@ -167,7 +211,8 @@ public class LoginView extends VerticalLayout {
                 this.userDemoBtn,
                 adminDemoExplanation,
                 this.adminDemoBtn,
-                funTipExplanation
+                funTipExplanation,
+                new HorizontalLayout(this.adminDemoBtn2, this.userDemoBtn2)
         );
         return new HorizontalLayout(demoDetails);
     }

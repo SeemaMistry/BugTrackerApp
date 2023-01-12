@@ -78,7 +78,7 @@ public class HomeView extends VerticalLayout {
     // create project cards and add them to the FormLayout
     private void createProjectCards(){
         // get all projects
-        List<Project> projectList = TSService.findAllProjects();
+        List<Project> projectList = TSService.getAllProjectByCompany(VaadinSession.getCurrent().getAttribute(Company.class).getId());
 
         // loop through all projects to create cards with labels
         for(Project p : projectList) {
