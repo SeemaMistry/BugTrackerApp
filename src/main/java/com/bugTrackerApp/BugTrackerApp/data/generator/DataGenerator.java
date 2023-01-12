@@ -165,7 +165,7 @@ public class DataGenerator {
             List<Project> projects = Arrays.asList(
                     new Project("Grocery App", "Create a grocery list app", employees.get(0), statuses.get(0)),
                     new Project("Animals App", "Create an animal list app", employees.get(1), statuses.get(1)),
-                    new Project("Plants App Project", "Create a plants list app", employees.get(2), statuses.get(2))
+                    new Project("Plants App Project", "Create a plants list app", employees.get(8), statuses.get(2))
             );
 //            projects.get(0).setEmployeesAssignedToProject(employees);
             projects.get(0).setCompany(companies.get(0));
@@ -178,7 +178,7 @@ public class DataGenerator {
                             "Button to save not working",
                             LocalDate.of(2022,9,10),
                             projects.get(0),
-                            employees.get(5),
+                            employees.get(4),
                             ticketPriorities.get(0),
                             ticketEstimatedTimes.get(0),
                             ticketTypes.get(1),
@@ -188,7 +188,7 @@ public class DataGenerator {
                             "Button to save the wrong colour",
                             LocalDate.of(2022,9,10),
                             projects.get(0),
-                            employees.get(5),
+                            employees.get(3),
                             ticketPriorities.get(2),
                             ticketEstimatedTimes.get(3),
                             ticketTypes.get(4),
@@ -198,7 +198,7 @@ public class DataGenerator {
                             "Add a menu bar for navigation",
                             LocalDate.of(2022,9,10),
                             projects.get(1),
-                            employees.get(6),
+                            employees.get(1),
                             ticketPriorities.get(0),
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
@@ -208,7 +208,7 @@ public class DataGenerator {
                             "Add a menu bar for navigation",
                             LocalDate.of(2022,9,10),
                             projects.get(2),
-                            employees.get(6),
+                            employees.get(7),
                             ticketPriorities.get(0),
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
@@ -218,7 +218,7 @@ public class DataGenerator {
                             "Tester of set of employees",
                             LocalDate.of(2022,9,10),
                             projects.get(2),
-                            employees.get(1),
+                            employees.get(9),
                             ticketPriorities.get(0),
                             ticketEstimatedTimes.get(4),
                             ticketTypes.get(0),
