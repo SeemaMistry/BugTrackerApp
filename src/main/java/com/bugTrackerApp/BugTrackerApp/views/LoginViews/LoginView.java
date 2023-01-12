@@ -97,13 +97,15 @@ public class LoginView extends VerticalLayout {
         // set button icons and text
         Icon userIcon = new Icon(VaadinIcon.USER);
         Icon adminIcon = new Icon(VaadinIcon.USER_STAR);
+        Icon userIcon2 = new Icon(VaadinIcon.USER);
+        Icon adminIcon2 = new Icon(VaadinIcon.USER_STAR);
         this.userDemoBtn.setIcon(userIcon);
         this.adminDemoBtn.setIcon(adminIcon);
         this.userDemoBtn.setText("User Demo Account!");
         this.adminDemoBtn.setText("Admin Demo Account!");
 
-        this.userDemoBtn2.setIcon(userIcon);
-        this.adminDemoBtn2.setIcon(adminIcon);
+        this.userDemoBtn2.setIcon(userIcon2);
+        this.adminDemoBtn2.setIcon(adminIcon2);
         this.userDemoBtn2.setText("User Demo Account 2!");
         this.adminDemoBtn2.setText("Admin Demo Account 2!");
 
