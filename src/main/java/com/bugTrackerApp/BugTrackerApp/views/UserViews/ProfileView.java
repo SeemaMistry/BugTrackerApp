@@ -28,21 +28,11 @@ public class ProfileView extends VerticalLayout {
     UserRelationsService URService;
 
     // components
-    TextField username = new TextField("Username");
-    PasswordField password = new PasswordField("Password");
-    PasswordField currentPassword = new PasswordField("Current Password");
-    PasswordField newPassword = new PasswordField("New Password");
-    PasswordField confirmNewPassword = new PasswordField("Confirm New Password");
-    Button changePasswordBtn = new Button("Change Password");
-    TextField firstName = new TextField("First Name");
-    TextField lastName = new TextField("Last Name");
-    EmailField email = new EmailField("Email address");
-    TextField company = new TextField("Company");
-    TextField securityClearance = new TextField("Job Title");
     Button save = new Button("Save");
     Button cancel  = new Button("Cancel");
 
     Accordion accordion = new Accordion();
+    
     PasswordField currentPassword2 = new PasswordField("Current Password");
     PasswordField newPassword2 = new PasswordField("New Password");
     PasswordField confirmNewPassword2 = new PasswordField("Confirm New Password");
