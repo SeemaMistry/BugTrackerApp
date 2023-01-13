@@ -18,9 +18,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
 
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
-import java.util.List;
 
 @PageTitle("Profile | Bug Tracker")
 @Route(value="profile", layout = MainLayout.class)
@@ -63,7 +61,7 @@ public class ProfileView extends VerticalLayout {
         // configure accordion
         createAccordion();
         // configure change password save and cancel events
-        changeBtnSaveAndCancelEvents();
+        configureSaveAndCancelBtnEvents();
 
         add(welcome, this.accordion);
     }
@@ -86,7 +84,8 @@ public class ProfileView extends VerticalLayout {
         return content;
     }
 
-    private void changeBtnSaveAndCancelEvents(){
+    // configure save and cancel changePassword button events
+    private void configureSaveAndCancelBtnEvents(){
         this.save.addClickListener(e -> {
             // validate and save the password
             boolean passwordChangeSuccess = validateAndSave();
