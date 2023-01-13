@@ -1,4 +1,4 @@
-package com.bugTrackerApp.BugTrackerApp.views.AdminViews;
+package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
