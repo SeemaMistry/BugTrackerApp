@@ -153,6 +153,8 @@ public class ProjectsList extends VerticalLayout {
     private void saveProject(ProjectForm.SaveEvent e) {
         // retrieve and set employees selected from MutliSelectComboBox to project
         e.getProject().setEmployeesAssignedToProject(projectForm.getEmployeesAssigned());
+        // set company to project
+        e.getProject().setCompany(VaadinSession.getCurrent().getAttribute(Company.class));
         TSService.saveProject(e.getProject());
         updateList();
         closeEditor();
