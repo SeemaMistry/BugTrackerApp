@@ -129,13 +129,9 @@ public class ProfileView extends VerticalLayout {
         companyInfo.setSpacing(false);
 
         // set accordion panels
-        // Personal info: name, email
         this.accordion.add("Personal information", personalInfo);
-        // Account info: username, password .. change password?
         this.accordion.add("Account information", accountInfo);
-        // Account info: username, password .. change password?
         this.accordion.add("Change password", changePasswordInfo);
-        // Company info:  company, job title
         this.accordion.add("Company information", companyInfo);
 
         this.accordion.setWidthFull();
