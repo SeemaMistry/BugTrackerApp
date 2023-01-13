@@ -3,6 +3,8 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 import lombok.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import javax.persistence.*;
@@ -47,6 +49,11 @@ public class User extends AbstractEntity{
 
     public boolean checkPassword(String password) {
         return DigestUtils.sha1Hex(password + passwordSalt).equals(passwordHash);
+    }
+
+    // change plain password into passwordHash
+    public void changePassword(String password) {
+        this.passwordHash = DigestUtils.sha1Hex(password + passwordSalt);
     }
 
 
