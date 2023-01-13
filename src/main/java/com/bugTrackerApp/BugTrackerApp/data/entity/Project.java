@@ -38,7 +38,6 @@ public class Project extends AbstractEntity{
 
     @ManyToOne
     @JoinColumn(name = "companyId")
-    @Nullable
     private Company company;
 
     @ManyToOne
@@ -47,7 +46,6 @@ public class Project extends AbstractEntity{
     private Employee creatorEmployee;
 
     @OneToMany(mappedBy = "project")
-    @Nullable
     private List<Ticket> tickets = new ArrayList<>();
 
     @ManyToOne
