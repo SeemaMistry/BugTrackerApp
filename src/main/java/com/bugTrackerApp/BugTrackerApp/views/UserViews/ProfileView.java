@@ -68,6 +68,10 @@ public class ProfileView extends VerticalLayout {
                 Notification.show("Password change failed!")
                         .addThemeVariants(NotificationVariant.LUMO_ERROR);
             }
+            // clear all the values
+            this.currentPassword.setValue("");
+            this.newPassword.setValue("");
+            this.confirmNewPassword.setValue("");
         });
 
         this.cancel.addClickListener(e->{
