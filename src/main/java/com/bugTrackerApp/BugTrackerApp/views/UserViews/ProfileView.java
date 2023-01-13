@@ -209,5 +209,6 @@ public class ProfileView extends VerticalLayout {
         // Company info:  company, job title
         this.accordion.add("Company information", companyInfo);
 
+        this.accordion.setWidthFull();
     }
 }
