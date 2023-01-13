@@ -9,11 +9,10 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
 import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
 import com.vaadin.flow.component.textfield.PasswordField;
-import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.server.VaadinSession;
@@ -32,10 +31,10 @@ public class ProfileView extends VerticalLayout {
     Button cancel  = new Button("Cancel");
 
     Accordion accordion = new Accordion();
-    
-    PasswordField currentPassword2 = new PasswordField("Current Password");
-    PasswordField newPassword2 = new PasswordField("New Password");
-    PasswordField confirmNewPassword2 = new PasswordField("Confirm New Password");
+
+    PasswordField currentPassword = new PasswordField("Current Password");
+    PasswordField newPassword = new PasswordField("New Password");
+    PasswordField confirmNewPassword = new PasswordField("Confirm New Password");
 
     // Employee entity
     Employee employee;
@@ -62,25 +61,31 @@ public class ProfileView extends VerticalLayout {
             // validate and save the password
             boolean passwordChangeSuccess = validateAndSave();
             // give notifications that password has changed
-            Notification.show(String.format("Password change has been %s", String.valueOf(passwordChangeSuccess)));
+            if (passwordChangeSuccess) {
+                Notification.show("Password change has been successful!")
+                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+            } else {
+                Notification.show("Password change failed!")
+                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
+            }
         });
 
         this.cancel.addClickListener(e->{
             // close the password fields
-            this.currentPassword2.setValue("");
-            this.newPassword2.setValue("");
-            this.confirmNewPassword2.setValue("");
+            this.currentPassword.setValue("");
+            this.newPassword.setValue("");
+            this.confirmNewPassword.setValue("");
         });
     }
 
     private boolean validateAndSave(){
         // check if currentPassword == current password
-        if (this.employee.getUserAccountDetail().checkPassword(this.currentPassword2.getValue())){
+        if (this.employee.getUserAccountDetail().checkPassword(this.currentPassword.getValue())){
             // check if newPassword == confirmNewPassword
-            if (this.newPassword2.getValue().equals(this.confirmNewPassword2.getValue())){
+            if (this.newPassword.getValue().equals(this.confirmNewPassword.getValue())){
                 // change and save new password
                 User user = this.employee.getUserAccountDetail();
-                user.changePassword(confirmNewPassword2.getValue());
+                user.changePassword(confirmNewPassword.getValue());
                 URService.saveUser(user);
                 return true;
             }
@@ -106,9 +111,9 @@ public class ProfileView extends VerticalLayout {
         Span description = new Span("Change your password below:");
         VerticalLayout changePasswordInfo = new VerticalLayout(
                 description,
-                this.currentPassword2,
-                this.newPassword2,
-                this.confirmNewPassword2,
+                this.currentPassword,
+                this.newPassword,
+                this.confirmNewPassword,
                 new HorizontalLayout(this.save, this.cancel)
         );
         changePasswordInfo.setSpacing(false);
