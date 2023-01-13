@@ -170,14 +170,12 @@ public class ProfileView extends VerticalLayout {
         Span email = new Span(this.employee.getEmail());
         VerticalLayout personalInfo = new VerticalLayout(fullName, email);
         personalInfo.setSpacing(false);
-        personalInfo.setPadding(false);
 
         // set account info
         Span username = new Span("Username: " + this.employee.getUserAccountDetail().getUsername());
         Span password = new Span("Password: " + "********");
         VerticalLayout accountInfo = new VerticalLayout(username, password);
         accountInfo.setSpacing(false);
-        accountInfo.setPadding(false);
 
         // set change password info: password fields to change
         Span description = new Span("Change your password below:");
@@ -189,15 +187,12 @@ public class ProfileView extends VerticalLayout {
                 new HorizontalLayout(this.save, this.cancel)
         );
         changePasswordInfo.setSpacing(false);
-        changePasswordInfo.setPadding(false);
 
         // set company info
         Span companyName = new Span("Company: " + this.employee.getCompany().getName());
         Span jobTitle = new Span("Job Title: " + this.employee.getSecurityClearance().getSecurityTitle());
         VerticalLayout companyInfo = new VerticalLayout(companyName, jobTitle);
         companyInfo.setSpacing(false);
-        companyInfo.setPadding(false);
-
 
         // set accordion panels
         // Personal info: name, email
