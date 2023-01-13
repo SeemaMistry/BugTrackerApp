@@ -18,6 +18,7 @@ public class UserRelationsService {
     private DepartmentRepository departmentRepo;
     private SecurityClearanceRepository securityClearanceRepo;
     private AccountStatusRepository accountStatusRepo;
+    private UserRepository userRepo;
 
     // methods: findAll
     // CRUD methods: count, save, delete
@@ -69,6 +70,13 @@ public class UserRelationsService {
             System.err.println("Account Status is null. Are you sure you have connected your form to the application? ");
         }
         accountStatusRepo.save(accountStatus);
+    }
+
+    public void saveUser(User user) {
+        if (user == null) {
+            System.err.println("user is null. Are you sure you have connected your form to the application? ");
+        }
+        userRepo.save(user);
     }
 
     // DELETE METHODS
