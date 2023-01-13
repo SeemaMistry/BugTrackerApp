@@ -192,8 +192,8 @@ public class ProfileView extends VerticalLayout {
         changePasswordInfo.setPadding(false);
 
         // set company info
-        Span companyName = new Span(this.employee.getCompany().getName());
-        Span jobTitle = new Span(this.employee.getSecurityClearance().getSecurityTitle());
+        Span companyName = new Span("Company:" + this.employee.getCompany().getName());
+        Span jobTitle = new Span("Job Title: " + this.employee.getSecurityClearance().getSecurityTitle());
         VerticalLayout companyInfo = new VerticalLayout(companyName, jobTitle);
         companyInfo.setSpacing(false);
         companyInfo.setPadding(false);
@@ -208,5 +208,6 @@ public class ProfileView extends VerticalLayout {
         this.accordion.add("Change password", changePasswordInfo);
         // Company info:  company, job title
         this.accordion.add("Company information", companyInfo);
+
     }
 }
