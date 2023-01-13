@@ -68,39 +68,6 @@ public class ProfileView extends VerticalLayout {
         add(welcome, this.accordion);
     }
 
-    // configure component values and width to 300px
-    public void configureComponents() {
-        this.username.setValue(this.employee.getUserAccountDetail().getUsername());
-        this.password.setValue("********");
-        this.firstName.setValue(this.employee.getFirstName());
-        this.lastName.setValue(this.employee.getLastName());
-        this.email.setValue(this.employee.getEmail());
-        this.company.setValue(this.employee.getCompany().getName());
-        this.securityClearance.setValue(this.employee.getSecurityClearance().getSecurityTitle());
-
-        // set size to 300px
-        this.firstName.setWidth("300px");
-        this.lastName.setWidth("300px");
-        this.email.setWidth("300px");
-        this.company.setWidth("300px");
-        this.securityClearance.setWidth("300px");
-
-        // make all read only
-        this.username.setReadOnly(true);
-        this.firstName.setReadOnly(true);
-        this.lastName.setReadOnly(true);
-        this.email.setReadOnly(true);
-        this.company.setReadOnly(true);
-        this.securityClearance.setReadOnly(true);
-
-        // make change password fields not visible
-        this.currentPassword.setVisible(false);
-        this.newPassword.setVisible(false);
-        this.confirmNewPassword.setVisible(false);
-        this.save.setVisible(true);
-        this.cancel.setVisible(true);
-    }
-
     // set components in a vertical layout
     public VerticalLayout getContent() {
         VerticalLayout content = new VerticalLayout(
@@ -117,19 +84,6 @@ public class ProfileView extends VerticalLayout {
                 this.securityClearance
         );
         return content;
-    }
-
-    private void configureChangePasswordBtns(){
-        this.changePasswordBtn.addClickListener(e -> {
-            // show password fields for changing password
-            this.currentPassword.setVisible(true);
-            this.newPassword.setVisible(true);
-            this.confirmNewPassword.setVisible(true);
-            this.save.setVisible(true);
-            this.cancel.setVisible(true);
-        });
-
-        changeBtnSaveAndCancelEvents();
     }
 
     private void changeBtnSaveAndCancelEvents(){
