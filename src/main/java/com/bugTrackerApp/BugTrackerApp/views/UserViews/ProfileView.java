@@ -66,24 +66,6 @@ public class ProfileView extends VerticalLayout {
         add(welcome, this.accordion);
     }
 
-    // set components in a vertical layout
-    public VerticalLayout getContent() {
-        VerticalLayout content = new VerticalLayout(
-                this.username,
-//                this.password,
-                this.currentPassword,
-                new VerticalLayout(this.newPassword, this.confirmNewPassword),
-                new VerticalLayout(this.save, this.cancel),
-                this.changePasswordBtn,
-                this.firstName,
-                this.lastName,
-                this.email,
-                this.company,
-                this.securityClearance
-        );
-        return content;
-    }
-
     // configure save and cancel changePassword button events
     private void configureSaveAndCancelBtnEvents(){
         this.save.addClickListener(e -> {
