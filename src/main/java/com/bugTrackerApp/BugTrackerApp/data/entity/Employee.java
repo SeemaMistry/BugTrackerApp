@@ -27,7 +27,7 @@ import java.util.List;
 public class Employee extends AbstractEntity{
 
     // OWNER ENTITY OF 1:1 RS
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "userId", nullable = false)
     private User userAccountDetail;
 
