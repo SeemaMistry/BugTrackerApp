@@ -1,8 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
-import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
-import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
-import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
+import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.button.Button;
@@ -15,9 +14,12 @@ import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.server.VaadinSession;
 import com.vaadin.flow.shared.Registration;
+import org.springframework.boot.web.servlet.server.Session;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EmployeeForm extends FormLayout {
     TextField firstName = new TextField("First name");
@@ -34,9 +36,15 @@ public class EmployeeForm extends FormLayout {
 
     private Employee employee;
 
+    UserRelationsService URService;
+    List<SecurityClearance> securityClearances;
+
     public EmployeeForm(List<Company> companies,
-                        List<SecurityClearance> securityClearances) {
+                        List<SecurityClearance> securityClearances,
+                        UserRelationsService URService) {
         addClassName("employee-form");
+        this.URService = URService;
+        this.securityClearances = securityClearances;
         // Add Bean instance field to match fields in Employee to EmployeeForm
         binder.bindInstanceFields(this);
 
@@ -73,10 +81,51 @@ public class EmployeeForm extends FormLayout {
         return new HorizontalLayout(save, delete, close);
     }
 
-    private void validateAndSave() {
+    public void validateAndSave() {
         try {
-            binder.writeBean(employee);
-            fireEvent(new SaveEvent(this, employee));
+            // check if employee security clearnace has changed
+//            System.out.println("\n------" + this.employee.getSecurityClearance().getSecurityTitle() + "-------\n");
+            if (this.employee.getSecurityClearance() == null){
+                // write bean
+                binder.writeBean(this.employee);
+                // set role based on security clearance
+                if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")){
+                    User user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.ADMIN);
+                    this.employee.setUserAccountDetail(user);
+                    URService.saveUser(this.employee.getUserAccountDetail());
+                } else {
+                    User user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.USER);
+                    this.employee.setUserAccountDetail(user);
+                    URService.saveUser(this.employee.getUserAccountDetail());
+                }
+
+            } else {
+                SecurityClearance currentSecurityClearance = this.employee.getSecurityClearance();
+//            System.out.println("\n-------------\n");
+//            System.out.println(currentSecurityClearance.getSecurityTitle());
+//            System.out.println("\n-------------\n");
+                binder.writeBean(employee);
+                // set the user role to the security clearance
+                if (!currentSecurityClearance.equals(this.employee.getSecurityClearance())) {
+                    System.out.println("\n-------------\n");
+                    System.out.println(this.employee.getSecurityClearance().getSecurityTitle());
+                    System.out.println("\n-------------\n");
+                    // change user.ROLE
+                    if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")) {
+                        System.out.println("\n------ I Am In Admin if statement -------\n");
+                        this.employee.getUserAccountDetail().setRole(Role.ADMIN);
+                        URService.saveUser(this.employee.getUserAccountDetail());
+                    } else {
+                        System.out.println("\n------ I Am In Else if statement -------\n");
+                        this.employee.getUserAccountDetail().setRole(Role.USER);
+                        URService.saveUser(this.employee.getUserAccountDetail());
+//                    URService.saveEmployee(this.employee);
+//                    VaadinSession.getCurrent().setAttribute(User.class, this.employee.getUserAccountDetail());
+                    }
+                }
+
+                fireEvent(new SaveEvent(this, employee));
+            }
         } catch (ValidationException e) {
             System.out.println("there was an error");
             e.printStackTrace();
