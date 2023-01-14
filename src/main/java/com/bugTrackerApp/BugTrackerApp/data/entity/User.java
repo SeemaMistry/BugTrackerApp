@@ -3,6 +3,9 @@ package com.bugTrackerApp.BugTrackerApp.data.entity;
 import lombok.*;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.RandomStringUtils;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.transaction.annotation.Transactional;
 

@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.repository.*;
 import com.vaadin.flow.server.VaadinSession;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
