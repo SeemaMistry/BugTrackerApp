@@ -75,6 +75,7 @@ public class EmployeesList extends VerticalLayout {
         // clear the form and open the editor
         employeeGrid.asSingleSelect().clear();
         registerNewEmployeeForm.setVisible(true);
+        registerNewEmployeeForm.setEmployee(new Employee());
 //        editEmployee(new Employee());
     }
 
@@ -104,7 +105,8 @@ public class EmployeesList extends VerticalLayout {
         // instantiate employeeForm with Company and SecurityClearance data
         employeeForm = new EmployeeForm(
                 URService.findAllCompanies(filterText.getValue()),
-                URService.findAllSecurityClearances()
+                URService.findAllSecurityClearances(),
+                URService
         );
 
         // set size of form
@@ -117,7 +119,8 @@ public class EmployeesList extends VerticalLayout {
 
         registerNewEmployeeForm = new RegisterNewEmployeeForm(
                 URService.findAllCompanies(filterText.getValue()),
-                URService.findAllSecurityClearances()
+                URService.findAllSecurityClearances(),
+                URService
         );
 
         // set size of form
@@ -143,6 +146,7 @@ public class EmployeesList extends VerticalLayout {
         updateList();
         closeEditor();
     }
+
 
     // update list based on search results or display all employees
     private void updateList() {
