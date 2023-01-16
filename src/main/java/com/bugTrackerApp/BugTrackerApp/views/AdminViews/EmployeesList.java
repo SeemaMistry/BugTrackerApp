@@ -76,6 +76,7 @@ public class EmployeesList extends VerticalLayout {
         employeeGrid.asSingleSelect().clear();
         registerNewEmployeeForm.setVisible(true);
         registerNewEmployeeForm.setEmployee(new Employee());
+        addClassName("editing");
 //        editEmployee(new Employee());
     }
 
