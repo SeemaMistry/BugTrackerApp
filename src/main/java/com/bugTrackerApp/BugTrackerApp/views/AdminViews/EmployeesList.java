@@ -70,16 +70,6 @@ public class EmployeesList extends VerticalLayout {
         return toolbar;
     }
 
-    // add a new employee
-    private void addEmployee() {
-        // clear the form and open the editor
-        employeeGrid.asSingleSelect().clear();
-        registerNewEmployeeForm.setVisible(true);
-        registerNewEmployeeForm.setEmployee(new Employee());
-        addClassName("editing");
-//        editEmployee(new Employee());
-    }
-
     // configure employee grid
     private void configureGrid() {
         // configure columns
@@ -146,6 +136,15 @@ public class EmployeesList extends VerticalLayout {
         URService.saveEmployee(e.getEmployee());
         updateList();
         closeEditor();
+    }
+
+    // add a new employee
+    private void addEmployee() {
+        // clear the form and open the editor
+        employeeGrid.asSingleSelect().clear();
+        registerNewEmployeeForm.setVisible(true);
+        registerNewEmployeeForm.setEmployee(new Employee());
+        addClassName("editing");
     }
 
 
