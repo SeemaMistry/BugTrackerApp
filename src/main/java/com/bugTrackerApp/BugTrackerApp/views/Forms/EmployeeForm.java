@@ -83,8 +83,7 @@ public class EmployeeForm extends FormLayout {
 
     public void validateAndSave() {
         try {
-            // check if employee security clearnace has changed
-//            System.out.println("\n------" + this.employee.getSecurityClearance().getSecurityTitle() + "-------\n");
+            // check if employee security clearance has changed
             if (this.employee.getSecurityClearance() == null){
                 // write bean
                 binder.writeBean(this.employee);
@@ -100,32 +99,28 @@ public class EmployeeForm extends FormLayout {
                 }
 
             } else {
+                // store previous security clearance (for comparison later)
                 SecurityClearance currentSecurityClearance = this.employee.getSecurityClearance();
-//            System.out.println("\n-------------\n");
-//            System.out.println(currentSecurityClearance.getSecurityTitle());
-//            System.out.println("\n-------------\n");
+                // set employee through bean binder
                 binder.writeBean(employee);
+
                 // set the user role to the security clearance
                 if (!currentSecurityClearance.equals(this.employee.getSecurityClearance())) {
-                    System.out.println("\n-------------\n");
-                    System.out.println(this.employee.getSecurityClearance().getSecurityTitle());
-                    System.out.println("\n-------------\n");
-                    // change user.ROLE
+
+                    // change user.ROLE and save User to database
                     if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")) {
-                        System.out.println("\n------ I Am In Admin if statement -------\n");
                         this.employee.getUserAccountDetail().setRole(Role.ADMIN);
                         URService.saveUser(this.employee.getUserAccountDetail());
                     } else {
-                        System.out.println("\n------ I Am In Else if statement -------\n");
                         this.employee.getUserAccountDetail().setRole(Role.USER);
                         URService.saveUser(this.employee.getUserAccountDetail());
-//                    URService.saveEmployee(this.employee);
-//                    VaadinSession.getCurrent().setAttribute(User.class, this.employee.getUserAccountDetail());
                     }
                 }
-
-                fireEvent(new SaveEvent(this, employee));
             }
+
+            // fire save event
+            fireEvent(new SaveEvent(this, employee));
+
         } catch (ValidationException e) {
             System.out.println("there was an error");
             e.printStackTrace();
