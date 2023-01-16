@@ -83,38 +83,32 @@ public class EmployeeForm extends FormLayout {
 
     public void validateAndSave() {
         try {
-            // check if employee security clearance has changed
-            if (this.employee.getSecurityClearance() == null){
-                // write bean
-                binder.writeBean(this.employee);
-                // set role based on security clearance
-                User user;
-                if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")){
-                    user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.ADMIN);
-                } else {
-                    user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.USER);
-                }
+
+            // set the security clearance as value or null
+            SecurityClearance currentSecurityClearance = this.employee.getSecurityClearance() != null ? this.employee.getSecurityClearance() : null;
+
+            // set employee through bean binder
+            binder.writeBean(this.employee);
+
+            // set new User when User is null
+            if (currentSecurityClearance == null){
+                // set User using Role
+                User user = Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), Role.ADMIN) ?
+                        new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.ADMIN) :
+                        new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.USER);
+                // set user to employee
                 this.employee.setUserAccountDetail(user);
                 URService.saveUser(this.employee.getUserAccountDetail());
 
             } else {
-                // store previous security clearance (for comparison later)
-                SecurityClearance currentSecurityClearance = this.employee.getSecurityClearance();
-                // set employee through bean binder
-                binder.writeBean(employee);
-
-                // set the user role to the security clearance
-                if (!currentSecurityClearance.equals(this.employee.getSecurityClearance())) {
-
-                    // change user.ROLE and save User to database
-                    if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")) {
-                        this.employee.getUserAccountDetail().setRole(Role.ADMIN);
-                        URService.saveUser(this.employee.getUserAccountDetail());
-                    } else {
-                        this.employee.getUserAccountDetail().setRole(Role.USER);
-                        URService.saveUser(this.employee.getUserAccountDetail());
-                    }
-                }
+                // if role has changed update Role
+                Role role = !currentSecurityClearance.equals(this.employee.getSecurityClearance()) &&
+                        Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), Role.ADMIN) ?
+                        Role.ADMIN :
+                        Role.USER;
+                // update employee role
+                this.employee.getUserAccountDetail().setRole(role);
+                URService.saveUser(this.employee.getUserAccountDetail());
             }
 
             // fire save event
