@@ -88,15 +88,14 @@ public class EmployeeForm extends FormLayout {
                 // write bean
                 binder.writeBean(this.employee);
                 // set role based on security clearance
+                User user;
                 if (Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(), "Admin")){
-                    User user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.ADMIN);
-                    this.employee.setUserAccountDetail(user);
-                    URService.saveUser(this.employee.getUserAccountDetail());
+                    user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.ADMIN);
                 } else {
-                    User user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.USER);
-                    this.employee.setUserAccountDetail(user);
-                    URService.saveUser(this.employee.getUserAccountDetail());
+                    user = new User(this.employee.getFirstName(), this.employee.getFirstName(), Role.USER);
                 }
+                this.employee.setUserAccountDetail(user);
+                URService.saveUser(this.employee.getUserAccountDetail());
 
             } else {
                 // store previous security clearance (for comparison later)
