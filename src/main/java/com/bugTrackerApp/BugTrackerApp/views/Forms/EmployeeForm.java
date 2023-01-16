@@ -25,7 +25,6 @@ public class EmployeeForm extends FormLayout {
     TextField firstName = new TextField("First name");
     TextField lastName = new TextField("Last name");
     EmailField email = new EmailField("Email");
-    ComboBox<Company> company = new ComboBox<>("Company");
     ComboBox<SecurityClearance> securityClearance = new ComboBox<>("Security Clearance");
 
     Button save = new Button("Save");
@@ -39,7 +38,7 @@ public class EmployeeForm extends FormLayout {
     UserRelationsService URService;
     List<SecurityClearance> securityClearances;
 
-    public EmployeeForm(List<Company> companies,
+    public EmployeeForm(
                         List<SecurityClearance> securityClearances,
                         UserRelationsService URService) {
         addClassName("employee-form");
@@ -49,8 +48,6 @@ public class EmployeeForm extends FormLayout {
         binder.bindInstanceFields(this);
 
         // populate combo boxes
-        company.setItems(companies);
-        company.setItemLabelGenerator(Company::getName);
         securityClearance.setItems(securityClearances);
         securityClearance.setItemLabelGenerator(SecurityClearance::getSecurityTitle);
 
@@ -58,7 +55,6 @@ public class EmployeeForm extends FormLayout {
                 firstName,
                 lastName,
                 email,
-                company,
                 securityClearance,
                 createButtonsLayout()
         );

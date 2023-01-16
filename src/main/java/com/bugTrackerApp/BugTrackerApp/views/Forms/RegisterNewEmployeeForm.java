@@ -12,8 +12,8 @@ public class RegisterNewEmployeeForm extends EmployeeForm{
     TextField username = new TextField("Username");
     TextField password = new TextField("Password");
 
-    public RegisterNewEmployeeForm(List<Company> companies, List<SecurityClearance> securityClearances, UserRelationsService URService) {
-        super(companies, securityClearances, URService);
+    public RegisterNewEmployeeForm(List<SecurityClearance> securityClearances, UserRelationsService URService) {
+        super(securityClearances, URService);
         updateUsernameAndPassword();
         add(username, password);
         updateUsernameAndPassword();

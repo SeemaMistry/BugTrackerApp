@@ -76,7 +76,6 @@ public class EmployeesList extends VerticalLayout {
         employeeGrid.addClassName("employee-grid");
         employeeGrid.setSizeFull();
         employeeGrid.setColumns("firstName", "lastName",  "email");
-        employeeGrid.addColumn(e -> e.getCompany().getName()).setHeader("Company").setSortable(true);
         employeeGrid.addColumn(e -> e.getSecurityClearance().getSecurityTitle()).setHeader("Security Clearance");
         employeeGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
@@ -95,7 +94,6 @@ public class EmployeesList extends VerticalLayout {
     private void configureForm() {
         // instantiate employeeForm with Company and SecurityClearance data
         employeeForm = new EmployeeForm(
-                URService.findAllCompanies(filterText.getValue()),
                 URService.findAllSecurityClearances(),
                 URService
         );
@@ -109,7 +107,6 @@ public class EmployeesList extends VerticalLayout {
         employeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
 
         registerNewEmployeeForm = new RegisterNewEmployeeForm(
-                URService.findAllCompanies(filterText.getValue()),
                 URService.findAllSecurityClearances(),
                 URService
         );
@@ -144,7 +141,10 @@ public class EmployeesList extends VerticalLayout {
         employeeGrid.asSingleSelect().clear();
         closeEditor();
         registerNewEmployeeForm.setVisible(true);
-        registerNewEmployeeForm.setEmployee(new Employee());
+        // set the company to the new Employee
+        Employee newEmployee = new Employee();
+        newEmployee.setCompany(VaadinSession.getCurrent().getAttribute(Company.class));
+        registerNewEmployeeForm.setEmployee(newEmployee);
         addClassName("editing");
     }
 
