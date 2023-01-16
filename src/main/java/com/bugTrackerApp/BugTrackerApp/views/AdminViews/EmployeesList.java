@@ -142,6 +142,7 @@ public class EmployeesList extends VerticalLayout {
     private void addEmployee() {
         // clear the form and open the editor
         employeeGrid.asSingleSelect().clear();
+        closeEditor();
         registerNewEmployeeForm.setVisible(true);
         registerNewEmployeeForm.setEmployee(new Employee());
         addClassName("editing");
@@ -154,7 +155,6 @@ public class EmployeesList extends VerticalLayout {
 
         employeeGrid.setItems(URService.findAllEmployeesByCompany(filterText.getValue(), VaadinSession.getCurrent().getAttribute(Company.class).getId()));
     }
-
 
     // close editor when not in use
     private void closeEditor() {
@@ -171,6 +171,7 @@ public class EmployeesList extends VerticalLayout {
         if (employee == null) {
             closeEditor();
         } else {
+            registerNewEmployeeForm.setVisible(false);
             employeeForm.setEmployee(employee);
             employeeForm.setVisible(true);
             addClassName("editing");
