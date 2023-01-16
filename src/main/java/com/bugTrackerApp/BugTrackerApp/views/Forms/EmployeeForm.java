@@ -103,7 +103,10 @@ public class EmployeeForm extends FormLayout {
             } else {
                 // if role has changed update Role
                 Role role = !currentSecurityClearance.equals(this.employee.getSecurityClearance()) &&
-                        Objects.equals(this.employee.getSecurityClearance().getSecurityTitle(),"Admin") ?
+                        Objects.equals(
+                                this.employee.getSecurityClearance().getSecurityTitle().toLowerCase(),
+                                Role.ADMIN.getRoleName().toLowerCase()
+                        ) ?
                         Role.ADMIN :
                         Role.USER;
                 // update employee role
