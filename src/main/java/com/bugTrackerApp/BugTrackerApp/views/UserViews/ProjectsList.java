@@ -5,7 +5,6 @@ import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.ProjectForm;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
-import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.grid.Grid;
@@ -75,7 +74,7 @@ public class ProjectsList extends VerticalLayout {
         // create "View Tickets" button per row which redirects to project's ticketList page
         grid.addComponentColumn(project -> {
             Button btn = new Button("View Tickets",
-                    event -> UI.getCurrent().navigate(TicketsList.class, project.getName()));
+                    event -> UI.getCurrent().navigate(TicketsList.class, project.getReferenceValue()));
             return btn;
         });
         grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
@@ -87,9 +86,9 @@ public class ProjectsList extends VerticalLayout {
         grid.asSingleSelect().addValueChangeListener(e -> editProject(e.getValue()));
 
         // double click and be routed to tickets page
-        grid.addItemDoubleClickListener(e ->
-                UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
-        );
+        grid.addItemDoubleClickListener(e ->{
+            UI.getCurrent().navigate(TicketsList.class, e.getItem().getReferenceValue());
+        });
     }
 
     // configure project Form with button click listeners

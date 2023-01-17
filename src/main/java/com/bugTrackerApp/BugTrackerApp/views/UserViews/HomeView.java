@@ -4,7 +4,6 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
-import com.bugTrackerApp.BugTrackerApp.views.UserViews.TicketsList;
 import com.github.appreciated.card.Card;
 import com.github.appreciated.card.action.ActionButton;
 import com.github.appreciated.card.action.Actions;
@@ -102,7 +101,7 @@ public class HomeView extends VerticalLayout {
                             }),
                             new ActionButton(
                                     "Tickets",
-                                    e -> UI.getCurrent().navigate(TicketsList.class, p.getName()))
+                                    e -> UI.getCurrent().navigate(TicketsList.class, p.getReferenceValue()))
                     )
             );
             // set styling
@@ -150,7 +149,7 @@ public class HomeView extends VerticalLayout {
             Ticket ticketSelected = e.getItem();
             VaadinSession.getCurrent().setAttribute(Ticket.class, ticketSelected);
             // pass projectName as URL parameter and navigate to TicketList.class
-            String parameter = e.getItem().getProject().getName();
+            String parameter = e.getItem().getProject().getReferenceValue();
             UI.getCurrent().navigate(TicketsList.class, parameter);
         });
     }

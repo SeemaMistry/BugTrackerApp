@@ -18,6 +18,7 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
+import java.util.UUID;
 
 @PageTitle("Tickets | Bug Tracker")
 @Route(value="tickets", layout = MainLayout.class)
@@ -59,9 +60,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
     @Override
     public void setParameter(BeforeEvent beforeEvent, String name) {
         // set the project field
-        this.projectName = name.replaceAll("%20", " ");
-        this.project = TTService.findProjectByName(this.projectName);
-
+        this.project = TTService.getProjectByReferenceValue(name);
+        this.projectName = this.project.getName();
 
         // call getContent() (acts as the constructor) to render components to webpage
         getContent();
@@ -104,7 +104,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     /* ------------------- CONFIGURATIONS -------------------
      * */
-    
+
     // configure ticketGrid
     private void configureTicketGrid() {
         ticketGrid.setSizeFull();
