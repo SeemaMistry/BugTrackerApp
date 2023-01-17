@@ -39,6 +39,7 @@ public class MainLayout extends AppLayout {
 
         // add styling
         header.setDefaultVerticalComponentAlignment(FlexComponent.Alignment.CENTER);
+        header.expand(logo);
         header.setWidth("100%");
         header.addClassNames("py-0", "px-m");
 
