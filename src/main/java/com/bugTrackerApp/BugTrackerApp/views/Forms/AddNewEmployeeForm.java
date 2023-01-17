@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.textfield.TextField;
 
 import java.util.List;
+import java.util.Random;
 
 public class AddNewEmployeeForm extends EmployeeForm{
     TextField username = new TextField("Username");
@@ -18,11 +19,13 @@ public class AddNewEmployeeForm extends EmployeeForm{
 
     }
 
+    // dynamically create Username and Password based on firstname values from super
     private void updateUsernameAndPassword(){
-//        super.firstName.setValueChangeMode(ValueChangeMode.ON_CHANGE);
         super.firstName.addValueChangeListener(e -> {
+            // generate random number to add to username
+            Random rand = new Random();
             // when value changes, set it as username and password
-            username.setValue(e.getValue());
+            username.setValue(e.getValue() + String.valueOf(rand.nextInt(1000)));
             password.setValue(e.getValue());
         });
     }
