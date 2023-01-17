@@ -141,9 +141,6 @@ public class HomeView extends VerticalLayout {
         ticketsGrid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // double select to go to tickets page
-//        ticketsGrid.addItemDoubleClickListener(e ->
-//                UI.getCurrent().navigate(TicketsList.class, e.getItem().getProject().getName())
-//        );
         ticketsGrid.addItemDoubleClickListener(e -> {
             // set selected Ticket as an attribute. Retrieve ticket attribute and populate ticketForm in TicketList.class
             Ticket ticketSelected = e.getItem();
