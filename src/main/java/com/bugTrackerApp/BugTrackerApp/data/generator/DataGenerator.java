@@ -171,6 +171,9 @@ public class DataGenerator {
             projects.get(0).setCompany(companies.get(0));
             projects.get(1).setCompany(companies.get(0));
             projects.get(2).setCompany(companies.get(1));
+            for (Project p : projects){
+                p.setReferenceValue();
+            }
             projectRepo.saveAll(projects);
 
             List<Ticket> tickets = Arrays.asList(
