@@ -118,7 +118,7 @@ public class EmployeesList extends VerticalLayout {
     /* ------------------- GET COMPONENTS -------------------
      * */
 
-    // configure toolbar
+    // return toolbar layout
     private Component getToolbar() {
         // add toolbar components in a horizontal layout
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);

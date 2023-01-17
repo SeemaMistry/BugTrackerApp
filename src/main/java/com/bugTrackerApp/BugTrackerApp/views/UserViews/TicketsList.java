@@ -104,6 +104,7 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
 
     /* ------------------- CONFIGURATIONS -------------------
      * */
+    
     // configure ticketGrid
     private void configureTicketGrid() {
         ticketGrid.setSizeFull();

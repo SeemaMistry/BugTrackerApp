@@ -128,7 +128,7 @@ public class ProjectsList extends VerticalLayout {
     /* ------------------- GET COMPONENTS -------------------
      * */
 
-    // configure toolbar: filters and add new Project button
+    // return toolbar layout
     private HorizontalLayout getToolbar() {
         // dynamically render toolbar based on current user session role
         HorizontalLayout toolbar = new HorizontalLayout();
@@ -142,7 +142,7 @@ public class ProjectsList extends VerticalLayout {
     }
 
     // return page content (grid and form) in Horizontal layout
-    private Component getContent() {
+    private HorizontalLayout getContent() {
         HorizontalLayout content = new HorizontalLayout(grid, projectForm);
         content.setSizeFull();
         return content;
