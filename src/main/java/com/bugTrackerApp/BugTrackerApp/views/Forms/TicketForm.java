@@ -152,6 +152,8 @@ public class TicketForm extends FormLayout {
         delete.addClickListener(e -> fireEvent(new TicketForm.DeleteEvent(this, ticket)));
         close.addClickListener(e -> fireEvent(new TicketForm.CloseEvent(this)));
 
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
+
         // remove save and delete buttons from view if User role is not Admin
         if (VaadinSession.getCurrent().getAttribute(User.class).getRole() != Role.ADMIN) {
             save.setVisible(false);
