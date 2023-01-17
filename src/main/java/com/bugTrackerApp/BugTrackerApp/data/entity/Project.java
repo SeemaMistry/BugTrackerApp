@@ -24,7 +24,7 @@ import java.util.List;
 })
 public class Project extends AbstractEntity{
     @NotBlank
-    @Column(unique = true)
+//    @Column(unique = true)
     private String name;
 
     @NotBlank
