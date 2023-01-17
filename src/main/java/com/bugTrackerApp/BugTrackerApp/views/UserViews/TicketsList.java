@@ -18,7 +18,6 @@ import com.vaadin.flow.router.*;
 import com.vaadin.flow.server.VaadinSession;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.UUID;
 
 @PageTitle("Tickets | Bug Tracker")
 @Route(value="tickets", layout = MainLayout.class)
@@ -289,7 +288,5 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         updateGrid();
         closeEmployeeGrid();
         closeTicketForm();
-
     }
-
 }

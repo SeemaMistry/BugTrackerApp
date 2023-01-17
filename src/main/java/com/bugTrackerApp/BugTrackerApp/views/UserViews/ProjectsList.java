@@ -51,7 +51,7 @@ public class ProjectsList extends VerticalLayout {
         // close project form as default
         closeEditor();
 
-        // retrieve project session attribute and populate projectForm
+        // retrieve project session attribute and populate projectForm with Project object passed
         if (VaadinSession.getCurrent().getAttribute(Project.class) != null){
             this.editProject(VaadinSession.getCurrent().getAttribute(Project.class));
             // remove project selected object from set attribute
@@ -83,7 +83,9 @@ public class ProjectsList extends VerticalLayout {
     }
 
     // update project grid with projects based on searchBYProjectName value
-    private void updateListByProjectNameSearch(String searchName)  { grid.setItems(TSService.searchProjectByLikeName(searchName)); }
+    private void updateListByProjectNameSearch(String searchName){
+        grid.setItems(TSService.searchProjectByLikeName(searchName));
+    }
 
     // return page content (grid and form) in Horizontal layout
     private Component getContent() {

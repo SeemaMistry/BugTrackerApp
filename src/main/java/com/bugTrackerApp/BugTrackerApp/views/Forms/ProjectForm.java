@@ -107,8 +107,10 @@ public class ProjectForm extends FormLayout {
         this.project = project;
         // use readBean() to bind values from project object to UI fields in the form
         binder.readBean(project);
+
         // deselect MultiSelectComboBox of employees
         projectsAssignedToEmployee.deselectAll();
+
         // populate MultiSelectComboBox with employees assigned to project
         if (project != null) {
             // for each assigned employee, add each individually as a selected subList() of the employeeList

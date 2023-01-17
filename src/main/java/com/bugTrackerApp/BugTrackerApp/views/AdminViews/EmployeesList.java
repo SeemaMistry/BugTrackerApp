@@ -21,7 +21,7 @@ import com.vaadin.flow.server.VaadinSession;
 import javax.annotation.security.RolesAllowed;
 
 /*
-    Employee list displays a list of all the emplpyees with a form to edit/add employees (by admin only)
+    Employee list displays a list of all the employees with a form to edit/add employees (by admin only)
 */
 @PageTitle("Employees List | Bug Tracker")
 @Route(value="employees", layout = MainLayout.class)
@@ -82,7 +82,7 @@ public class EmployeesList extends VerticalLayout {
         // single select employee populates employee form
         employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
     }
-    // return grid and form in a horizontal layout
+    // return grid and forms in a horizontal layout
     private Component getContent() {
         HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm, addNewEmployeeForm);
         content.addClassName("content");
@@ -151,9 +151,10 @@ public class EmployeesList extends VerticalLayout {
 
     // update list based on search results or display all employees
     private void updateList() {
-//        employeeGrid.setItems(URService.findAllEmployees(filterText.getValue()));
-
-        employeeGrid.setItems(URService.findAllEmployeesByCompany(filterText.getValue(), VaadinSession.getCurrent().getAttribute(Company.class).getId()));
+        employeeGrid.setItems(URService.findAllEmployeesByCompany(
+                filterText.getValue(),
+                VaadinSession.getCurrent().getAttribute(Company.class).getId()
+        ));
     }
 
     // close editor when not in use

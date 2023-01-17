@@ -113,12 +113,10 @@ public class LoginView extends VerticalLayout {
         this.userDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
         this.adminDemoBtn.addThemeVariants(ButtonVariant.LUMO_LARGE);
 
-//        this.adminDemoBtn2.addThemeVariants(ButtonVariant.LUMO_LARGE);
         this.adminDemoBtn2.addThemeVariants(ButtonVariant.LUMO_ERROR);
-//        this.userDemoBtn2.addThemeVariants(ButtonVariant.LUMO_LARGE);
         this.userDemoBtn2.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
-        // set click event to call authservice.authenticate with admin/user values
+        // set click event to call authService.authenticate with admin/user values
         this.userDemoBtn.addClickListener(e -> {
             try {
                 // verify login credentials
