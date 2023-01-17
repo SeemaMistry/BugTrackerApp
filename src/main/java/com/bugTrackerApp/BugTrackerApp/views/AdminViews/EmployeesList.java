@@ -4,7 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.Company;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.EmployeeForm;
-import com.bugTrackerApp.BugTrackerApp.views.Forms.RegisterNewEmployeeForm;
+import com.bugTrackerApp.BugTrackerApp.views.Forms.AddNewEmployeeForm;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.button.Button;
@@ -34,7 +34,7 @@ public class EmployeesList extends VerticalLayout {
     Grid<Employee> employeeGrid = new Grid<>(Employee.class);
     TextField filterText = new TextField();
     EmployeeForm employeeForm;
-    RegisterNewEmployeeForm registerNewEmployeeForm;
+    AddNewEmployeeForm addNewEmployeeForm;
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
@@ -84,7 +84,7 @@ public class EmployeesList extends VerticalLayout {
     }
     // return grid and form in a horizontal layout
     private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm,registerNewEmployeeForm);
+        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm, addNewEmployeeForm);
         content.addClassName("content");
         content.setSizeFull();
         return content;
@@ -106,18 +106,18 @@ public class EmployeesList extends VerticalLayout {
         employeeForm.addListener(EmployeeForm.DeleteEvent.class, this::deleteEmployee);
         employeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
 
-        registerNewEmployeeForm = new RegisterNewEmployeeForm(
+        addNewEmployeeForm = new AddNewEmployeeForm(
                 URService.findAllSecurityClearances(),
                 URService
         );
 
         // set size of form
-        registerNewEmployeeForm.setWidth("25em");
+        addNewEmployeeForm.setWidth("25em");
 
         // add save, delete and close click events
-        registerNewEmployeeForm.addListener(EmployeeForm.SaveEvent.class, this::saveEmployee);
-        registerNewEmployeeForm.addListener(EmployeeForm.DeleteEvent.class, this::deleteEmployee);
-        registerNewEmployeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
+        addNewEmployeeForm.addListener(EmployeeForm.SaveEvent.class, this::saveEmployee);
+        addNewEmployeeForm.addListener(EmployeeForm.DeleteEvent.class, this::deleteEmployee);
+        addNewEmployeeForm.addListener(EmployeeForm.CloseEvent.class, e -> closeEditor());
 
     }
 
@@ -140,11 +140,11 @@ public class EmployeesList extends VerticalLayout {
         // clear the form and open the editor
         employeeGrid.asSingleSelect().clear();
         closeEditor();
-        registerNewEmployeeForm.setVisible(true);
+        addNewEmployeeForm.setVisible(true);
         // set the company to the new Employee
         Employee newEmployee = new Employee();
         newEmployee.setCompany(VaadinSession.getCurrent().getAttribute(Company.class));
-        registerNewEmployeeForm.setEmployee(newEmployee);
+        addNewEmployeeForm.setEmployee(newEmployee);
         addClassName("editing");
     }
 
@@ -161,7 +161,7 @@ public class EmployeesList extends VerticalLayout {
         // clear editor and close it
         employeeForm.setEmployee(null);
         employeeForm.setVisible(false);
-        registerNewEmployeeForm.setVisible(false);
+        addNewEmployeeForm.setVisible(false);
         removeClassName("editing");
     }
 
@@ -171,7 +171,7 @@ public class EmployeesList extends VerticalLayout {
         if (employee == null) {
             closeEditor();
         } else {
-            registerNewEmployeeForm.setVisible(false);
+            addNewEmployeeForm.setVisible(false);
             employeeForm.setEmployee(employee);
             employeeForm.setVisible(true);
             addClassName("editing");
