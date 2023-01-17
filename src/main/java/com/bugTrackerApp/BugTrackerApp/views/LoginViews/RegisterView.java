@@ -15,4 +15,15 @@ public class RegisterView extends VerticalLayout {
         H1 welcome = new H1("Register a new account");
         add(welcome);
     }
+
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
+
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    /* ------------------- FORM MANIPULATIONS -------------------
+     * add new account, save, delete, clear, open and close
+     * */
 }

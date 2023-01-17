@@ -33,6 +33,7 @@ public class ProjectsList extends VerticalLayout {
     TextField searchProjectByName = new TextField();
     ProjectForm projectForm;
     Button clearSearch = new Button("Clear Search");
+    Button addNewProjectBtn = new Button("Add new project");
 
     public ProjectsList(TicketSystemService TSService,  UserRelationsService URService) {
         this.TSService = TSService;
@@ -43,6 +44,7 @@ public class ProjectsList extends VerticalLayout {
         setSizeFull();
         configureGrid();
         configureForm();
+        configureToolbar();
 
         // display components, update grids
         add(welcome, getToolbar(), getContent());
@@ -105,14 +107,8 @@ public class ProjectsList extends VerticalLayout {
         projectForm.addListener(ProjectForm.CloseEvent.class, e -> closeEditor());
     }
 
-
-    /* ------------------- GET COMPONENTS -------------------
-     * */
-
-    // configure toolbar: filters and add new Project button
-    private HorizontalLayout getToolbar() {
-        // add new project btn
-        Button addNewProjectBtn = new Button("Add new project");
+    private void configureToolbar(){
+        // set click event for new project btn
         addNewProjectBtn.addClickListener(e ->  addProject());
 
         // populate project grid with projects found via search value
@@ -126,7 +122,14 @@ public class ProjectsList extends VerticalLayout {
             searchProjectByName.clear();
             updateList();
         });
+    }
 
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    // configure toolbar: filters and add new Project button
+    private HorizontalLayout getToolbar() {
         // dynamically render toolbar based on current user session role
         HorizontalLayout toolbar = new HorizontalLayout();
         if (VaadinSession.getCurrent().getAttribute(User.class).getRole() == Role.ADMIN) {

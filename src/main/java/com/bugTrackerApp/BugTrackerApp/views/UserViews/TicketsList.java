@@ -89,10 +89,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         configureTicketGrid();
         configureEmployeeGrid();
 
-        // configure form
+        // configure form, toolbar, scroller (wraps ticketform inside)
         configureTicketForm();
-
-        // configure Scroller (wraps ticketForm inside)
+        configureToolbar();
         configureScroller();
 
         // display grids and update grids
@@ -168,20 +167,8 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 .set("border", "1px solid grey");
     }
 
-
-    /* ------------------- GET COMPONENTS -------------------
-     * */
-
-    // display ticket and employee grids in horizontal layout
-    private HorizontalLayout getGrids() {
-        // display grids in horizontal layout
-        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
-        grids.setSizeFull();
-        return grids;
-    }
-
-    // configure toolbar: filters and add new Ticket button
-    private HorizontalLayout getToolbar(){
+    // configure toolbar components: filters and add new Ticket button
+    private void configureToolbar(){
         // populate ComboBox with all employees assigned to this project
         searchTicketsByEmployee.setItems(URService.findAllEmployeesAssignedToProject(project));
         searchTicketsByEmployee.setItemLabelGenerator(Employee::getFullName);
@@ -207,7 +194,22 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
             closeTicketForm();
             closeEmployeeGrid();
         });
+    }
 
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    // display ticket and employee grids in horizontal layout
+    private HorizontalLayout getGrids() {
+        // display grids in horizontal layout
+        HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
+        grids.setSizeFull();
+        return grids;
+    }
+
+    // get toolbar: filters and add new Ticket button
+    private HorizontalLayout getToolbar(){
         // dynamically render toolbar based on current user session role
         HorizontalLayout toolbar = new HorizontalLayout();
         if (VaadinSession.getCurrent().getAttribute(User.class).getRole() == Role.ADMIN) {

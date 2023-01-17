@@ -35,6 +35,7 @@ public class EmployeesList extends VerticalLayout {
     TextField filterText = new TextField();
     EmployeeForm employeeForm;
     AddNewEmployeeForm addNewEmployeeForm;
+    Button addEmployeeBtn = new Button("Add new employee");
 
     public EmployeesList(UserRelationsService URService) {
         this.URService = URService;
@@ -45,6 +46,7 @@ public class EmployeesList extends VerticalLayout {
         setSizeFull();
         configureGrid();
         configureForm();
+        configureToolbar();
 
         // render components and update list
         add( welcome, getToolbar(), getContent());
@@ -100,12 +102,8 @@ public class EmployeesList extends VerticalLayout {
 
     }
 
-
-    /* ------------------- GET COMPONENTS -------------------
-     * */
-
-    // configure toolbar
-    private Component getToolbar() {
+    // configure toolbar components: filtertext, addNewEmployeeBtn
+    private void configureToolbar(){
         // configure filterText to search for employee by name and update the list
         filterText.setPlaceholder("Search by name");
         filterText.setClearButtonVisible(true);
@@ -113,12 +111,17 @@ public class EmployeesList extends VerticalLayout {
         filterText.addValueChangeListener(e -> updateList());
 
         // configure button to add a new employee
-        Button addEmployeeBtn = new Button("Add new employee");
         addEmployeeBtn.addClickListener(e -> addEmployee());
+    }
 
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    // configure toolbar
+    private Component getToolbar() {
         // add toolbar components in a horizontal layout
         HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);
-
         return toolbar;
     }
 
@@ -195,7 +198,5 @@ public class EmployeesList extends VerticalLayout {
         addNewEmployeeForm.setVisible(false);
         removeClassName("editing");
     }
-
-
 
 }

@@ -47,10 +47,10 @@ public class ProfileView extends VerticalLayout {
         User user = VaadinSession.getCurrent().getAttribute(User.class);
         this.employee = user.getEmployee();
 
+        // configure change password save and cancel events
+        createSaveAndCancelBtns();
         // configure accordion
         createAccordion();
-        // configure change password save and cancel events
-        configureSaveAndCancelBtnEvents();
 
         add(welcome, this.accordion);
     }
@@ -59,30 +59,12 @@ public class ProfileView extends VerticalLayout {
     * */
 
     // configure save and cancel changePassword button events
-    private void configureSaveAndCancelBtnEvents(){
-        this.save.addClickListener(e -> {
-            // validate and save the password
-            boolean passwordChangeSuccess = validateAndSave();
-            // give notifications that password has changed
-            if (passwordChangeSuccess) {
-                Notification.show("Password change has been successful!")
-                        .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-            } else {
-                Notification.show("Password change failed!")
-                        .addThemeVariants(NotificationVariant.LUMO_ERROR);
-            }
-            // clear all the values
-            this.currentPassword.setValue("");
-            this.newPassword.setValue("");
-            this.confirmNewPassword.setValue("");
-        });
+    private void createSaveAndCancelBtns(){
+        this.save.addClickListener(e -> savePasswordChange());
+        this.cancel.addClickListener(e -> clearPasswordChange());
 
-        this.cancel.addClickListener(e->{
-            // close the password fields
-            this.currentPassword.setValue("");
-            this.newPassword.setValue("");
-            this.confirmNewPassword.setValue("");
-        });
+        // enable save btn only when password field inputs are valid
+        save.setEnabled(validatePasswordChangeInputs());
     }
 
     // create the accordion with its dropdown components
@@ -125,9 +107,28 @@ public class ProfileView extends VerticalLayout {
         this.accordion.setWidthFull();
     }
 
-    /* ------------------- SAVE EVENT -------------------
+    /* ------------------- FORM MANIPULATIONS -------------------
+    * save, validate and cancel
     * */
-    private boolean validateAndSave(){
+
+    // save password change
+    private void savePasswordChange(){
+        // check validation of password field inputs
+        boolean passwordChangeSuccess = validatePasswordChangeInputs();
+        // give notifications that password has changed
+        if (passwordChangeSuccess) {
+            Notification.show("Password change has been successful!")
+                    .addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        } else {
+            Notification.show("Password change failed!")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        // clear all the values
+        clearPasswordChange();
+    }
+
+    // validate password field inputs
+    private boolean validatePasswordChangeInputs(){
         // check if currentPassword == current password
         if (this.employee.getUserAccountDetail().checkPassword(this.currentPassword.getValue())){
             // check if newPassword == confirmNewPassword
@@ -143,4 +144,11 @@ public class ProfileView extends VerticalLayout {
         return false;
     }
 
+    // clear all password fields
+    private void clearPasswordChange(){
+        // close the password fields
+        this.currentPassword.setValue("");
+        this.newPassword.setValue("");
+        this.confirmNewPassword.setValue("");
+    }
 }
