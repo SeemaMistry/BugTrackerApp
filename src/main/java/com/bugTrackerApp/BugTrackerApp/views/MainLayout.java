@@ -3,8 +3,11 @@ package com.bugTrackerApp.BugTrackerApp.views;
 import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.security.AuthService;
 import com.bugTrackerApp.BugTrackerApp.security.AuthorizedRoute;
+import com.bugTrackerApp.BugTrackerApp.views.LogoutViews.LogOut;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
 import com.vaadin.flow.component.applayout.DrawerToggle;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
@@ -25,11 +28,13 @@ public class MainLayout extends AppLayout {
         // create Logo (just an H1 tag)
         H1 logo = new H1("Ticket Tracker");
         logo.addClassNames("text-l", "m-m");
+        Button logout = new Button("Log out", e -> UI.getCurrent().navigate(LogOut.class));
 
         // create Horizontal layout with a Drawer and logo
         HorizontalLayout header = new HorizontalLayout(
                 new DrawerToggle(),
-                logo
+                logo,
+                logout
         );
 
         // add styling
