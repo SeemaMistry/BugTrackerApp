@@ -61,6 +61,34 @@ public class ProjectsList extends VerticalLayout {
         }
     }
 
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
+
+    // configure project grid
+    private void configureGrid() {
+        grid.setSizeFull();
+
+        // configure columns
+        grid.setColumns("name", "description");
+        // create "View Tickets" button per row which redirects to project's ticketList page
+        grid.addComponentColumn(project -> {
+            Button btn = new Button("View Tickets",
+                    event -> UI.getCurrent().navigate(TicketsList.class, project.getName()));
+            return btn;
+        });
+        grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
+        grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
+        grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on");
+        grid.getColumns().forEach(col -> col.setAutoWidth(true));
+
+        // single click to edit project
+        grid.asSingleSelect().addValueChangeListener(e -> editProject(e.getValue()));
+
+        // double click and be routed to tickets page
+        grid.addItemDoubleClickListener(e ->
+                UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
+        );
+    }
 
     // configure project Form with button click listeners
     private void configureForm() {
@@ -77,22 +105,9 @@ public class ProjectsList extends VerticalLayout {
         projectForm.addListener(ProjectForm.CloseEvent.class, e -> closeEditor());
     }
 
-    // update project grid with all projects
-    private void updateList() {
-        grid.setItems(TSService.getAllProjectByCompany(VaadinSession.getCurrent().getAttribute(Company.class).getId()));
-    }
 
-    // update project grid with projects based on searchBYProjectName value
-    private void updateListByProjectNameSearch(String searchName){
-        grid.setItems(TSService.searchProjectByLikeName(searchName));
-    }
-
-    // return page content (grid and form) in Horizontal layout
-    private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(grid, projectForm);
-        content.setSizeFull();
-        return content;
-    }
+    /* ------------------- GET COMPONENTS -------------------
+     * */
 
     // configure toolbar: filters and add new Project button
     private HorizontalLayout getToolbar() {
@@ -123,33 +138,49 @@ public class ProjectsList extends VerticalLayout {
         return toolbar;
     }
 
-    // configure project grid
-    private void configureGrid() {
-        grid.setSizeFull();
-
-        // configure columns
-        grid.setColumns("name", "description");
-        // create "View Tickets" button per row which redirects to project's ticketList page
-        grid.addComponentColumn(project -> {
-            Button btn = new Button("View Tickets",
-                    event -> UI.getCurrent().navigate(TicketsList.class, project.getName()));
-            return btn;
-        });
-        grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
-        grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
-        grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on");
-        grid.getColumns().forEach(col -> col.setAutoWidth(true));
-
-        // single click to edit project
-        grid.asSingleSelect().addValueChangeListener(e -> editProject(e.getValue()));
-
-        // double click and be routed to tickets page
-        grid.addItemDoubleClickListener(e ->
-                UI.getCurrent().navigate(TicketsList.class, e.getItem().getName())
-        );
+    // return page content (grid and form) in Horizontal layout
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(grid, projectForm);
+        content.setSizeFull();
+        return content;
     }
 
-    // FORM MANIPULATIONS: save, delete, open, close
+
+    /* ------------------- UPDATE GRID EVENTS -------------------
+     * */
+
+    // update project grid with all projects
+    private void updateList() {
+        grid.setItems(TSService.getAllProjectByCompany(VaadinSession.getCurrent().getAttribute(Company.class).getId()));
+    }
+
+    // update project grid with projects based on searchBYProjectName value
+    private void updateListByProjectNameSearch(String searchName){
+        grid.setItems(TSService.searchProjectByLikeName(searchName));
+    }
+
+
+    /* ------------------- FORM MANIPULATIONS -------------------
+     * add new project, edit, save, delete, open and close
+     * */
+
+    // Add a new project
+    private void addProject() {
+        // clear form and open editor
+        grid.asSingleSelect().clear();
+        editProject(new Project());
+    }
+
+    // Edit existing project or create new project
+    private void editProject(Project project) {
+        // no project selected = close editor. Else populate form with project and open form
+        if (project == null) {
+            closeEditor();
+        } else {
+            projectForm.setProject(project);
+            projectForm.setVisible(true);
+        }
+    }
 
     // Save project to database, update ticketGrid, and close form
     private void saveProject(ProjectForm.SaveEvent e) {
@@ -169,17 +200,6 @@ public class ProjectsList extends VerticalLayout {
         closeEditor();
     }
 
-    // Edit existing project or create new project
-    private void editProject(Project project) {
-        // no project selected = close editor. Else populate form with project and open form
-        if (project == null) {
-            closeEditor();
-        } else {
-            projectForm.setProject(project);
-            projectForm.setVisible(true);
-        }
-    }
-
     // Close the editor
     private void closeEditor() {
         // clear editor and close it
@@ -187,10 +207,5 @@ public class ProjectsList extends VerticalLayout {
         projectForm.setVisible(false);
     }
 
-    // Add a new project
-    private void addProject() {
-        // clear form and open editor
-        grid.asSingleSelect().clear();
-        editProject(new Project());
-    }
+
 }

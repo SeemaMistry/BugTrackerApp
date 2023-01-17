@@ -55,6 +55,9 @@ public class ProfileView extends VerticalLayout {
         add(welcome, this.accordion);
     }
 
+    /* ------------------- CONFIGURATIONS -------------------
+    * */
+
     // configure save and cancel changePassword button events
     private void configureSaveAndCancelBtnEvents(){
         this.save.addClickListener(e -> {
@@ -82,22 +85,7 @@ public class ProfileView extends VerticalLayout {
         });
     }
 
-    private boolean validateAndSave(){
-        // check if currentPassword == current password
-        if (this.employee.getUserAccountDetail().checkPassword(this.currentPassword.getValue())){
-            // check if newPassword == confirmNewPassword
-            if (this.newPassword.getValue().equals(this.confirmNewPassword.getValue())){
-                // change and save new password
-                User user = this.employee.getUserAccountDetail();
-                user.changePassword(confirmNewPassword.getValue());
-                URService.saveUser(user);
-                return true;
-            }
-        }
-        // else return false
-        return false;
-    }
-
+    // create the accordion with its dropdown components
     public void createAccordion(){
         // set personal info
         Span fullName = new Span(this.employee.getFullName());
@@ -136,4 +124,23 @@ public class ProfileView extends VerticalLayout {
 
         this.accordion.setWidthFull();
     }
+
+    /* ------------------- SAVE EVENT -------------------
+    * */
+    private boolean validateAndSave(){
+        // check if currentPassword == current password
+        if (this.employee.getUserAccountDetail().checkPassword(this.currentPassword.getValue())){
+            // check if newPassword == confirmNewPassword
+            if (this.newPassword.getValue().equals(this.confirmNewPassword.getValue())){
+                // change and save new password
+                User user = this.employee.getUserAccountDetail();
+                user.changePassword(confirmNewPassword.getValue());
+                URService.saveUser(user);
+                return true;
+            }
+        }
+        // else return false
+        return false;
+    }
+
 }

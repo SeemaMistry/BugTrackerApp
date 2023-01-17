@@ -92,6 +92,9 @@ public class LoginView extends VerticalLayout {
         add(loginForm);
     }
 
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
+
     // configure buttons to load User or Admin demo accounts
     private void configureDemoBtns(){
         // set button icons and text
@@ -181,6 +184,21 @@ public class LoginView extends VerticalLayout {
         });
     }
 
+    // configure Accordion component
+    private void configureAccordion(){
+        AccordionPanel register = this.noAccOptions.add("... register a new account", new HorizontalLayout(new Span("Register a new account here")));
+        register.addThemeVariants(DetailsVariant.FILLED);
+
+        AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
+        demoAccs.addThemeVariants(DetailsVariant.FILLED);
+
+        noAccOptions.setWidth("524px");
+
+    }
+
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
     private HorizontalLayout getDemoBtns() {
         // demo account explanations
         TextArea userDemoExplanation = new TextArea("User Demo Account");
@@ -215,16 +233,5 @@ public class LoginView extends VerticalLayout {
                 new HorizontalLayout(this.adminDemoBtn2, this.userDemoBtn2)
         );
         return new HorizontalLayout(demoDetails);
-    }
-
-    private void configureAccordion(){
-        AccordionPanel register = this.noAccOptions.add("... register a new account", new HorizontalLayout(new Span("Register a new account here")));
-        register.addThemeVariants(DetailsVariant.FILLED);
-
-        AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
-        demoAccs.addThemeVariants(DetailsVariant.FILLED);
-
-        noAccOptions.setWidth("524px");
-
     }
 }

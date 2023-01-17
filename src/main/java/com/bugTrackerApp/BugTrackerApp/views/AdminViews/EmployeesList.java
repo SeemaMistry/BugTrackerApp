@@ -52,23 +52,9 @@ public class EmployeesList extends VerticalLayout {
         closeEditor();
     }
 
-    // configure toolbar
-    private Component getToolbar() {
-        // configure filterText to search for employee by name and update the list
-        filterText.setPlaceholder("Search by name");
-        filterText.setClearButtonVisible(true);
-        filterText.setValueChangeMode(ValueChangeMode.LAZY);
-        filterText.addValueChangeListener(e -> updateList());
 
-        // configure button to add a new employee
-        Button addEmployeeBtn = new Button("Add new employee");
-        addEmployeeBtn.addClickListener(e -> addEmployee());
-
-        // add toolbar components in a horizontal layout
-        HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);
-
-        return toolbar;
-    }
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
 
     // configure employee grid
     private void configureGrid() {
@@ -81,13 +67,6 @@ public class EmployeesList extends VerticalLayout {
 
         // single select employee populates employee form
         employeeGrid.asSingleSelect().addValueChangeListener(e -> editEmployee(e.getValue()));
-    }
-    // return grid and forms in a horizontal layout
-    private Component getContent() {
-        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm, addNewEmployeeForm);
-        content.addClassName("content");
-        content.setSizeFull();
-        return content;
     }
 
     // configure Employee Form
@@ -121,19 +100,52 @@ public class EmployeesList extends VerticalLayout {
 
     }
 
-    // delete employee from database and update list
-    private void deleteEmployee(EmployeeForm.DeleteEvent e) {
-        URService.deleteEmployee(e.getEmployee());
-        updateList();
-        closeEditor();
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    // configure toolbar
+    private Component getToolbar() {
+        // configure filterText to search for employee by name and update the list
+        filterText.setPlaceholder("Search by name");
+        filterText.setClearButtonVisible(true);
+        filterText.setValueChangeMode(ValueChangeMode.LAZY);
+        filterText.addValueChangeListener(e -> updateList());
+
+        // configure button to add a new employee
+        Button addEmployeeBtn = new Button("Add new employee");
+        addEmployeeBtn.addClickListener(e -> addEmployee());
+
+        // add toolbar components in a horizontal layout
+        HorizontalLayout toolbar = new HorizontalLayout(filterText, addEmployeeBtn);
+
+        return toolbar;
     }
 
-    // save employee to database and update list
-    private void saveEmployee(EmployeeForm.SaveEvent e) {
-        URService.saveEmployee(e.getEmployee());
-        updateList();
-        closeEditor();
+    // return grid and forms in a horizontal layout
+    private Component getContent() {
+        HorizontalLayout content = new HorizontalLayout(employeeGrid, employeeForm, addNewEmployeeForm);
+        content.addClassName("content");
+        content.setSizeFull();
+        return content;
     }
+
+
+    /* ------------------- UPDATE GRID EVENTS -------------------
+     * */
+
+    // update list based on search results or display all employees
+    private void updateList() {
+        employeeGrid.setItems(URService.findAllEmployeesByCompany(
+                filterText.getValue(),
+                VaadinSession.getCurrent().getAttribute(Company.class).getId()
+        ));
+    }
+
+
+    /* ------------------- FORM MANIPULATIONS -------------------
+     * add new employee, edit, save, delete, open and close
+     * */
 
     // add a new employee
     private void addEmployee() {
@@ -148,24 +160,6 @@ public class EmployeesList extends VerticalLayout {
         addClassName("editing");
     }
 
-
-    // update list based on search results or display all employees
-    private void updateList() {
-        employeeGrid.setItems(URService.findAllEmployeesByCompany(
-                filterText.getValue(),
-                VaadinSession.getCurrent().getAttribute(Company.class).getId()
-        ));
-    }
-
-    // close editor when not in use
-    private void closeEditor() {
-        // clear editor and close it
-        employeeForm.setEmployee(null);
-        employeeForm.setVisible(false);
-        addNewEmployeeForm.setVisible(false);
-        removeClassName("editing");
-    }
-
     // edit the form or populate it with a selected employee from the grid
     private void editEmployee (Employee employee){
         // if no employee selected, closeEditor, else populate employee info into form
@@ -178,5 +172,30 @@ public class EmployeesList extends VerticalLayout {
             addClassName("editing");
         }
     }
+
+    // save employee to database and update list
+    private void saveEmployee(EmployeeForm.SaveEvent e) {
+        URService.saveEmployee(e.getEmployee());
+        updateList();
+        closeEditor();
+    }
+
+    // delete employee from database and update list
+    private void deleteEmployee(EmployeeForm.DeleteEvent e) {
+        URService.deleteEmployee(e.getEmployee());
+        updateList();
+        closeEditor();
+    }
+
+    // close editor when not in use
+    private void closeEditor() {
+        // clear editor and close it
+        employeeForm.setEmployee(null);
+        employeeForm.setVisible(false);
+        addNewEmployeeForm.setVisible(false);
+        removeClassName("editing");
+    }
+
+
 
 }

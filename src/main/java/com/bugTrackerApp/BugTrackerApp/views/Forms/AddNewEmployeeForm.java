@@ -19,7 +19,11 @@ public class AddNewEmployeeForm extends EmployeeForm{
 
     }
 
-    // dynamically create Username and Password based on firstname values from super
+
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
+
+    // dynamically set Username and Password based on firstname values from super
     private void updateUsernameAndPassword(){
         super.firstName.addValueChangeListener(e -> {
             // generate random number to add to username

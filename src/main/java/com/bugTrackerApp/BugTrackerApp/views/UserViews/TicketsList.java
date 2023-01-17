@@ -102,6 +102,9 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         closeTicketForm();
     }
 
+
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
     // configure ticketGrid
     private void configureTicketGrid() {
         ticketGrid.setSizeFull();
@@ -165,7 +168,11 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
                 .set("border", "1px solid grey");
     }
 
-    // display ticket and emplopyee grids in horizontal layout
+
+    /* ------------------- GET COMPONENTS -------------------
+     * */
+
+    // display ticket and employee grids in horizontal layout
     private HorizontalLayout getGrids() {
         // display grids in horizontal layout
         HorizontalLayout grids = new HorizontalLayout(ticketGrid, employeeGrid);
@@ -217,6 +224,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         return this.scroller;
     }
 
+
+    /* ------------------- UPDATE GRID EVENTS -------------------
+     * */
+
     // update ticketGrid to find all the tickets
     private void updateGrid() {
         ticketGrid.setItems(TTService.findAllTickets(projectName));
@@ -232,20 +243,10 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         ticketGrid.setItems(TTService.searchTicketBySubjectAndProject(searchTicketsBySubject.getValue(), this.project));
     }
 
-    // close employeeGrid
-    private void closeEmployeeGrid(){
-        employeeGrid.setVisible(false);
-        closeTicketForm();
-    }
 
-    // TICKET FORM MANIPULATIONS: save, delete, open and close
-
-    // close ticketForm
-    private void closeTicketForm() {
-        // clear form and close it
-        ticketForm.setTicket(null);
-        ticketForm.setVisible(false);
-    }
+    /* ------------------- FORM MANIPULATIONS -------------------
+     * add new ticket, edit, save, delete, open and close
+     * */
 
     // add a new ticket
     private void addTicket() {
@@ -289,4 +290,18 @@ public class TicketsList extends VerticalLayout implements HasUrlParameter<Strin
         closeEmployeeGrid();
         closeTicketForm();
     }
+
+    // close employeeGrid
+    private void closeEmployeeGrid(){
+        employeeGrid.setVisible(false);
+        closeTicketForm();
+    }
+
+    // close ticketForm
+    private void closeTicketForm() {
+        // clear form and close it
+        ticketForm.setTicket(null);
+        ticketForm.setVisible(false);
+    }
+
 }

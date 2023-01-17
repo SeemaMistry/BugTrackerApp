@@ -75,6 +75,10 @@ public class HomeView extends VerticalLayout {
         );
     }
 
+
+    /* ------------------- CONFIGURATIONS -------------------
+     * */
+
     // create project cards and add them to the FormLayout
     private void createProjectCards(){
         // get all projects

@@ -97,7 +97,7 @@ public class EmployeeForm extends FormLayout {
                 URService.saveUser(this.employee.getUserAccountDetail());
 
             } else {
-                // if role has changed update Role
+                // if User exists and role has changed, update Role
                 Role role = !currentSecurityClearance.equals(this.employee.getSecurityClearance()) &&
                         Objects.equals(
                                 this.employee.getSecurityClearance().getSecurityTitle().toLowerCase(),
@@ -119,7 +119,7 @@ public class EmployeeForm extends FormLayout {
         }
     }
 
-    // Employee Setter
+    // bind form components to Employee object
     public void setEmployee(Employee employee) {
         this.employee = employee;
         // use readBean() to bind values from Employee object to UI fields in the form
