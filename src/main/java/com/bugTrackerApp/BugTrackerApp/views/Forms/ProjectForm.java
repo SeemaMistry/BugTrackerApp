@@ -80,6 +80,9 @@ public class ProjectForm extends FormLayout {
         delete.addClickListener(e -> fireEvent(new ProjectForm.DeleteEvent(this, project)));
         close.addClickListener(e -> fireEvent(new ProjectForm.CloseEvent(this)));
 
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
+
+
         // remove save and delete buttons from view if User role is not Admin
         if (VaadinSession.getCurrent().getAttribute(User.class).getRole() != Role.ADMIN) {
             save.setVisible(false);
