@@ -94,12 +94,16 @@ public class HomeView extends VerticalLayout {
                     new Item("Project Status:", p.getProjectStatus().getName()),
                     new Actions(
                             new ActionButton("Project", e -> {
-                                // set Project as session attribute then retrieve project and populate form in ProjectList.class
+                                // set Project as session attribute
+                                // then retrieve project and populate form in ProjectList.class
                                 UI.getCurrent().getSession().setAttribute(Project.class, p);
                                 // navigate to projects page
                                 UI.getCurrent().navigate("projects");
                             }),
-                            new ActionButton("Tickets", e -> {UI.getCurrent().navigate(TicketsList.class, p.getName());}))
+                            new ActionButton(
+                                    "Tickets",
+                                    e -> UI.getCurrent().navigate(TicketsList.class, p.getName()))
+                    )
             );
             // set styling
             newProjectCard.setAlignItems(Alignment.END);
