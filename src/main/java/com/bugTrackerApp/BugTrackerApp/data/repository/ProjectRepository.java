@@ -23,4 +23,6 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
 
     // get all projects by specified company
     List<Project> findByCompanyId(UUID companyId);
+
+    Project getByReferenceValue(String referenceValue);
 }

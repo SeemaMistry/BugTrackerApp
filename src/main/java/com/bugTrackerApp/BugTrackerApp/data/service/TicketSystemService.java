@@ -182,4 +182,8 @@ public class TicketSystemService {
             return projectRepo.findByCompanyId(companyId);
         }
     }
+
+    public Project getProjectByReferenceValue(String projectReferenceValue){
+       return projectRepo.getByReferenceValue(projectReferenceValue);
+    }
 }
