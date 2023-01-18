@@ -29,7 +29,7 @@ public class MainLayout extends AppLayout {
         H1 logo = new H1("Ticket Tracker");
         logo.addClassNames("text-l", "m-m");
         Button logout = new Button("Log out", e -> UI.getCurrent().navigate(LogOut.class));
-        logout.getStyle().set("margin-right", "5px");
+        logout.getStyle().set("margin-right", "16px");
 
         // create Horizontal layout with a Drawer and logo
         HorizontalLayout header = new HorizontalLayout(
