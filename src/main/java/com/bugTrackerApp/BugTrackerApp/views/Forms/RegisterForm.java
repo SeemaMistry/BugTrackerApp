@@ -2,9 +2,12 @@ package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.notification.Notification;
+import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
@@ -93,7 +96,7 @@ public class RegisterForm extends FormLayout {
         URService.saveUser(this.user);
         URService.saveEmployee(this.employee);
 
-
+        saveSuccessful();
     }
 
     // bind form components to Employee, Company and User objects
@@ -101,5 +104,9 @@ public class RegisterForm extends FormLayout {
 
 
     // Events
-
+    public void saveSuccessful(){
+        Notification success = Notification.show("Successful Account Creation!");
+        success.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
+        UI.getCurrent().navigate("login");
+    }
 }
