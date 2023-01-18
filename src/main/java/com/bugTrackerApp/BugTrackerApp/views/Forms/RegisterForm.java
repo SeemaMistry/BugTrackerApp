@@ -37,7 +37,7 @@ public class RegisterForm extends FormLayout {
     TextField username = new TextField("Username");
     TextField securityClearance = new TextField("Security Clearance");
     PasswordField password = new PasswordField("Password");
-    PasswordField confirmPassword = new PasswordField("Password");
+    PasswordField confirmPassword = new PasswordField("Confirm Password");
 
     Button save = new Button("Save");
     Button clear = new Button("Clear All Fields");
