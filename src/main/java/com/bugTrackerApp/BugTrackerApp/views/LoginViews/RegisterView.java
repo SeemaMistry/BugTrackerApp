@@ -30,7 +30,8 @@ public class RegisterView extends VerticalLayout {
 
         // configure form
         configureForm();
-        add(welcome, instructions);
+        
+        add(welcome, instructions, registerForm);
     }
 
     /* ------------------- CONFIGURATIONS -------------------
