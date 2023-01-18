@@ -184,7 +184,10 @@ public class LoginView extends VerticalLayout {
 
     // configure Accordion component
     private void configureAccordion(){
-        AccordionPanel register = this.noAccOptions.add("... register a new account", new HorizontalLayout(new Span("Register a new account here")));
+        RouterLink registerLink = new RouterLink("Click here to Register a new account!", RegisterView.class);
+        HorizontalLayout registerContent = new HorizontalLayout(registerLink);
+
+        AccordionPanel register = this.noAccOptions.add("... register a new account", registerContent);
         register.addThemeVariants(DetailsVariant.FILLED);
 
         AccordionPanel demoAccs = this.noAccOptions.add("... play around with a demo?", getDemoBtns());
