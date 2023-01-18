@@ -37,7 +37,15 @@ public class RegisterForm extends FormLayout {
         this.URService = URService;
         binder.bindInstanceFields(this);
 
-        add();
+        add(
+                firstName,
+                lastName,
+                email,
+                companyName,
+                username,
+                password,
+                createButtonsLayout()
+        );
     }
 
     // return horizontal layout of buttons
