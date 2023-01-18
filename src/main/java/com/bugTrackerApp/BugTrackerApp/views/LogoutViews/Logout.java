@@ -12,9 +12,9 @@ import javax.annotation.security.PermitAll;
 @PageTitle("Logout | Bug Tracker")
 @Route(value="logout")
 @PermitAll
-public class LogOut extends VerticalLayout {
+public class Logout extends VerticalLayout {
 
-    public LogOut() {
+    public Logout() {
         // return page to login page
         UI.getCurrent().getPage().setLocation("login");
 

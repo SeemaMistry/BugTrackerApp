@@ -6,7 +6,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.User;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
 import com.bugTrackerApp.BugTrackerApp.views.AdminViews.EmployeesList;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.HomeView;
-import com.bugTrackerApp.BugTrackerApp.views.LogoutViews.LogOut;
+import com.bugTrackerApp.BugTrackerApp.views.LogoutViews.Logout;
 import com.bugTrackerApp.BugTrackerApp.views.MainLayout;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProfileView;
 import com.bugTrackerApp.BugTrackerApp.views.UserViews.ProjectsList;
@@ -65,7 +65,7 @@ public class AuthService {
         }
 
         // add logout button
-        routes.add(new AuthorizedRoute("logout", "Logout", LogOut.class));
+        routes.add(new AuthorizedRoute("logout", "Logout", Logout.class));
 
         return routes;
     }
