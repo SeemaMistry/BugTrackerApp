@@ -42,15 +42,12 @@ public class RegisterForm extends FormLayout {
     // services
     UserRelationsService URService;
 
-    public RegisterForm(
-            UserRelationsService URService
-            ) {
+    public RegisterForm(UserRelationsService URService) {
         this.URService = URService;
 
         // get "Admin" security clearance
         adminClearance = URService.findSecurityClearanceByTitle("Admin");
-
-
+        
         securityClearance.setValue("ADMIN");
         securityClearance.setReadOnly(true);
 
