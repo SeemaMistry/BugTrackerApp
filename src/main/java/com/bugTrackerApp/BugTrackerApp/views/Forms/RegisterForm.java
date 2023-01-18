@@ -96,13 +96,16 @@ public class RegisterForm extends FormLayout {
     }
 
     private void validateAndSave() throws ValidationException {
+        // check passwords are the same
+        boolean passwordConfirmed = confirmPasswords();
         // check value uniqueness against database
         boolean companyExists = URService.companyExistByName(companyName.getValue());
         boolean usernameExists = URService.userExistsByUsername(username.getValue());
         boolean emailExists = URService.employeeExistsBy(email.getValue());
 
+        // if password is confirmed and
         // if all values are unique then set and save Company, User, Employee
-        if (!companyExists && !usernameExists && !emailExists){
+        if (!companyExists && !usernameExists && !emailExists && passwordConfirmed){
             // set and save new company
             this.company = new Company(this.companyName.getValue());
             URService.saveCompany(this.company);
@@ -128,9 +131,13 @@ public class RegisterForm extends FormLayout {
             saveSuccessful();
         }
 
-        saveFailure(companyExists, usernameExists, emailExists);
+        saveFailure(companyExists, usernameExists, emailExists, !passwordConfirmed);
     }
 
+    private boolean confirmPasswords(){
+        if (this.password.getValue().equals(this.confirmPassword.getValue())){ return true; }
+        return false;
+    }
     private void clearAllFields(){
         firstName.clear();
         lastName.clear();
@@ -166,7 +173,7 @@ public class RegisterForm extends FormLayout {
         notification.open();
     }
 
-    private void saveFailure(boolean companyExists, boolean usernameExists, boolean emailExists){
+    private void saveFailure(boolean companyExists, boolean usernameExists, boolean emailExists, boolean passwordConfirmed){
         if (companyExists) {
             Notification.show("The company name you inputted already exists! Please input another name")
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
@@ -177,6 +184,10 @@ public class RegisterForm extends FormLayout {
         }
         if (emailExists) {
             Notification.show("The email name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        if (passwordConfirmed){
+            Notification.show("Please confirm you password")
                     .addThemeVariants(NotificationVariant.LUMO_ERROR);
         }
     }
