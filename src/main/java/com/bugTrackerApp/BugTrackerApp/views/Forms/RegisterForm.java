@@ -146,11 +146,6 @@ public class RegisterForm extends FormLayout {
         password.clear();
     }
 
-    // bind form components to Employee, Company and User objects
-    public void setNewAccount(){}
-
-
-
     // Events
     public void saveSuccessful(){
         Notification notification = new Notification();
