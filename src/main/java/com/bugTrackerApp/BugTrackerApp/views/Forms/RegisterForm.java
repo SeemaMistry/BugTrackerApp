@@ -55,7 +55,6 @@ public class RegisterForm extends FormLayout {
     UserRelationsService URService;
 
     public RegisterForm(
-            List<SecurityClearance> securityClearances,
             UserRelationsService URService
             ) {
         this.URService = URService;
