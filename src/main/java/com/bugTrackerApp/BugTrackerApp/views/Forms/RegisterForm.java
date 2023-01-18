@@ -3,6 +3,7 @@ package com.bugTrackerApp.BugTrackerApp.views.Forms;
 import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
@@ -41,7 +42,14 @@ public class RegisterForm extends FormLayout {
 
     // return horizontal layout of buttons
     private HorizontalLayout createButtonsLayout(){
-        return new HorizontalLayout();
+        save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
+        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
+        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+
+        // validate form each time it changes
+        binder.addStatusChangeListener(e -> save.setEnabled(binder.isValid()));
+
+        return new HorizontalLayout(save, delete, close);
     }
 
     private void validateAndSave(){}
