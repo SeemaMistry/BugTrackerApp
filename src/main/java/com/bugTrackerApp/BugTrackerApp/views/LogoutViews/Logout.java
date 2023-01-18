@@ -23,7 +23,7 @@ public class Logout extends VerticalLayout {
         VaadinSession.getCurrent().close();
 
 
-        H1 welcome = new H1("You have logged Out!");
+        H1 welcome = new H1("You have logged out!");
         add(welcome);
     }
 }
