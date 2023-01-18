@@ -145,6 +145,7 @@ public class RegisterForm extends FormLayout {
         companyName.clear();
         username.clear();
         password.clear();
+        confirmPassword.clear();
     }
 
     // Events
