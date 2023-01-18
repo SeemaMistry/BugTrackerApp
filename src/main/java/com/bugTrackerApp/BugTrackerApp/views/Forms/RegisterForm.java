@@ -2,17 +2,24 @@ package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.bugTrackerApp.BugTrackerApp.views.LoginViews.LoginView;
+import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Anchor;
+import com.vaadin.flow.component.html.Div;
+import com.vaadin.flow.component.icon.Icon;
 import com.vaadin.flow.component.notification.Notification;
 import com.vaadin.flow.component.notification.NotificationVariant;
+import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.router.RouterLink;
 
 import java.util.List;
 
@@ -105,8 +112,27 @@ public class RegisterForm extends FormLayout {
 
     // Events
     public void saveSuccessful(){
-        Notification success = Notification.show("Successful Account Creation!");
-        success.addThemeVariants(NotificationVariant.LUMO_SUCCESS);
-        UI.getCurrent().navigate("login");
+        Notification notification = new Notification();
+
+        // set close button
+        Button closeButton = new Button(new Icon("lumo", "cross"));
+        closeButton.addThemeVariants(ButtonVariant.LUMO_TERTIARY_INLINE);
+        closeButton.getElement().setAttribute("aria-label", "Close");
+        closeButton.addClickListener(event -> {
+            notification.close();
+            UI.getCurrent().navigate("login");
+        });
+
+        // set router link to login page
+        RouterLink login = new RouterLink("Click here to login with your new account.  ", LoginView.class);
+
+        notification.add(
+                new Text("Successful Account Creation! "),
+                login,
+                closeButton
+        );
+
+        notification.setPosition(Notification.Position.MIDDLE);
+        notification.open();
     }
 }
