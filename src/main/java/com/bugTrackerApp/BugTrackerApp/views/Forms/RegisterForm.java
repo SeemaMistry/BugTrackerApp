@@ -1,21 +1,42 @@
 package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.Employee;
+import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
+import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
+import com.vaadin.flow.component.textfield.TextField;
+import com.vaadin.flow.data.binder.BeanValidationBinder;
+import com.vaadin.flow.data.binder.Binder;
 
 public class RegisterForm extends FormLayout {
     // components
+    TextField firstName = new TextField();
+    TextField lastName = new TextField();
+    TextField email = new TextField();
+    TextField companyName = new TextField();
+    TextField username = new TextField();
+    TextField password = new TextField();
 
+    Button save = new Button("Save");
+    Button delete = new Button("Clear");
+    Button close = new Button("Cancel");
 
     // binder
-
+    Binder<Employee> binder = new BeanValidationBinder<>(Employee.class);
 
     // entity
+    private Employee employee;
 
 
     // services
+    UserRelationsService URService;
 
-    public RegisterForm() {
+    public RegisterForm( UserRelationsService URService) {
+        this.URService = URService;
+        binder.bindInstanceFields(this);
+
+        add();
     }
 
     // return horizontal layout of buttons

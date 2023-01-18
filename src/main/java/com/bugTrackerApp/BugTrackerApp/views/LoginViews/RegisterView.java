@@ -39,7 +39,7 @@ public class RegisterView extends VerticalLayout {
 
     // configure registerForm
     private void configureForm(){
-        registerForm = new RegisterForm();
+        registerForm = new RegisterForm(URService);
     }
 
     /* ------------------- GET COMPONENTS -------------------
