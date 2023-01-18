@@ -23,6 +23,7 @@ import java.util.Random;
         @AttributeOverride(name = "id", column = @Column(name = "projectId"))
 })
 public class Project extends AbstractEntity{
+    private static int setReferenceNumber = 100;
     @NotBlank
 //    @Column(unique = true)
     private String name;
@@ -77,8 +78,10 @@ public class Project extends AbstractEntity{
         Random rand = new Random();
         this.referenceValue =
                 getName().replaceAll(" ", "").toLowerCase() +
-
-                String.valueOf(rand.nextInt(1000));
+                String.valueOf(setReferenceNumber)
+        ;
+        // increment static reference number
+        setReferenceNumber++;
     }
 
     public LocalDate getFormattedCreatedDate() {
