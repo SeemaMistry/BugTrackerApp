@@ -170,7 +170,8 @@ public class ProjectsList extends VerticalLayout {
     private void addProject() {
         // clear form and open editor
         grid.asSingleSelect().clear();
-        editProject(new Project());
+        Project newProject = new Project();
+        editProject(newProject);
     }
 
     // Edit existing project or create new project
@@ -188,8 +189,9 @@ public class ProjectsList extends VerticalLayout {
     private void saveProject(ProjectForm.SaveEvent e) {
         // retrieve and set employees selected from MutliSelectComboBox to project
         e.getProject().setEmployeesAssignedToProject(projectForm.getEmployeesAssigned());
-        // set company to project
+        // manually set project fields: company, referenceNumber
         e.getProject().setCompany(VaadinSession.getCurrent().getAttribute(Company.class));
+        e.getProject().setReferenceValue();
         TSService.saveProject(e.getProject());
         updateList();
         closeEditor();
