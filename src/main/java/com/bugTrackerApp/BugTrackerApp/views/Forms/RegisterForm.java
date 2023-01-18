@@ -27,6 +27,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.TransactionSystemException;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RegisterForm extends FormLayout {
     // components
@@ -47,8 +48,8 @@ public class RegisterForm extends FormLayout {
     private Employee employee = new Employee();
     private User user;
     private Company company;
+    private SecurityClearance adminClearance;
 
-    List<SecurityClearance> securityClearances;
 
     // services
     UserRelationsService URService;
@@ -58,7 +59,12 @@ public class RegisterForm extends FormLayout {
             UserRelationsService URService
             ) {
         this.URService = URService;
-        this.securityClearances = securityClearances;
+
+        // get "Admin" from list of security clearances
+        for (SecurityClearance sc : securityClearances) {
+            if (sc.getSecurityTitle().equals("Admin")) { adminClearance = sc; }
+        }
+
         securityClearance.setValue("ADMIN");
         securityClearance.setReadOnly(true);
 
@@ -114,7 +120,7 @@ public class RegisterForm extends FormLayout {
             employee.setEmail(email.getValue());
             employee.setFirstName(firstName.getValue());
             employee.setLastName(lastName.getValue());
-            employee.setSecurityClearance(this.securityClearances.get(1));
+            employee.setSecurityClearance(this.adminClearance);
             employee.setCompany(this.company);
 
             // set user
