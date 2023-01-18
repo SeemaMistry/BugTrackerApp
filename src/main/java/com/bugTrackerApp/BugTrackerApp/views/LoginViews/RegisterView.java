@@ -1,5 +1,6 @@
 package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 
+import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.RegisterForm;
@@ -11,6 +12,7 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
+import java.util.List;
 
 @PageTitle("Register | Bug Tracker")
 @Route(value="register")
@@ -22,11 +24,18 @@ public class RegisterView extends VerticalLayout {
     // components
     RegisterForm registerForm;
 
-    public RegisterView() {
+    public RegisterView( UserRelationsService URService) {
+        this.URService =URService;
         H1 welcome = new H1("Register a New Account");
         Span instructions = new Span("Create a new ADMIN account for a new company below.\n" +
                 "If you are trying to create an account under an EXISTING company, please contact your company " +
                 "administers to create register your new user account");
+
+        List<SecurityClearance> test = URService.findAllSecurityClearances();
+        for (SecurityClearance s : test) {
+            System.out.println(s.getSecurityTitle());
+        }
+
 
         // configure form
         configureForm();
@@ -39,7 +48,7 @@ public class RegisterView extends VerticalLayout {
 
     // configure registerForm
     private void configureForm(){
-        registerForm = new RegisterForm(URService);
+        registerForm = new RegisterForm(URService.findAllSecurityClearances(),URService);
     }
 
     /* ------------------- GET COMPONENTS -------------------
