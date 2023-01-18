@@ -77,9 +77,9 @@ public class ProjectsList extends VerticalLayout {
                     event -> UI.getCurrent().navigate(TicketsList.class, project.getReferenceValue()));
             return btn;
         });
-        grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status");
-        grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator");
-        grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on");
+        grid.addColumn(e -> e.getProjectStatus().getName()).setHeader("Status").setSortable(true);
+        grid.addColumn(e -> e.getCreatorEmployee().getFullName()).setHeader("Creator").setSortable(true);
+        grid.addColumn(e -> e.getFormattedCreatedDate()).setHeader("Created on").setSortable(true);
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         // single click to edit project
