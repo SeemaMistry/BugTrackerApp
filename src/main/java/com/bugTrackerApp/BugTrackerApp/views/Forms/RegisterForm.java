@@ -4,9 +4,7 @@ import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.LoginViews.LoginView;
-import com.vaadin.flow.component.Component;
-import com.vaadin.flow.component.Text;
-import com.vaadin.flow.component.UI;
+import com.vaadin.flow.component.*;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.formlayout.FormLayout;
@@ -121,20 +119,9 @@ public class RegisterForm extends FormLayout {
 
             // display success notification
             saveSuccessful();
+        }
 
-        }
-        if (companyExists) {
-            Notification.show("The company name you inputted already exists! Please input another name")
-                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
-        }
-        if (usernameExists) {
-            Notification.show("The username name you inputted already exists! Please input another name")
-                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
-        }
-        if (emailExists) {
-            Notification.show("The email name you inputted already exists! Please input another name")
-                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
-        }
+        saveFailure(companyExists, usernameExists, emailExists);
     }
 
     private void clearAllFields(){
@@ -161,7 +148,7 @@ public class RegisterForm extends FormLayout {
 
         // set router link to login page
         RouterLink login = new RouterLink("Click here to login with your new account.  ", LoginView.class);
-
+ 
         notification.add(
                 new Text("Successful Account Creation! "),
                 login,
@@ -170,5 +157,20 @@ public class RegisterForm extends FormLayout {
 
         notification.setPosition(Notification.Position.MIDDLE);
         notification.open();
+    }
+
+    private void saveFailure(boolean companyExists, boolean usernameExists, boolean emailExists){
+        if (companyExists) {
+            Notification.show("The company name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        if (usernameExists) {
+            Notification.show("The username name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        if (emailExists) {
+            Notification.show("The email name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
     }
 }
