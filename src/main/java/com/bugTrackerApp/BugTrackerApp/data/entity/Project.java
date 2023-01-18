@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 @Entity
 //@Data
@@ -23,7 +22,8 @@ import java.util.Random;
         @AttributeOverride(name = "id", column = @Column(name = "projectId"))
 })
 public class Project extends AbstractEntity{
-    private static int setReferenceNumber = 100;
+    private static int staticProjectCount = 100;
+    private int referenceNumber; // store referenceNumber to persist throughout changes to project
     @NotBlank
 //    @Column(unique = true)
     private String name;
@@ -74,14 +74,24 @@ public class Project extends AbstractEntity{
         this.projectStatus = projectStatus;
     }
 
+    // set referenceNumber and increment staticProjectCount
+    public void setReferenceNumber(){
+        this.referenceNumber = staticProjectCount;
+        staticProjectCount++;
+    }
+
+    private int getReferenceNumber(){
+        return this.referenceNumber;
+    }
     public void setReferenceValue(){
-        Random rand = new Random();
+        // if reference is not already set, set it to current staticProjectCount
+        if (referenceNumber == 0) {setReferenceNumber();}
+
+        // set referenceValue with stored referenceNumber
+        // (i.e. referenceNumber will NOT change when project name changes)
         this.referenceValue =
                 getName().replaceAll(" ", "").toLowerCase() +
-                String.valueOf(setReferenceNumber)
-        ;
-        // increment static reference number
-        setReferenceNumber++;
+                String.valueOf(this.getReferenceNumber());
     }
 
     public LocalDate getFormattedCreatedDate() {
