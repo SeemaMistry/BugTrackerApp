@@ -3,6 +3,7 @@ package com.bugTrackerApp.BugTrackerApp.views.Forms;
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.LoginViews.LoginView;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.Text;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.button.Button;
@@ -78,6 +79,8 @@ public class RegisterForm extends FormLayout {
             }
         });
 
+        clear.addClickListener(e -> clearAllFields());
+        close.addClickListener(e -> UI.getCurrent().navigate("login"));
 
         return new HorizontalLayout(save, clear, close);
     }
@@ -107,8 +110,18 @@ public class RegisterForm extends FormLayout {
         saveSuccessful();
     }
 
+    private void clearAllFields(){
+        firstName.clear();
+        lastName.clear();
+        email.clear();
+        companyName.clear();
+        username.clear();
+        password.clear();
+    }
+
     // bind form components to Employee, Company and User objects
     public void setNewAccount(){}
+
 
 
     // Events
