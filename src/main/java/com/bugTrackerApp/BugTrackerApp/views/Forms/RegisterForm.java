@@ -16,6 +16,7 @@ import com.vaadin.flow.component.notification.NotificationVariant;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.PasswordField;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
@@ -29,12 +30,14 @@ import java.util.List;
 
 public class RegisterForm extends FormLayout {
     // components
-    TextField firstName = new TextField("firstName");
-    TextField lastName = new TextField("lastName");
-    EmailField email = new EmailField("email");
-    TextField companyName = new TextField("companyName");
-    TextField username = new TextField("username");
-    TextField password = new TextField("password");
+    TextField firstName = new TextField("First Name");
+    TextField lastName = new TextField("Last Name");
+    EmailField email = new EmailField("Email");
+    TextField companyName = new TextField("Company Name");
+    TextField username = new TextField("Username");
+    TextField securityClearance = new TextField("Security Clearance");
+    PasswordField password = new PasswordField("Password");
+    PasswordField confirmPassword = new PasswordField("Password");
 
     Button save = new Button("Save");
     Button clear = new Button("Clear All Fields");
@@ -56,6 +59,8 @@ public class RegisterForm extends FormLayout {
             ) {
         this.URService = URService;
         this.securityClearances = securityClearances;
+        securityClearance.setValue("ADMIN");
+        securityClearance.setReadOnly(true);
 
         add(
                 firstName,
@@ -63,7 +68,9 @@ public class RegisterForm extends FormLayout {
                 email,
                 companyName,
                 username,
+                securityClearance,
                 password,
+                confirmPassword,
                 createButtonsLayout()
         );
     }
@@ -148,7 +155,7 @@ public class RegisterForm extends FormLayout {
 
         // set router link to login page
         RouterLink login = new RouterLink("Click here to login with your new account.  ", LoginView.class);
- 
+
         notification.add(
                 new Text("Successful Account Creation! "),
                 login,
