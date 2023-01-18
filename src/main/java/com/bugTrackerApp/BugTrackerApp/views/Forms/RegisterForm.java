@@ -1,6 +1,7 @@
 package com.bugTrackerApp.BugTrackerApp.views.Forms;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.*;
+import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.LoginViews.LoginView;
 import com.vaadin.flow.component.Component;
@@ -22,6 +23,7 @@ import com.vaadin.flow.data.binder.BeanValidationBinder;
 import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.router.RouterLink;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.transaction.TransactionSystemException;
 
@@ -52,9 +54,9 @@ public class RegisterForm extends FormLayout {
 
     public RegisterForm(
             List<SecurityClearance> securityClearances,
-            UserRelationsService URService) {
+            UserRelationsService URService
+            ) {
         this.URService = URService;
-
         this.securityClearances = securityClearances;
 
         add(
@@ -89,56 +91,50 @@ public class RegisterForm extends FormLayout {
     }
 
     private void validateAndSave() throws ValidationException {
-        // set and save new company
-        this.company = new Company(this.companyName.getValue());
-        try {
+        // check value uniqueness against database
+        boolean companyExists = URService.companyExistByName(companyName.getValue());
+        boolean usernameExists = URService.userExistsByUsername(username.getValue());
+        boolean emailExists = URService.employeeExistsBy(email.getValue());
+
+        // if all values are unique then set and save Company, User, Employee
+        if (!companyExists && !usernameExists && !emailExists){
+            // set and save new company
+            this.company = new Company(this.companyName.getValue());
             URService.saveCompany(this.company);
 
-            try {
-                // set employee
-                employee.setEmail(email.getValue());
-                employee.setFirstName(firstName.getValue());
-                employee.setLastName(lastName.getValue());
-                employee.setSecurityClearance(this.securityClearances.get(1));
-                employee.setCompany(this.company);
+            // set employee
+            employee.setEmail(email.getValue());
+            employee.setFirstName(firstName.getValue());
+            employee.setLastName(lastName.getValue());
+            employee.setSecurityClearance(this.securityClearances.get(1));
+            employee.setCompany(this.company);
 
-                // set user
-                user = new User(username.getValue(), password.getValue(), Role.ADMIN);
+            // set user
+            user = new User(username.getValue(), password.getValue(), Role.ADMIN);
 
-                // set user to employee
-                this.employee.setUserAccountDetail(this.user);
+            // set user to employee
+            this.employee.setUserAccountDetail(this.user);
 
-                // save user and employee
-                URService.saveEmployee(this.employee);
-                URService.saveUser(this.user);
+            // save user and employee
+            URService.saveUser(this.user);
+            URService.saveEmployee(this.employee);
 
-                try {
+            // display success notification
+            saveSuccessful();
 
-                    saveSuccessful();
-                } catch (DataIntegrityViolationException e) {
-                    Notification.show("THere was an error creating your account");
-                } catch (TransactionSystemException ex) {
-                    Notification.show("THere was an error creating your account");
-                }
-
-            } catch (DataIntegrityViolationException e) {
-                Notification.show("There was an error with your inputs");
-            } catch (TransactionSystemException ex) {
-                Notification.show("THere was an error creating your account");
-            }
-
-        } catch (DataIntegrityViolationException dao) {
-            Notification.show("This company name already exists!");
-            companyName.clear();
         }
-
-
-
-
-
-
-
-
+        if (companyExists) {
+            Notification.show("The company name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        if (usernameExists) {
+            Notification.show("The username name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
+        if (emailExists) {
+            Notification.show("The email name you inputted already exists! Please input another name")
+                    .addThemeVariants(NotificationVariant.LUMO_ERROR);
+        }
     }
 
     private void clearAllFields(){
