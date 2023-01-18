@@ -157,4 +157,8 @@ public class UserRelationsService {
     public boolean employeeExistsBy(String email) {
         return employeeRepo.existsByEmail(email);
     }
+
+    public SecurityClearance findSecurityClearanceByTitle(String title){
+        return securityClearanceRepo.findBySecurityTitle(title);
+    }
 }

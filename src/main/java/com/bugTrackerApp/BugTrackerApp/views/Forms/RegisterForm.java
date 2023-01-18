@@ -60,10 +60,9 @@ public class RegisterForm extends FormLayout {
             ) {
         this.URService = URService;
 
-        // get "Admin" from list of security clearances
-        for (SecurityClearance sc : securityClearances) {
-            if (sc.getSecurityTitle().equals("Admin")) { adminClearance = sc; }
-        }
+        // get "Admin" security clearance
+        adminClearance = URService.findSecurityClearanceByTitle("Admin");
+
 
         securityClearance.setValue("ADMIN");
         securityClearance.setReadOnly(true);
