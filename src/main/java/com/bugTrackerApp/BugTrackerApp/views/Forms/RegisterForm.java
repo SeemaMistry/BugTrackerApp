@@ -33,7 +33,7 @@ public class RegisterForm extends FormLayout {
     TextField password = new TextField("password");
 
     Button save = new Button("Save");
-    Button delete = new Button("Clear");
+    Button clear = new Button("Clear All Fields");
     Button close = new Button("Cancel");
 
     // entity
@@ -67,8 +67,8 @@ public class RegisterForm extends FormLayout {
     // return horizontal layout of buttons
     private HorizontalLayout createButtonsLayout(){
         save.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-        delete.addThemeVariants(ButtonVariant.LUMO_ERROR);
-        close.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        clear.addThemeVariants(ButtonVariant.LUMO_TERTIARY);
+        close.addThemeVariants(ButtonVariant.LUMO_ERROR);
 
         save.addClickListener(event -> {
             try {
@@ -78,7 +78,8 @@ public class RegisterForm extends FormLayout {
             }
         });
 
-        return new HorizontalLayout(save, delete, close);
+
+        return new HorizontalLayout(save, clear, close);
     }
 
     private void validateAndSave() throws ValidationException {
