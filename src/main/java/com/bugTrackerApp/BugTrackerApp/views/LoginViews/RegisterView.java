@@ -5,6 +5,7 @@ import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.RegisterForm;
 import com.vaadin.flow.component.html.H1;
 import com.vaadin.flow.component.html.Span;
+import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
@@ -43,9 +44,6 @@ public class RegisterView extends VerticalLayout {
     /* ------------------- GET COMPONENTS -------------------
      * */
 
-    // return form
-    private void getContent(){
-    }
 
     /* ------------------- FORM MANIPULATIONS -------------------
      * add new account, save, cancel, clear
