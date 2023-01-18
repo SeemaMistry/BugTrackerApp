@@ -31,12 +31,6 @@ public class RegisterView extends VerticalLayout {
                 "If you are trying to create an account under an EXISTING company, please contact your company " +
                 "administers to create register your new user account");
 
-        List<SecurityClearance> test = URService.findAllSecurityClearances();
-        for (SecurityClearance s : test) {
-            System.out.println(s.getSecurityTitle());
-        }
-
-
         // configure form
         configureForm();
 
