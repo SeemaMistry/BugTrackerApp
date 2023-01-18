@@ -144,4 +144,17 @@ public class UserRelationsService {
         }
     }
 
+
+    // exists checks
+    public boolean companyExistByName(String name){
+        return companyRepo.existsByName(name);
+    }
+
+    public boolean userExistsByUsername(String username) {
+        return userRepo.existsByUsername(username);
+    }
+
+    public boolean employeeExistsBy(String email) {
+        return employeeRepo.existsByEmail(email);
+    }
 }

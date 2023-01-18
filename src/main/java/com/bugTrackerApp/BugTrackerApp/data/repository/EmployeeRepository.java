@@ -31,4 +31,6 @@ public interface EmployeeRepository extends JpaRepository<Employee, UUID> {
     )
     List<Employee> searchEmployeeByCompany(@Param("searchTerm") String searchTerm, @Param("companyId") UUID companyId);
 
+    boolean existsByEmail(String email);
+
 }

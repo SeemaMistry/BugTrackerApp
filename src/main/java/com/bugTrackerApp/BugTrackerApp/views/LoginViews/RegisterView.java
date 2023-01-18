@@ -2,6 +2,7 @@ package com.bugTrackerApp.BugTrackerApp.views.LoginViews;
 
 import com.bugTrackerApp.BugTrackerApp.data.entity.SecurityClearance;
 import com.bugTrackerApp.BugTrackerApp.data.repository.UserRepository;
+import com.bugTrackerApp.BugTrackerApp.data.service.TicketSystemService;
 import com.bugTrackerApp.BugTrackerApp.data.service.UserRelationsService;
 import com.bugTrackerApp.BugTrackerApp.views.Forms.RegisterForm;
 import com.vaadin.flow.component.html.H1;
@@ -25,7 +26,7 @@ public class RegisterView extends VerticalLayout {
     RegisterForm registerForm;
 
     public RegisterView( UserRelationsService URService) {
-        this.URService =URService;
+        this.URService = URService;
         H1 welcome = new H1("Register a New Account");
         Span instructions = new Span("Create a new ADMIN account for a new company below.\n" +
                 "If you are trying to create an account under an EXISTING company, please contact your company " +

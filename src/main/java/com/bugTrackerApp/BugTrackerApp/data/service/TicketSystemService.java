@@ -186,4 +186,7 @@ public class TicketSystemService {
     public Project getProjectByReferenceValue(String projectReferenceValue){
        return projectRepo.getByReferenceValue(projectReferenceValue);
     }
+
+    // check exists functions
+
 }
