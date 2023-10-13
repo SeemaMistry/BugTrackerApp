@@ -42,28 +42,26 @@ A list of the key tech stacks, tools, and techniques used to build this project 
 
 ## Screenshots 
 Login page
-![Alt text](/images/BugTrackingImage1.png?raw=true )
+![Alt text](./images/BugTrackingImage1.png?raw=true )
 
 Entity UML Diagram
-![Alt text](/images/BugTrackingImage2.png?raw=true)
+![Alt text](./images/BugTrackingImage2.png?raw=true)
 
 Repository UML Diagram
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage3.png?raw=true )
 
 Database Design
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage4.png?raw=true )
 
 Register an account or use Demo accounts
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage5.png?raw=true )
 
 Employee login page
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage6.png?raw=true )
 
 Employee profile page - Update password
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage7.png?raw=true )
 
 Ticket list information displayed
-![Alt text](/images/mobilescreen.png?raw=true )
+![Alt text](./images/BugTrackingImage8.png?raw=true )
 
-Employee list (admin only access)
-![Alt text](/images/mobilescreen.png?raw=true )
